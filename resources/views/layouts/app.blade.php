@@ -39,6 +39,7 @@
         color: white !important;
         /* Ensure text color remains white on hover */
     }
+
     .pt-3 {
         padding-top: 35rem !important;
     }
@@ -87,6 +88,37 @@
         height: 36px;
         font-size: 0.875rem;
     }
+
+    .dropdown-toggle::after {
+        display: inline-block !important;
+        margin-left: 0.5em;
+        vertical-align: 0.255em;
+        content: "";
+        border-top: 0.3em solid;
+        border-right: 0.3em solid transparent;
+        border-bottom: 0;
+        border-left: 0.3em solid transparent;
+    }
+
+    /* Alternative: Custom arrow with icon */
+    .custom-arrow::after {
+        content: "\f282" !important;
+        /* Bootstrap chevron-down icon */
+        font-family: "bootstrap-icons" !important;
+        border: none !important;
+        font-size: 0.8em;
+        margin-left: 0.5em;
+    }
+
+    .dropdown-menu::before {
+        display: none !important;
+    }
+
+    @media (min-width: 992px) {
+        .dropdown:not(.dropdown-hover) .dropdown-menu {
+            margin-top: 10px !important;
+        }
+    }
 </style>
 
 <body class="g-sidenav-show   bg-gray-100">
@@ -131,28 +163,23 @@
     </aside>
     <main class="main-content position-relative border-radius-lg ">
         <!-- Navbar -->
-        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur"
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
             data-scroll="false">
             <div class="container-fluid py-1 px-3">
-                <nav aria-label="breadcrumb">
-                </nav>
+                <nav aria-label="breadcrumb"></nav>
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-                    <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-                    </div>
-                    <ul class="navbar-nav justify-content-end">
-                        <li class="nav-item dropdown d-flex align-items-center">
-                            <a href="#" class="nav-link text-white font-weight-bold px-0 dropdown-toggle"
-                                id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-user me-sm-1"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
-                                <li><a class="dropdown-item" href="#">Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                    <div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
+                    <li class="nav-item dropdown d-flex align-items-center me-3">
+                        <a href="#" class="nav-link text-white font-weight-bold px-0 dropdown-toggle custom-arrow"
+                            id="userDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle fs-4"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown2">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </li>
                 </div>
-
             </div>
         </nav>
         <!-- End Navbar -->
