@@ -5,8 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
-
-
+use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,4 +26,12 @@ Route::post('/users', [UserController::class, 'UserStore'])->name('users.store')
 Route::get('/users/edit/{id}', [UserController::class, 'UserEdit'])->name('users.edit');
 Route::put('/users/update/{id}', [UserController::class, 'UserUpdate'])->name('users.update');
 Route::delete('/users/delete/{id}', [UserController::class, 'UserDestroy'])->name('users.destroy');
+
+// Category
+Route::get('category',[CategoryController::class,'Category'])->name('category');
+Route::get('category/create',[CategoryController::class,'CategoryCreate'])->name('category.create');
+Route::post('category',[CategoryController::class,'CategoryStore'])->name('category.store');
+Route::get('category/edit/{id}',[CategoryController::class,'CategoryEdit'])->name('category.edit');
+Route::put('category/update/{id}',[CategoryController::class,'CategoryUpdate'])->name('category.update');
+Route::delete('category/delete/{id}',[CategoryController::class,'CategoryDestroy'])->name('category.destroy');
 
