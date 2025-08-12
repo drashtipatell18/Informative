@@ -1,60 +1,105 @@
 @extends('layouts.app')
 @section('content')
-    <div class="card">
-        <div class="card-header pb-0">
-            <h6>User List</h6>
-        </div>
-        <div class="card-body px-0 pt-0 pb-2">
-            <div class="table-responsive p-0">
-                <table id="userTable" class="table align-items-center mb-0">
-                    <thead>
-                        <tr>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Author</th>
-                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Function
-                            </th>
-                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                Status</th>
-                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                Employed</th>
-                            <th class="text-secondary opacity-7">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="d-flex px-2 py-1">
-                                    <div>
-                                        <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
-                                    </div>
-                                    <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="mb-0 text-sm">John Michael</h6>
-                                        <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="text-xs font-weight-bold mb-0">Manager</p>
-                                <p class="text-xs text-secondary mb-0">Organization</p>
-                            </td>
-                            <td class="align-middle text-center text-sm">
-                                <span class="badge badge-sm bg-gradient-success">Online</span>
-                            </td>
-                            <td class="align-middle text-center">
-                                <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
-                            </td>
-                            <td class="align-middle">
-                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip"
-                                    data-original-title="Edit user">
-                                    Edit
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+    <div class="container mt-5">
+
+        <div class="card">
+            <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+                <h6 class="mb-0">User List</h6>
+                <a href="{{ route('users.create') }}" class="btn btn-primary custom-btn">Add User</a>
+            </div>
+
+            <div class="card-body px-0 pt-0 pb-2">
+                <div class="table-responsive p-0">
+                    <table id="userTable" class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User Info
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    Role
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Status</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Phone</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Created Date</th>
+                                <th class="text-secondary opacity-7">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($users as $user)
+                                <tr>
+                                    <td class="text-center">
+                                        <span class="text-sm">{{ $user->id }}</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="d-flex px-2 py-1">
+                                            <div>
+                                                <img src="{{ $user->photo ? asset('images/users/' . $user->photo) : asset('assets/img/team-2.jpg') }}"
+                                                    class="avatar avatar-sm me-3" alt="user{{ $user->id }}">
+
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">{{ $user->name }}</h6>
+                                                <p class="text-xs text-secondary mb-0">{{ $user->email }}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <p class="text-xs font-weight-bold mb-0">{{ $user->role->name ?? 'User' }}</p>
+                                    </td>
+                                    <td class="align-middle text-center text-sm">
+                                        <span
+                                            class="badge badge-sm {{ $user->status == 'active' ? 'bg-gradient-success' : 'bg-gradient-secondary' }}">
+                                            {{ ucfirst($user->status ?? 'offline') }}
+                                        </span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs">{{ $user->phone ?? 'N/A' }}</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">
+                                            {{ $user->created_at ? $user->created_at->format('d/m/y') : 'N/A' }}
+                                        </span>
+                                    </td>
+                                    <td class="align-middle">
+                                        <!-- Edit icon -->
+                                        <a href="{{ route('users.edit', $user->id) }}"
+                                            class="text-secondary font-weight-bold text-xs me-2 d-inline custom-btn"
+                                            data-toggle="tooltip" data-original-title="Edit user">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+
+                                        <!-- Delete icon -->
+                                        <form action="{{ route('users.destroy', $user->id) }}" method="POST"
+                                            class="d-inline" id="delete-form-{{ $user->id }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <a href="javascript:void(0)" onclick="confirm('Are you sure you want to delete this user?') ? document.getElementById('delete-form-{{ $user->id }}').submit() : false;"
+                                                class="text-danger font-weight-bold text-xs custom-btn"
+                                                data-toggle="tooltip" data-original-title="Delete user">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="text-center py-4">
+                                        <p class="text-secondary mb-0">No users found</p>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 @endsection
+
 @push('scripts')
     <script>
         $(document).ready(function() {
@@ -67,34 +112,23 @@
                 ],
                 order: [
                     [0, 'asc']
-                ], // Sort by first column (Author) by default
+                ], // Sort by ID by default
                 columnDefs: [{
-                        targets: [2], // Status column
+                        targets: [3], // Status column (0-indexed) - CORRECT
                         orderable: true,
                         searchable: true
                     },
                     {
-                        targets: [3], // Employed date column
-                        type: 'date',
-                        render: function(data, type, row) {
-                            if (type === 'display' || type === 'type') {
-                                return data;
-                            }
-                            // Convert date format for sorting (dd/mm/yy to yyyy-mm-dd)
-                            var dateParts = data.split('/');
-                            if (dateParts.length === 3) {
-                                var year = '20' + dateParts[2]; // Assuming 2000s
-                                return year + '-' + dateParts[1] + '-' + dateParts[0];
-                            }
-                            return data;
-                        }
+                        targets: [5], // Created date column (0-indexed) - CORRECT
+                        type: 'date'
                     },
                     {
-                        targets: [4], // Actions column
+                        targets: [6], // Actions column (0-indexed) - CORRECT
                         orderable: false,
                         searchable: false
                     }
                 ],
+
                 language: {
                     search: "Search users:",
                     lengthMenu: "Show _MENU_ users per page",
@@ -104,8 +138,8 @@
                     paginate: {
                         first: "First",
                         last: "Last",
-                        next: "<i class='fas fa-angle-right'></i>",
-                        previous: "<i class='fas fa-angle-left'></i>"
+                        next: '<i class="bi bi-arrow-right-short"></i>',
+                        previous: '<i class="bi bi-arrow-left-short"></i>'
                     },
                     emptyTable: "No users available in table"
                 },
@@ -117,6 +151,12 @@
                     $('[data-toggle="tooltip"]').tooltip();
                 }
             });
+
+            // Initialize tooltips
+            $(function() {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+
         });
     </script>
 @endpush
