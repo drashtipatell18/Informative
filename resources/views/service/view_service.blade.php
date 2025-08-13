@@ -2,7 +2,6 @@
 
 @section('content')
     <div class="container mt-5">
-
         <div class="card">
             <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                 <h6 class="mb-0">Service List</h6>
@@ -16,11 +15,8 @@
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Image</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name
-                                </th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                    Description
-                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Description</th>
                                 <th class="text-secondary opacity-7">Actions</th>
                             </tr>
                         </thead>
@@ -35,7 +31,6 @@
                                             <div>
                                                 <img src="{{ $service->image ? asset('images/services/' . $service->image) : asset('assets/img/team-2.jpg') }}"
                                                     class="avatar avatar-sm me-3" alt="service{{ $service->id }}">
-
                                             </div>
                                         </div>
                                     </td>
@@ -73,7 +68,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-center py-4">
+                                    <td colspan="5" class="text-center py-4">
                                         <p class="text-secondary mb-0">No Service found</p>
                                     </td>
                                 </tr>
@@ -85,6 +80,7 @@
         </div>
     </div>
 @endsection
+
 @push('scripts')
     <script>
         $(document).ready(function() {
@@ -98,35 +94,46 @@
                 order: [
                     [0, 'asc']
                 ], // Sort by ID by default
-                columnDefs: [{
-                        targets: [3], // Status column (0-indexed) - CORRECT
+                columnDefs: [
+                    {
+                        targets: [0], // ID column - sortable and searchable
                         orderable: true,
                         searchable: true
                     },
                     {
-                        targets: [5], // Created date column (0-indexed) - CORRECT
-                        type: 'date'
+                        targets: [1], // Image column - not sortable, not searchable
+                        orderable: false,
+                        searchable: false
                     },
                     {
-                        targets: [6], // Actions column (0-indexed) - CORRECT
+                        targets: [2], // Name column - sortable and searchable
+                        orderable: true,
+                        searchable: true
+                    },
+                    {
+                        targets: [3], // Description column - sortable and searchable
+                        orderable: true,
+                        searchable: true
+                    },
+                    {
+                        targets: [4], // Actions column - not sortable, not searchable
                         orderable: false,
                         searchable: false
                     }
                 ],
-
                 language: {
-                    search: "Search users:",
-                    lengthMenu: "Show _MENU_ users per page",
-                    info: "Showing _START_ to _END_ of _TOTAL_ users",
-                    infoEmpty: "Showing 0 to 0 of 0 users",
-                    infoFiltered: "(filtered from _MAX_ total users)",
+                    search: "Search services:",
+                    lengthMenu: "Show _MENU_ services per page",
+                    info: "Showing _START_ to _END_ of _TOTAL_ services",
+                    infoEmpty: "Showing 0 to 0 of 0 services",
+                    infoFiltered: "(filtered from _MAX_ total services)",
                     paginate: {
                         first: "First",
                         last: "Last",
                         next: '<i class="bi bi-arrow-right-short"></i>',
                         previous: '<i class="bi bi-arrow-left-short"></i>'
                     },
-                    emptyTable: "No users available in table"
+                    emptyTable: "No services available in table"
                 },
                 dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>' +
                     '<"row"<"col-sm-12"tr>>' +
@@ -138,10 +145,7 @@
             });
 
             // Initialize tooltips
-            $(function() {
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-
+            $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
 @endpush

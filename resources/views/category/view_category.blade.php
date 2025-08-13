@@ -23,10 +23,8 @@
                                     <td class="align-middle text-center text-sm">{{ $item->id }}</td>
                                     <td class="align-middle text-center text-sm">{{ $item->name }}</td>
                                     <td class="align-middle text-center text-sm">
-                                        <a href="{{ route('category.edit', $item->id) }}" class="btn btn-primary custom-btn"><i
-                                                class="bi bi-pencil-square"></i></a>
-                                        <a href="{{ route('category.destroy', $item->id) }}" class="btn btn-danger custom-btn"><i
-                                                class="bi bi-trash"></i></a>
+                                        <a href="{{ route('category.edit', $item->id) }}" class="btn btn-primary custom-btn" title="Edit"><i class="bi bi-pencil-square"></i></a>
+                                        <a href="{{ route('category.destroy', $item->id) }}" class="btn btn-danger custom-btn" title="Delete"><i class="bi bi-trash"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -37,6 +35,7 @@
         </div>
     </div>
 @endsection
+
 @push('scripts')
     <script>
         $(document).ready(function() {
@@ -50,35 +49,36 @@
                 order: [
                     [0, 'asc']
                 ], // Sort by ID by default
-                columnDefs: [{
-                        targets: [3], // Status column (0-indexed) - CORRECT
+                columnDefs: [
+                    {
+                        targets: [0], // ID column - sortable and searchable
                         orderable: true,
                         searchable: true
                     },
                     {
-                        targets: [5], // Created date column (0-indexed) - CORRECT
-                        type: 'date'
+                        targets: [1], // Name column - sortable and searchable
+                        orderable: true,
+                        searchable: true
                     },
                     {
-                        targets: [6], // Actions column (0-indexed) - CORRECT
+                        targets: [2], // Actions column - not sortable, not searchable
                         orderable: false,
                         searchable: false
                     }
                 ],
-
                 language: {
-                    search: "Search users:",
-                    lengthMenu: "Show _MENU_ users per page",
-                    info: "Showing _START_ to _END_ of _TOTAL_ users",
-                    infoEmpty: "Showing 0 to 0 of 0 users",
-                    infoFiltered: "(filtered from _MAX_ total users)",
+                    search: "Search categories:",
+                    lengthMenu: "Show _MENU_ categories per page",
+                    info: "Showing _START_ to _END_ of _TOTAL_ categories",
+                    infoEmpty: "Showing 0 to 0 of 0 categories",
+                    infoFiltered: "(filtered from _MAX_ total categories)",
                     paginate: {
                         first: "First",
                         last: "Last",
                         next: '<i class="bi bi-arrow-right-short"></i>',
                         previous: '<i class="bi bi-arrow-left-short"></i>'
                     },
-                    emptyTable: "No users available in table"
+                    emptyTable: "No categories available in table"
                 },
                 dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>' +
                     '<"row"<"col-sm-12"tr>>' +
@@ -90,10 +90,7 @@
             });
 
             // Initialize tooltips
-            $(function() {
-                $('[data-toggle="tooltip"]').tooltip();
-            });
-
+            $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
 @endpush
