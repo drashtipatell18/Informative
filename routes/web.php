@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\EnquiryController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -49,3 +50,11 @@ Route::delete('service/delete/{id}',[ServiceController::class,'ServiceDestroy'])
 Route::get('contact',[ContactController::class,'Contact'])->name('contact');
 Route::delete('/contact/delete/{id}', [ContactController::class, 'ContactDestroy'])->name('contact.destroy');
 
+// Enquiry
+Route::get('/enquiry', [EnquiryController::class, 'Enquiry'])->name('enquiry');
+Route::get('/enquiries/create', [EnquiryController::class, 'EnquiryCreate'])->name('enquiry.create');
+Route::post('/enquiries', [EnquiryController::class, 'EnquiryStore'])->name('enquiry.store');
+Route::get('/enquiries/{id}', [EnquiryController::class, 'EnquiryShow'])->name('enquiry.show');
+Route::get('/enquiries/{id}/edit', [EnquiryController::class, 'EnquiryEdit'])->name('enquiry.edit');
+Route::put('/enquiries/{id}', [EnquiryController::class, 'EnquiryUpdate'])->name('enquiry.update');
+Route::delete('/enquiries/{id}', [EnquiryController::class, 'EnquiryDestroy'])->name('enquiry.destroy');
