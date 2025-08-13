@@ -193,6 +193,17 @@
                         <span class="nav-link-text ms-1">Enquiry</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('testimonial*') ? 'active' : '' }}"
+                        href="{{ route('testimonial') }}">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-chat-round text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Testimonials</span>
+                    </a>
+                </li>
+
             </ul>
         </div>
 
@@ -206,7 +217,8 @@
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
                     <li class="nav-item dropdown d-flex align-items-center me-3">
-                        <a href="#" class="nav-link text-white font-weight-bold px-0 dropdown-toggle custom-arrow"
+                        <a href="#"
+                            class="nav-link text-white font-weight-bold px-0 dropdown-toggle custom-arrow"
                             id="userDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-circle fs-4"></i>
                         </a>
