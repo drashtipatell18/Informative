@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ServiceController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,4 +35,12 @@ Route::post('category',[CategoryController::class,'CategoryStore'])->name('categ
 Route::get('category/edit/{id}',[CategoryController::class,'CategoryEdit'])->name('category.edit');
 Route::put('category/update/{id}',[CategoryController::class,'CategoryUpdate'])->name('category.update');
 Route::delete('category/delete/{id}',[CategoryController::class,'CategoryDestroy'])->name('category.destroy');
+
+// Service
+Route::get('service',[ServiceController::class,'Service'])->name('service');
+Route::get('service/create',[ServiceController::class,'ServiceCreate'])->name('service.create');
+Route::post('service/store',[ServiceController::class,'ServiceStore'])->name('service.store');
+Route::get('service/edit/{id}',[ServiceController::class,'ServiceEdit'])->name('service.edit');
+Route::put('service/update/{id}',[ServiceController::class,'ServiceUpdate'])->name('service.update');
+Route::delete('service/delete/{id}',[ServiceController::class,'ServiceDestroy'])->name('service.destroy');
 

@@ -161,9 +161,18 @@
                     <a class="nav-link {{ Request::is('category*') ? 'active' : '' }}" href="{{ url('/category') }}">
                         <div
                             class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+                            <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
                         </div>
                         <span class="nav-link-text ms-1">Category</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('service*') ? 'active' : '' }}" href="{{ url('/service') }}">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-settings-gear-65 text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Service</span>
                     </a>
                 </li>
             </ul>
@@ -185,7 +194,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown2">
                             <li><a class="dropdown-item" href="#">Profile</a></li>
-                            <li><a class="dropdown-item" href="{{ ('logout')}}">Logout</a></li>
+                            <li><a class="dropdown-item" href="{{ 'logout' }}">Logout</a></li>
                         </ul>
                     </li>
                 </div>
@@ -210,7 +219,8 @@
                                     document.write(new Date().getFullYear())
                                 </script>,
                                 made with <i class="fa fa-heart"></i> by
-                                <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative
+                                <a href="https://www.creative-tim.com" class="font-weight-bold"
+                                    target="_blank">Creative
                                     Tim</a>
                                 for a better web.
                             </div>
