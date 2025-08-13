@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ContactController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -43,4 +44,8 @@ Route::post('service/store',[ServiceController::class,'ServiceStore'])->name('se
 Route::get('service/edit/{id}',[ServiceController::class,'ServiceEdit'])->name('service.edit');
 Route::put('service/update/{id}',[ServiceController::class,'ServiceUpdate'])->name('service.update');
 Route::delete('service/delete/{id}',[ServiceController::class,'ServiceDestroy'])->name('service.destroy');
+
+// Contact
+Route::get('contact',[ContactController::class,'Contact'])->name('contact');
+Route::delete('/contact/delete/{id}', [ContactController::class, 'ContactDestroy'])->name('contact.destroy');
 
