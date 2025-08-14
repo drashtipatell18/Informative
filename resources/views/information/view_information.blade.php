@@ -68,17 +68,17 @@
                 ],
                 language: {
                     search: "Search Information`:",
-                    lengthMenu: "Show _MENU_ categories per page",
-                    info: "Showing _START_ to _END_ of _TOTAL_ categories",
-                    infoEmpty: "Showing 0 to 0 of 0 categories",
-                    infoFiltered: "(filtered from _MAX_ total categories)",
+                    lengthMenu: "Show _MENU_ information per page",
+                    info: "Showing _START_ to _END_ of _TOTAL_ information",
+                    infoEmpty: "Showing 0 to 0 of 0 information",
+                    infoFiltered: "(filtered from _MAX_ total information)",
                     paginate: {
                         first: "First",
                         last: "Last",
                         next: '<i class="bi bi-arrow-right-short"></i>',
                         previous: '<i class="bi bi-arrow-left-short"></i>'
                     },
-                    emptyTable: "No categories available in table"
+                    emptyTable: "No information available in table"
                 },
                 dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>' +
                     '<"row"<"col-sm-12"tr>>' +
