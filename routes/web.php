@@ -10,6 +10,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\CountryController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -68,3 +69,11 @@ Route::get('/testimonial/{id}', [TestimonialController::class, 'TestimonialShow'
 Route::get('/testimonial/{id}/edit', [TestimonialController::class, 'TestimonialEdit'])->name('testimonial.edit');
 Route::put('/testimonial/{id}', [TestimonialController::class, 'TestimonialUpdate'])->name('testimonial.update');
 Route::delete('/testimonial/{id}', [TestimonialController::class, 'TestimonialDestroy'])->name('testimonial.destroy');
+
+// Country
+Route::get('/country', [CountryController::class, 'Country'])->name('country');
+Route::get('/country/create', [CountryController::class, 'CountryCreate'])->name('country.create');
+Route::post('/country/store', [CountryController::class, 'CountryStore'])->name('country.store');
+Route::get('/country/{id}/edit', [CountryController::class, 'CountryEdit'])->name('country.edit');
+Route::put('/country/{id}', [CountryController::class, 'CountryUpdate'])->name('country.update');
+Route::delete('/country/{id}', [CountryController::class, 'CountryDestroy'])->name('country.destroy');
