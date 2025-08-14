@@ -12,6 +12,7 @@ use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\InformationController;
+use App\Http\Controllers\TourDetailsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -87,3 +88,11 @@ Route::post('/information/store', [InformationController::class, 'InformationSto
 Route::get('/information/{id}/edit', [InformationController::class, 'InformationEdit'])->name('information.edit');
 Route::post('/information/{id}', [InformationController::class, 'InformationUpdate'])->name('information.update');
 Route::get('/information/{id}', [InformationController::class, 'InformationDestroy'])->name('information.destroy');
+
+// Tour Details
+Route::get('/tour_details', [TourDetailsController::class, 'TourDetails'])->name('tour_details');
+Route::get('/tour_details/create', [TourDetailsController::class, 'TourDetailsCreate'])->name('tour_details.create');
+Route::post('/tour_details/store', [TourDetailsController::class, 'TourDetailsStore'])->name('tour_details.store');
+Route::get('/tour_details/{id}/edit', [TourDetailsController::class, 'TourDetailsEdit'])->name('tour_details.edit');
+Route::put('/tour_details/{id}', [TourDetailsController::class, 'TourDetailsUpdate'])->name('tour_details.update');
+Route::get('/tour_details/{id}', [TourDetailsController::class, 'TourDetailsDestroy'])->name('tour_details.destroy');
