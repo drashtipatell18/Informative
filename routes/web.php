@@ -30,7 +30,7 @@ Route::get('/users', [UserController::class, 'Users'])->name('users');
 Route::get('/users/create', [UserController::class, 'UserCreate'])->name('users.create');
 Route::post('/users', [UserController::class, 'UserStore'])->name('users.store');
 Route::get('/users/edit/{id}', [UserController::class, 'UserEdit'])->name('users.edit');
-Route::put('/users/update/{id}', [UserController::class, 'UserUpdate'])->name('users.update');
+Route::post('/users/update/{id}', [UserController::class, 'UserUpdate'])->name('users.update');
 Route::delete('/users/delete/{id}', [UserController::class, 'UserDestroy'])->name('users.destroy');
 
 // Category
@@ -38,7 +38,7 @@ Route::get('category',[CategoryController::class,'Category'])->name('category');
 Route::get('category/create',[CategoryController::class,'CategoryCreate'])->name('category.create');
 Route::post('category',[CategoryController::class,'CategoryStore'])->name('category.store');
 Route::get('category/edit/{id}',[CategoryController::class,'CategoryEdit'])->name('category.edit');
-Route::put('category/update/{id}',[CategoryController::class,'CategoryUpdate'])->name('category.update');
+Route::post('category/update/{id}',[CategoryController::class,'CategoryUpdate'])->name('category.update');
 Route::delete('category/delete/{id}',[CategoryController::class,'CategoryDestroy'])->name('category.destroy');
 
 // Service
@@ -46,7 +46,7 @@ Route::get('service',[ServiceController::class,'Service'])->name('service');
 Route::get('service/create',[ServiceController::class,'ServiceCreate'])->name('service.create');
 Route::post('service/store',[ServiceController::class,'ServiceStore'])->name('service.store');
 Route::get('service/edit/{id}',[ServiceController::class,'ServiceEdit'])->name('service.edit');
-Route::put('service/update/{id}',[ServiceController::class,'ServiceUpdate'])->name('service.update');
+Route::post('service/update/{id}',[ServiceController::class,'ServiceUpdate'])->name('service.update');
 Route::delete('service/delete/{id}',[ServiceController::class,'ServiceDestroy'])->name('service.destroy');
 
 // Contact
@@ -59,7 +59,7 @@ Route::get('/enquiries/create', [EnquiryController::class, 'EnquiryCreate'])->na
 Route::post('/enquiries/store', [EnquiryController::class, 'EnquiryStore'])->name('enquiry.store');
 Route::get('/enquiries/{id}', [EnquiryController::class, 'EnquiryShow'])->name('enquiry.show');
 Route::get('/enquiries/{id}/edit', [EnquiryController::class, 'EnquiryEdit'])->name('enquiry.edit');
-Route::put('/enquiries/{id}', [EnquiryController::class, 'EnquiryUpdate'])->name('enquiry.update');
+Route::post('/enquiries/{id}', [EnquiryController::class, 'EnquiryUpdate'])->name('enquiry.update');
 Route::delete('/enquiries/{id}', [EnquiryController::class, 'EnquiryDestroy'])->name('enquiry.destroy');
 
 // Testimonial
@@ -68,7 +68,7 @@ Route::get('/testimonial/create', [TestimonialController::class, 'TestimonialCre
 Route::post('/testimonial/store', [TestimonialController::class, 'TestimonialStore'])->name('testimonial.store');
 Route::get('/testimonial/{id}', [TestimonialController::class, 'TestimonialShow'])->name('testimonial.show');
 Route::get('/testimonial/{id}/edit', [TestimonialController::class, 'TestimonialEdit'])->name('testimonial.edit');
-Route::put('/testimonial/{id}', [TestimonialController::class, 'TestimonialUpdate'])->name('testimonial.update');
+Route::post('/testimonial/{id}', [TestimonialController::class, 'TestimonialUpdate'])->name('testimonial.update');
 Route::delete('/testimonial/{id}', [TestimonialController::class, 'TestimonialDestroy'])->name('testimonial.destroy');
 
 // Country
@@ -76,7 +76,7 @@ Route::get('/country', [CountryController::class, 'Country'])->name('country');
 Route::get('/country/create', [CountryController::class, 'CountryCreate'])->name('country.create');
 Route::post('/country/store', [CountryController::class, 'CountryStore'])->name('country.store');
 Route::get('/country/{id}/edit', [CountryController::class, 'CountryEdit'])->name('country.edit');
-Route::put('/country/{id}', [CountryController::class, 'CountryUpdate'])->name('country.update');
+Route::post('/country/{id}', [CountryController::class, 'CountryUpdate'])->name('country.update');
 Route::delete('/country/{id}', [CountryController::class, 'CountryDestroy'])->name('country.destroy');
 
 
@@ -85,5 +85,5 @@ Route::get('/information', [InformationController::class, 'Information'])->name(
 Route::get('/information/create', [InformationController::class, 'InformationCreate'])->name('information.create');
 Route::post('/information/store', [InformationController::class, 'InformationStore'])->name('information.store');
 Route::get('/information/{id}/edit', [InformationController::class, 'InformationEdit'])->name('information.edit');
-Route::put('/information/{id}', [InformationController::class, 'InformationUpdate'])->name('information.update');
+Route::post('/information/{id}', [InformationController::class, 'InformationUpdate'])->name('information.update');
 Route::get('/information/{id}', [InformationController::class, 'InformationDestroy'])->name('information.destroy');

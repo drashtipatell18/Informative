@@ -10,10 +10,6 @@
                 <form action="{{ isset($enquiry) ? route('enquiry.update', $enquiry->id) : route('enquiry.store') }}"
                     method="post" id="enquiry-form">
                     @csrf
-                    @if (isset($enquiry))
-                        @method('PUT')
-                    @endif
-
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3 form-group">

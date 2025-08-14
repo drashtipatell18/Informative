@@ -10,10 +10,6 @@
                 <form action="{{ isset($category) ? route('category.update', $category->id) : route('category.store') }}" method="post"
                     enctype="multipart/form-data" id="category-form">
                     @csrf
-                    @if (isset($category))
-                        @method('PUT')
-                    @endif
-
                     <div class="mb-3 form-group">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" class="form-control" id="name" name="name"

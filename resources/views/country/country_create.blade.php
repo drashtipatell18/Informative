@@ -10,10 +10,6 @@
                 <form action="{{ isset($country) ? route('country.update', $country->id) : route('country.store') }}"
                     method="post" enctype="multipart/form-data" id="country-form">
                     @csrf
-                    @if (isset($country))
-                        @method('PUT')
-                    @endif
-
                     <div class="mb-3 form-group">
                         <label for="code" class="form-label">Country Code</label>
                         <input type="text" class="form-control" id="code" name="code"

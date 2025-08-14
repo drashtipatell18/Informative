@@ -13,10 +13,6 @@
                       id="testimonial-form">
 
                     @csrf
-                    @if(isset($testimonial))
-                        @method('PUT')
-                    @endif
-
                     <div class="mb-3 form-group">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" class="form-control" id="name" name="name"

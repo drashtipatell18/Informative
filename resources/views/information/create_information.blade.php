@@ -10,10 +10,6 @@
                 <form action="{{ isset($information) ? route('information.update', $information->id) : route('information.store') }}" method="post"
                     enctype="multipart/form-data" id="information-form">
                     @csrf
-                    @if (isset($information))
-                        @method('PUT')
-                    @endif
-
                     <div class="mb-3 form-group">
                         <label for="name" class="form-label">Type</label>
                         <input type="text" class="form-control" id="type" name="type"

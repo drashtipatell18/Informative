@@ -10,9 +10,6 @@
                 <form action="{{ isset($service) ? route('service.update', $service->id) : route('service.store') }}"
                     method="post" enctype="multipart/form-data" id="service-from">
                     @csrf
-                    {{-- @if ($service)
-                        @method('put')
-                    @endif --}}
                     <div class="mb-3 form-group">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" class="form-control" id="name" name="name"
