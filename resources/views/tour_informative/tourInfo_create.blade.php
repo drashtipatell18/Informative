@@ -72,7 +72,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#country-form').validate({
+            $('#tour_details-form').validate({
                 rules: {
                     information_id: {
                         required: true
