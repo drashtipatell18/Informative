@@ -11,6 +11,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\InformationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -77,3 +78,12 @@ Route::post('/country/store', [CountryController::class, 'CountryStore'])->name(
 Route::get('/country/{id}/edit', [CountryController::class, 'CountryEdit'])->name('country.edit');
 Route::put('/country/{id}', [CountryController::class, 'CountryUpdate'])->name('country.update');
 Route::delete('/country/{id}', [CountryController::class, 'CountryDestroy'])->name('country.destroy');
+
+
+// Information
+Route::get('/information', [InformationController::class, 'Information'])->name('information');
+Route::get('/information/create', [InformationController::class, 'InformationCreate'])->name('information.create');
+Route::post('/information/store', [InformationController::class, 'InformationStore'])->name('information.store');
+Route::get('/information/{id}/edit', [InformationController::class, 'InformationEdit'])->name('information.edit');
+Route::put('/information/{id}', [InformationController::class, 'InformationUpdate'])->name('information.update');
+Route::get('/information/{id}', [InformationController::class, 'InformationDestroy'])->name('information.destroy');
