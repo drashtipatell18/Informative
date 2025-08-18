@@ -304,6 +304,25 @@
                         email: $('#email').val(),
                         password: $('#password').val()
                     };
+
+                    console.log('Login attempt:', formData);
+
+                    // Simulate API call
+                    setTimeout(function() {
+                        const loginSuccess = Math.random() > 0.3;
+
+                        if (loginSuccess) {
+                            window.location.href = '/dashboard';
+                        } else {
+                            alert('Login failed. Please check your credentials.');
+                        }
+
+                        // Reset button state
+                        submitBtn.prop('disabled', false);
+                        buttonText.text('Sign in');
+                        spinner.addClass('d-none');
+                    }, 2000);
+
                     return false;
                 }
             });

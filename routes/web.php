@@ -31,11 +31,10 @@ Route::post('/check-current-password', [HomeController::class, 'checkCurrentPass
 Route::get('/change-password', [HomeController::class, 'cPassword'])->name('change-password');
 Route::post('/change-password', [HomeController::class, 'changePassword'])->name('change-password');
 
-Route::middleware(['auth'])->group(function () {
-   Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-   Route::get('/home', [HomeController::class, 'index'])->name('home');
+   
 
-
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
 // User routes
 Route::get('/users', [UserController::class, 'Users'])->name('users');
@@ -107,6 +106,3 @@ Route::post('/tour_details/store', [TourDetailsController::class, 'TourDetailsSt
 Route::get('/tour_details/{id}/edit', [TourDetailsController::class, 'TourDetailsEdit'])->name('tour_details.edit');
 Route::put('/tour_details/{id}', [TourDetailsController::class, 'TourDetailsUpdate'])->name('tour_details.update');
 Route::get('/tour_details/{id}', [TourDetailsController::class, 'TourDetailsDestroy'])->name('tour_details.destroy');
-
-
-});
