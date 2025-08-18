@@ -46,9 +46,25 @@
                             value="{{ old('title', $tour_details->title ?? '') }}">
                     </div>
 
-                    <div class="mb-3 form-group">
+                    <div class="mb-3 form-group" id="description-group">
                         <label for="description" class="form-label">Description</label>
                         <textarea class="form-control" id="description" name="description" rows="5">{{ old('description', $tour_details->description ?? '') }}</textarea>
+                    </div>
+
+                   <div class="mb-3 form-group" id="image-group" style="display: none;">
+                        <label for="images" class="form-label">Upload Images</label>
+                        <input type="file" name="images[]" id="images" multiple accept="image/*" class="form-control" />
+
+                        @if(!empty($tour_details->image_path))
+                            <div class="mt-3" id="image-preview">
+                                @php
+                                    $images = explode(',', $tour_details->image_path);
+                                @endphp
+                                @foreach($images as $img)
+                                    <img src="{{ asset('tour_images/' . $img) }}" alt="Tour Image" style="max-width: 150px; margin-right: 10px; margin-bottom:10px;"/>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
 
                     
@@ -82,6 +98,31 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
+    <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const informationSelect = document.getElementById('information_id');
+                const descriptionGroup = document.getElementById('description-group');
+                const imageGroup = document.getElementById('image-group');
+
+                const mediaInformationIds = @json($mediaInformationIds);
+
+                function toggleFields() {
+                    const selectedId = parseInt(informationSelect.value);
+                    if (mediaInformationIds.includes(selectedId)) {
+                        descriptionGroup.style.display = 'none';
+                        imageGroup.style.display = 'block';
+                    } else {
+                        descriptionGroup.style.display = 'block';
+                        imageGroup.style.display = 'none';
+                    }
+                }
+
+                toggleFields();
+
+                informationSelect.addEventListener('change', toggleFields);
+        });
+    </script>
 
     <script>
         $(document).ready(function() {
@@ -126,6 +167,8 @@
             });
         });
     </script>
+   
+
     <script>
         ClassicEditor
             .create(document.querySelector('#description'))
