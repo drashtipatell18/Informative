@@ -4,9 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>
-        Admin Login
-    </title>
+    <title>Reset Password</title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Font Awesome Icons -->
@@ -174,24 +172,16 @@
                         <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
                             <div class="card card-plain">
                                 <div class="card-header text-start">
-                                    <h4 class="font-weight-bolder mb-0">Sign In</h4>
-                                    <p class="mb-0">Enter your email and password to sign in</p>
+                                    <h4 class="font-weight-bolder mb-0">Reset Password</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form id="loginForm" role="form" action="{{ route('loginstore') }}"
-                                        method="POST">
+                                     <form method="POST" action="{{ route('post_reset', $token) }}" id="reset">
                                         @csrf
                                         <div class="mb-3">
-                                            <input type="email" id="email" name="email"
-                                                class="form-control form-control-lg" placeholder="Email"
-                                                aria-label="Email" autocomplete="email">
-                                                <div class="validation-message"></div>
-                                            </div>
-                                        <div class="mb-3">
                                             <div class="password-input-container">
-                                                <input type="password" id="password" name="password"
+                                                <input type="password" id="newpassword" name="newpassword"
                                                     class="form-control form-control-lg password-input"
-                                                    placeholder="Password" aria-label="Password"
+                                                    placeholder="New Password" aria-label="New Password"
                                                     autocomplete="current-password">
                                                 <button type="button" class="password-toggle"
                                                     aria-label="Toggle password visibility">
@@ -200,24 +190,29 @@
                                             </div>
                                             <div class="validation-message"></div>
                                         </div>
-                                        <div class="forgot-password" style="float:right">
-                                                <a href="{{ route('forget.password') }}">Forgot
-                                                    password?</a>
+
+                                        <div class="mb-3">
+                                            <div class="password-input-container">
+                                                <input type="password" id="confirmpassword" name="confirmpassword"
+                                                    class="form-control form-control-lg password-input"
+                                                    placeholder="Confirm Password" aria-label="Confirm Password"
+                                                    autocomplete="current-password">
+                                                <button type="button" class="password-toggle"
+                                                    aria-label="Toggle password visibility">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
                                             </div>
+                                            <div class="validation-message"></div>
+                                        </div>
+                                       
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-lg btn-primary w-100 mt-4 mb-0">
-                                                <span class="button-text">Sign in</span>
+                                                <span class="button-text">Change Password</span>
                                                 <span class="spinner-border spinner-border-sm d-none ms-2"
                                                     role="status" aria-hidden="true"></span>
                                             </button>
                                         </div>
                                     </form>
-                                </div>
-                                <div class="card-footer text-center">
-                                    <p class="mb-4 text-sm mx-auto">
-                                        Don't have an account?
-                                        <a href="javascript:;" class="text-primary font-weight-bold">Sign up</a>
-                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -249,37 +244,32 @@
             );
 
             // Initialize form validation
-            $("#loginForm").validate({
-                rules: {
-                    email: {
-                        required: true,
-                        email: true,
-                        maxlength: 255
-                    },
-                    password: {
-                        required: true,
-                        minlength: 6,
-                        maxlength: 128
-                    }
+            $("#reset").validate({
+               rules: {
+                   newpassword: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 50
+                },
+                confirmpassword: {
+                    required: true,
+                    equalTo: "#newpassword"
+                }
                 },
                 messages: {
-                    email: {
-                        required: "Please enter your email address",
-                        email: "Please enter a valid email address",
-                        maxlength: "Email must not exceed 255 characters"
-                    },
-                    password: {
-                        required: "Please enter your password",
+                    newpassword: {
+                        required: "Please enter your new password",
                         minlength: "Password must be at least 6 characters long",
-                        maxlength: "Password must not exceed 128 characters"
+                        maxlength: "Password cannot exceed 50 characters"
+                    },
+                    confirmpassword: {
+                        required: "Please confirm your password",
+                        equalTo: "Passwords do not match"
                     }
                 },
-                errorElement: "span",
-                errorClass: "error",
-                validClass: "valid",
                 errorPlacement: function(error, element) {
-                    // Place error message after the input wrapper
-                    error.insertAfter(element.closest('.input-wrapper'));
+                    // Place error inside the validation-message div
+                    element.closest('.password-input-container').next('.validation-message').html(error);
                 },
                 highlight: function(element) {
                     $(element).addClass('error').removeClass('valid');
@@ -288,60 +278,12 @@
                     $(element).removeClass('error').addClass('valid');
                 },
                 submitHandler: function(form) {
-                    console.log('Form submitted successfully!');
-
-                    // Show loading spinner
                     const submitBtn = $(form).find('button[type="submit"]');
-                    const buttonText = submitBtn.find('.button-text');
-                    const spinner = submitBtn.find('.spinner-border');
-
-                    submitBtn.prop('disabled', true);
-                    buttonText.text('Signing in...');
-                    spinner.removeClass('d-none');
-
-                    // Get form data
-                    const formData = {
-                        email: $('#email').val(),
-                        password: $('#password').val()
-                    };
-                    return false;
+                    const originalText = submitBtn.text();
+                    submitBtn.prop('disabled', true).text('Processing...');
+                    form.submit();
                 }
             });
-
-            // Real-time validation feedback
-            $('#email, #password').on('blur', function() {
-                $(this).valid();
-            });
-
-            // Clear validation on focus
-            // $('#email, #password').on('focus', function() {
-            //     $(this).removeClass('error valid');
-            //     $(this).closest('.mb-3').find('.validation-message').empty();
-            // });
-
-            // Toggle password visibility - FIXED VERSION
-            $(document).on('click', '.password-toggle', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-
-                console.log('Password toggle clicked'); // Debug log
-
-                const passwordField = $('#password');
-                const icon = $(this).find('i');
-
-                console.log('Current type:', passwordField.attr('type')); // Debug log
-
-                if (passwordField.attr('type') === 'password') {
-                    passwordField.attr('type', 'text');
-                    icon.removeClass('fa-eye').addClass('fa-eye-slash');
-                    console.log('Changed to text');
-                } else {
-                    passwordField.attr('type', 'password');
-                    icon.removeClass('fa-eye-slash').addClass('fa-eye');
-                    console.log('Changed to password');
-                }
-            });
-
             // Ensure the eye icon is visible after page load
             setTimeout(function() {
                 const toggleBtn = $('.password-toggle');

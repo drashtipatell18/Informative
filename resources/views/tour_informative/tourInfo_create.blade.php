@@ -40,7 +40,7 @@
                         </select>
                     </div>
 
-                    <div class="mb-3 form-group">
+                    <div class="mb-3 form-group" id="title-group">
                         <label for="title" class="form-label">Title</label>
                         <input type="text" class="form-control" id="title" name="title"
                             value="{{ old('title', $tour_details->title ?? '') }}">
@@ -103,6 +103,7 @@
             document.addEventListener('DOMContentLoaded', function () {
                 const informationSelect = document.getElementById('information_id');
                 const descriptionGroup = document.getElementById('description-group');
+                const titleGroup = document.getElementById('title-group');
                 const imageGroup = document.getElementById('image-group');
 
                 const mediaInformationIds = @json($mediaInformationIds);

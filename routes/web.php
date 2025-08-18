@@ -15,16 +15,27 @@ use App\Http\Controllers\InformationController;
 use App\Http\Controllers\TourDetailsController;
 
 Route::get('/', function () {
-    return view('welcome');
+   return redirect()->route('login');
 });
 
 Auth::routes();
 Route::get('/admin/login', [HomeController::class, 'Login'])->name('login');
 Route::post('/login', [HomeController::class, 'LoginStore'])->name('loginstore');
-Route::post('/logout',[HomeController::class,'logout'])->name('logout');
+Route::get('/logout',[HomeController::class,'logout'])->name('logout');
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+Route::get('/forget-password', [DashboardController::class, 'showForgetPasswordForm'])->name('forget.password');
+Route::post('/forget-password', [DashboardController::class, 'sendResetLinkEmail'])->name('forget.password.email');
+Route::get('/reset/{token}', [DashboardController::class, 'reset'])->name('reset');
+Route::post('/reset/{token}', [DashboardController::class, 'postReset'])->name('post_reset');
+Route::post('/check-current-password', [HomeController::class, 'checkCurrentPassword'])->name('checkCurrentPassword');
+Route::get('/change-password', [HomeController::class, 'cPassword'])->name('change-password');
+Route::post('/change-password', [HomeController::class, 'changePassword'])->name('change-password');
+
+Route::middleware(['auth'])->group(function () {
+   Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+   Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+
 
 // User routes
 Route::get('/users', [UserController::class, 'Users'])->name('users');
@@ -96,3 +107,6 @@ Route::post('/tour_details/store', [TourDetailsController::class, 'TourDetailsSt
 Route::get('/tour_details/{id}/edit', [TourDetailsController::class, 'TourDetailsEdit'])->name('tour_details.edit');
 Route::put('/tour_details/{id}', [TourDetailsController::class, 'TourDetailsUpdate'])->name('tour_details.update');
 Route::get('/tour_details/{id}', [TourDetailsController::class, 'TourDetailsDestroy'])->name('tour_details.destroy');
+
+
+});
