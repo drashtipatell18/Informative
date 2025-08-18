@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('tour_details', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('country_id');
             $table->unsignedBigInteger('information_id');
             $table->string('title');
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
             $table->foreign('information_id')->references('id')->on('information')->onDelete('cascade');
         });
     }

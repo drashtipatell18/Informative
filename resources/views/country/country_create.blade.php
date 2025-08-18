@@ -24,15 +24,14 @@
 
                     <div class="mb-3 form-group">
                         <label for="category_id" class="form-label">Category</label>
-                        <select class="form-control" name="category_id" id="category_id">
-                            <option value="">-- Select Category --</option>
-                            @foreach ($categories as $key => $category)
-                                <option value="{{ $key }}"
-                                    {{ old('category_id', $country->category_id ?? '') == $key ? 'selected' : '' }}>
-                                    {{ $category->name }}
-                                </option>
-                            @endforeach
-                        </select>
+                            <select class="form-control" name="category_id" id="category_id" required>
+                                <option value="">-- Select Category --</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                     </div>
 
                     <div class="mb-3 form-group">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use App\Models\Information;
 use App\Models\TourDetails;
 use Illuminate\Http\Request;
@@ -17,12 +18,14 @@ class TourDetailsController extends Controller
     public function TourDetailsCreate()
     {
         $informations = Information::all();
-        return view('tour_informative.tourInfo_create',compact('informations'));
+        $countries = Country::all();
+        return view('tour_informative.tourInfo_create',compact('informations','countries'));
     }
 
     public function TourDetailsStore(Request $request)
     {
         TourDetails::insert([
+            'country_id' => $request->input('country_id'),
             'information_id' => $request->input('information_id'),
             'title' => $request->input('title'),
             'description' => $request->input('description') 
@@ -33,14 +36,16 @@ class TourDetailsController extends Controller
     public function TourDetailsEdit($id)
     {
         $informations = Information::all();
+        $countries = Country::all();
         $tour_details = TourDetails::find($id);
-        return view('tour_informative.tourInfo_create',compact('tour_details','informations'));
+        return view('tour_informative.tourInfo_create',compact('tour_details','informations','countries'));
     }
 
     public function TourDetailsUpdate(Request $request, $id)
     {
         $tour_details = TourDetails::find($id);
         $tour_details->update([
+            'country_id' => $request->input('country_id'),
             'information_id' => $request->input('information_id'),
             'title' => $request->input('title'),
             'description' => $request->input('description') 

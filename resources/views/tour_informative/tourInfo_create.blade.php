@@ -15,6 +15,19 @@
                     @endif
 
                     <div class="mb-3 form-group">
+                        <label for="country_id" class="form-label">Country</label>
+                        <select class="form-control" name="country_id" id="country_id">
+                            <option value="">-- Select Country --</option>
+                            @foreach ($countries as $country)
+                                <option value="{{ $country->id }}"
+                                    {{ old('country_id', $tour_details->country_id ?? '') == $country->id ? 'selected' : '' }}>
+                                    {{ $country->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mb-3 form-group">
                         <label for="information_id" class="form-label">Information</label>
                         <select class="form-control" name="information_id" id="information_id">
                             <option value="">-- Select Information --</option>
