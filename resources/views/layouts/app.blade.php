@@ -114,6 +114,12 @@
         display: none !important;
     }
 
+    footer.footer {
+        background-color: #f8f9fa; /* Light gray background */
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
     @media (min-width: 992px) {
         .dropdown:not(.dropdown-hover) .dropdown-menu {
             margin-top: 10px !important;
@@ -219,7 +225,7 @@
                         href="{{ route('information') }}">
                         <div
                             class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-world-2 text-dark text-sm opacity-10"></i>
+                            <i class="ni ni-single-copy-04 text-dark text-sm opacity-10"></i>
                         </div>
                         <span class="nav-link-text ms-1">Information</span>
                     </a>
@@ -230,7 +236,7 @@
                         href="{{ route('tour_details') }}">
                         <div
                             class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-world-2 text-dark text-sm opacity-10"></i>
+                            <i class="ni ni-briefcase-24 text-dark text-sm opacity-10"></i>
                         </div>
                         <span class="nav-link-text ms-1">Tour Details</span>
                     </a>
@@ -270,45 +276,26 @@
                     @yield('content')
                 </div>
             </div>
-            <footer class="footer pt-3  ">
-                <div class="container-fluid">
-                    <div class="row align-items-center justify-content-lg-between">
-                        <div class="col-lg-6 mb-lg-0 mb-4">
-                            <div class="copyright text-center text-sm text-muted text-lg-start">
-                                ©
-                                <script>
-                                    document.write(new Date().getFullYear())
-                                </script>,
-                                made with <i class="fa fa-heart"></i> by
-                                <a href="https://www.creative-tim.com" class="font-weight-bold"
-                                    target="_blank">Creative
-                                    Tim</a>
-                                for a better web.
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                                <li class="nav-item">
-                                    <a href="https://www.creative-tim.com" class="nav-link text-muted"
-                                        target="_blank">Creative Tim</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted"
-                                        target="_blank">About Us</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="https://www.creative-tim.com/blog" class="nav-link text-muted"
-                                        target="_blank">Blog</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted"
-                                        target="_blank">License</a>
-                                </li>
-                            </ul>
+        <footer class="footer pt-3">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <div class="copyright text-center text-muted">
+                            ©
+                            <script>
+                                document.write(new Date().getFullYear())
+                            </script>,
+                            made with <i class="fa fa-heart text-danger"></i> by
+                            <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">
+                                Creative Tim
+                            </a>
+                            for a better web.
                         </div>
                     </div>
                 </div>
-            </footer>
+            </div>
+        </footer>
+
         </main>
 
         <!--   Core JS Files   -->
