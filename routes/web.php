@@ -13,6 +13,12 @@ use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\TourDetailsController;
+use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Frontend\AboutUSController;
+use App\Http\Controllers\Frontend\DomesticController;
+use App\Http\Controllers\Frontend\InformationController as FrontInformationController;
+use App\Http\Controllers\Frontend\ContactController as FrontendContactController;
+use App\Http\Controllers\Frontend\InternationalController as FrontInternationalController;
 
 Route::get('/', function () {
    return redirect()->route('login');
@@ -30,8 +36,6 @@ Route::post('/reset/{token}', [DashboardController::class, 'postReset'])->name('
 Route::post('/check-current-password', [HomeController::class, 'checkCurrentPassword'])->name('checkCurrentPassword');
 Route::get('/change-password', [HomeController::class, 'cPassword'])->name('change-password');
 Route::post('/change-password', [HomeController::class, 'changePassword'])->name('change-password');
-
-   
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
@@ -106,3 +110,13 @@ Route::post('/tour_details/store', [TourDetailsController::class, 'TourDetailsSt
 Route::get('/tour_details/{id}/edit', [TourDetailsController::class, 'TourDetailsEdit'])->name('tour_details.edit');
 Route::put('/tour_details/{id}', [TourDetailsController::class, 'TourDetailsUpdate'])->name('tour_details.update');
 Route::get('/tour_details/{id}', [TourDetailsController::class, 'TourDetailsDestroy'])->name('tour_details.destroy');
+
+//frontend
+
+Route::get('/index',[IndexController::class,'index'])->name('index');
+Route::get('/about-us',[AboutUSController::class,'AboutUS'])->name('about-us');
+Route::get('/contactf',[FrontendContactController::class,'Contact'])->name('contactf');
+Route::get('/domestic',[DomesticController::class,'Domestic'])->name('domestic');
+Route::get('/information',[FrontInformationController::class,'Information'])->name('information');
+Route::get('/international',[FrontInternationalController::class,'International'])->name('international');
+
