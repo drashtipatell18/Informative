@@ -1,3 +1,17 @@
+<!--
+=========================================================
+* Argon Dashboard 3 - v2.1.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+* Copyright 2024 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -185,8 +199,8 @@
                                             <input type="email" id="email" name="email"
                                                 class="form-control form-control-lg" placeholder="Email"
                                                 aria-label="Email" autocomplete="email">
-                                                <div class="validation-message"></div>
-                                            </div>
+                                            <div class="validation-message"></div>
+                                        </div>
                                         <div class="mb-3">
                                             <div class="password-input-container">
                                                 <input type="password" id="password" name="password"
@@ -200,10 +214,6 @@
                                             </div>
                                             <div class="validation-message"></div>
                                         </div>
-                                        <div class="forgot-password" style="float:right">
-                                                <a href="{{ route('forget.password') }}">Forgot
-                                                    password?</a>
-                                            </div>
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-lg btn-primary w-100 mt-4 mb-0">
                                                 <span class="button-text">Sign in</span>
@@ -278,8 +288,11 @@
                 errorClass: "error",
                 validClass: "valid",
                 errorPlacement: function(error, element) {
-                    // Place error message after the input wrapper
-                    error.insertAfter(element.closest('.input-wrapper'));
+                    if (element.attr('name') === 'password') {
+                        error.appendTo(element.closest('.mb-3').find('.validation-message'));
+                    } else {
+                        error.appendTo(element.closest('.mb-3').find('.validation-message'));
+                    }
                 },
                 highlight: function(element) {
                     $(element).addClass('error').removeClass('valid');
@@ -333,10 +346,10 @@
             });
 
             // Clear validation on focus
-            // $('#email, #password').on('focus', function() {
-            //     $(this).removeClass('error valid');
-            //     $(this).closest('.mb-3').find('.validation-message').empty();
-            // });
+            $('#email, #password').on('focus', function() {
+                $(this).removeClass('error valid');
+                $(this).closest('.mb-3').find('.validation-message').empty();
+            });
 
             // Toggle password visibility - FIXED VERSION
             $(document).on('click', '.password-toggle', function(e) {

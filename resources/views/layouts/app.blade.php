@@ -114,12 +114,6 @@
         display: none !important;
     }
 
-    footer.footer {
-        background-color: #f8f9fa; /* Light gray background */
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-    }
-
     @media (min-width: 992px) {
         .dropdown:not(.dropdown-hover) .dropdown-menu {
             margin-top: 10px !important;
@@ -137,7 +131,7 @@
                 aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html "
                 target="_blank">
-                <img src="{{ asset('assets/img/logo-ct-dark.png') }}" width="26px" height="26px" class="navbar-brand-img h-100"
+                <img src="../assets/img/logo-ct-dark.png" width="26px" height="26px" class="navbar-brand-img h-100"
                     alt="main_logo">
                 <span class="ms-1 font-weight-bold">Creative Tim</span>
             </a>
@@ -163,85 +157,6 @@
                         <span class="nav-link-text ms-1">Users</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('category*') ? 'active' : '' }}" href="{{ url('/category') }}">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-bullet-list-67 text-dark text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Category</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('service*') ? 'active' : '' }}" href="{{ url('/service') }}">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-settings-gear-65 text-dark text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Service</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('contact*') ? 'active' : '' }}" href="{{ url('/contact') }}">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-email-83 text-dark text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Contact</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('enquiry*') ? 'active' : '' }}" href="{{ url('/enquiry') }}">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-support-16 text-dark text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Enquiry</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('testimonial*') ? 'active' : '' }}"
-                        href="{{ route('testimonial') }}">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-chat-round text-dark text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Testimonials</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('country*') ? 'active' : '' }}"
-                        href="{{ route('country') }}">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-world-2 text-dark text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Countries</span>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('information*') ? 'active' : '' }}"
-                        href="{{ route('information') }}">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-single-copy-04 text-dark text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Information</span>
-                    </a>
-                </li>
-
-                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('tour_details*') ? 'active' : '' }}"
-                        href="{{ route('tour_details') }}">
-                        <div
-                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-briefcase-24 text-dark text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Tour Details</span>
-                    </a>
-                </li>
-
             </ul>
         </div>
 
@@ -255,13 +170,12 @@
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
                     <li class="nav-item dropdown d-flex align-items-center me-3">
-                        <a href="#"
-                            class="nav-link text-white font-weight-bold px-0 dropdown-toggle custom-arrow"
+                        <a href="#" class="nav-link text-white font-weight-bold px-0 dropdown-toggle custom-arrow"
                             id="userDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-circle fs-4"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown2">
-                            <li><a class="dropdown-item" href="{{ 'logout' }}">Logout</a></li>
+                            <li><a class="dropdown-item" href="{{ ('logout')}}">Logout</a></li>
                         </ul>
                     </li>
                 </div>
@@ -276,26 +190,44 @@
                     @yield('content')
                 </div>
             </div>
-        <footer class="footer pt-3">
-            <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-auto">
-                        <div class="copyright text-center text-muted">
-                            ©
-                            <script>
-                                document.write(new Date().getFullYear())
-                            </script>,
-                            made with <i class="fa fa-heart text-danger"></i> by
-                            <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">
-                                Creative Tim
-                            </a>
-                            for a better web.
+            <footer class="footer pt-3  ">
+                <div class="container-fluid">
+                    <div class="row align-items-center justify-content-lg-between">
+                        <div class="col-lg-6 mb-lg-0 mb-4">
+                            <div class="copyright text-center text-sm text-muted text-lg-start">
+                                ©
+                                <script>
+                                    document.write(new Date().getFullYear())
+                                </script>,
+                                made with <i class="fa fa-heart"></i> by
+                                <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative
+                                    Tim</a>
+                                for a better web.
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                                <li class="nav-item">
+                                    <a href="https://www.creative-tim.com" class="nav-link text-muted"
+                                        target="_blank">Creative Tim</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted"
+                                        target="_blank">About Us</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="https://www.creative-tim.com/blog" class="nav-link text-muted"
+                                        target="_blank">Blog</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted"
+                                        target="_blank">License</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-            </div>
-        </footer>
-
+            </footer>
         </main>
 
         <!--   Core JS Files   -->
