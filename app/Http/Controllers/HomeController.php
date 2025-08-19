@@ -36,90 +36,29 @@ class HomeController extends Controller
         return view('auth.login');
     }
 
-   public function loginStore(Request $request)
-    {
-        // Validate input
-        $request->validate([
-            'email' => 'required|email|max:255',
-            'password' => 'required|string|min:6|max:128',
-        ]);
-
-        // Rate limiting key
-        $key = Str::transliterate(Str::lower($request->input('email')) . '|' . $request->ip());
-
-        // Check if too many login attempts
-        if (RateLimiter::tooManyAttempts($key, 5)) {
-            $seconds = RateLimiter::availableIn($key);
-
-            throw ValidationException::withMessages([
-                'email' => [
-                    "Too many login attempts. Please try again in {$seconds} seconds."
-                ],
-            ]);
-        }
-
-        // Attempt authentication using Laravel's built-in attempt method
-        $credentials = $request->only('email', 'password');
-        $remember = $request->boolean('remember'); // if you have a remember me checkbox
-
-        if (Auth::attempt($credentials, $remember)) {
-            // Clear rate limiter on successful login
-            RateLimiter::clear($key);
-
-            // Regenerate session for security
-            $request->session()->regenerate();
-
-            // Update last login timestamp (optional)
-            $user = Auth::user();
-            $user->update([
-                'last_login_at' => Carbon::now(),
-                'last_login_ip' => $request->ip()
-            ]);
-
-            // Return JSON response for AJAX requests
-            if ($request->wantsJson()) {
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Login successful!',
-                    'redirect' => route('dashboard')
-                ]);
-            }
-
-            // Redirect with success message
-            return redirect()
-                ->intended(route('dashboard'))
-                ->with('success', 'Welcome back, ' . $user->name . '!');
-        }
-
-        // Record failed attempt
-        RateLimiter::hit($key, 60); // Lock for 60 seconds after 5 attempts
-
-        // Check if user exists to provide specific error messages
+     public function LoginStore(Request $request)
+     {
+        // First check if user exists
         $user = User::where('email', $request->email)->first();
 
         if (!$user) {
-            $errorMessage = 'No account found with this email address.';
-            $errorField = 'email';
-        } else {
-            $errorMessage = 'The password you entered is incorrect.';
-            $errorField = 'password';
+            return back()->withErrors([
+                'email' => 'No account found with this email address',
+            ])->onlyInput('email');
         }
 
-        // Return JSON response for AJAX requests
-        if ($request->wantsJson()) {
-            return response()->json([
-                'success' => false,
-                'message' => $errorMessage,
-                'errors' => [
-                    $errorField => [$errorMessage]
-                ]
-            ], 422);
+        // Then check password
+        if (!Hash::check($request->password, $user->password)) {
+            return back()->withErrors([
+                'password' => 'The password you entered is incorrect',
+            ])->onlyInput('email');
         }
 
-        // Return with errors
-        return back()
-            ->withErrors([$errorField => $errorMessage])
-            ->onlyInput('email');
+        // If we get here, credentials are valid
+        $auth = Auth::login($user);
+        $request->session()->regenerate();
+
+        return redirect()->intended('dashboard')->with('success', 'Login successful!')->with('auth', $auth);
     }
 
     /**

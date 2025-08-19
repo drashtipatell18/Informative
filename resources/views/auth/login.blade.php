@@ -68,6 +68,20 @@
             margin-top: 0.25rem;
         }
 
+        /* Laravel validation errors */
+        .invalid-feedback {
+            color: #f56565 !important;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: block !important;
+            font-weight: 500;
+        }
+
+        .is-invalid {
+            border-color: #f56565 !important;
+            box-shadow: 0 0 0 0.2rem rgba(245, 101, 101, 0.25) !important;
+        }
+
         /* Fixed password toggle button styles */
         .password-input-container {
             position: relative !important;
@@ -192,19 +206,22 @@
                                     <p class="mb-0">Enter your email and password to sign in</p>
                                 </div>
                                 <div class="card-body">
-                                    <form id="loginForm" role="form" action="{{ route('loginstore') }}"
-                                        method="POST">
+                                    <form id="loginForm" role="form" action="{{ route('loginstore') }}" method="POST">
                                         @csrf
                                         <div class="mb-3">
                                             <input type="email" id="email" name="email"
-                                                class="form-control form-control-lg" placeholder="Email"
-                                                aria-label="Email" autocomplete="email">
+                                                class="form-control form-control-lg @error('email') is-invalid @enderror"
+                                                placeholder="Email" aria-label="Email" autocomplete="email"
+                                                value="{{ old('email') }}">
+                                            @error('email')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                             <div class="validation-message"></div>
                                         </div>
                                         <div class="mb-3">
                                             <div class="password-input-container">
                                                 <input type="password" id="password" name="password"
-                                                    class="form-control form-control-lg password-input"
+                                                    class="form-control form-control-lg password-input @error('password') is-invalid @enderror"
                                                     placeholder="Password" aria-label="Password"
                                                     autocomplete="current-password">
                                                 <button type="button" class="password-toggle"
@@ -212,10 +229,13 @@
                                                     <i class="fas fa-eye"></i>
                                                 </button>
                                             </div>
+                                            @error('password')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                             <div class="validation-message"></div>
                                         </div>
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-lg btn-primary w-100 mt-4 mb-0">
+                                            <button type="submit" class="btn btn-lg btn-primary w-100 mt-4 mb-0" id="submitBtn">
                                                 <span class="button-text">Sign in</span>
                                                 <span class="spinner-border spinner-border-sm d-none ms-2"
                                                     role="status" aria-hidden="true"></span>
@@ -250,15 +270,7 @@
             console.log('jQuery loaded:', typeof $ !== 'undefined');
             console.log('jQuery Validation loaded:', typeof $.fn.validate !== 'undefined');
 
-            // Custom validation method for strong password
-            $.validator.addMethod("strongPassword", function(value, element) {
-                    return this.optional(element) ||
-                        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/.test(value);
-                },
-                "Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character"
-            );
-
-            // Initialize form validation
+            // Initialize form validation (frontend only - for immediate feedback)
             $("#loginForm").validate({
                 rules: {
                     email: {
@@ -268,8 +280,7 @@
                     },
                     password: {
                         required: true,
-                        minlength: 6,
-                        maxlength: 128
+                        minlength: 1 // Changed from 6 to 1 to let Laravel handle this
                     }
                 },
                 messages: {
@@ -280,111 +291,82 @@
                     },
                     password: {
                         required: "Please enter your password",
-                        minlength: "Password must be at least 6 characters long",
-                        maxlength: "Password must not exceed 128 characters"
+                        minlength: "Password is required"
                     }
                 },
                 errorElement: "span",
                 errorClass: "error",
                 validClass: "valid",
                 errorPlacement: function(error, element) {
-                    if (element.attr('name') === 'password') {
-                        error.appendTo(element.closest('.mb-3').find('.validation-message'));
-                    } else {
-                        error.appendTo(element.closest('.mb-3').find('.validation-message'));
+                    // Only show frontend validation if no Laravel errors exist
+                    const hasLaravelError = element.siblings('.invalid-feedback').length > 0;
+                    if (!hasLaravelError) {
+                        if (element.attr('name') === 'password') {
+                            error.appendTo(element.closest('.mb-3').find('.validation-message'));
+                        } else {
+                            error.appendTo(element.closest('.mb-3').find('.validation-message'));
+                        }
                     }
                 },
                 highlight: function(element) {
-                    $(element).addClass('error').removeClass('valid');
+                    // Don't add error class if Laravel already marked it invalid
+                    if (!$(element).hasClass('is-invalid')) {
+                        $(element).addClass('error').removeClass('valid');
+                    }
                 },
                 unhighlight: function(element) {
-                    $(element).removeClass('error').addClass('valid');
+                    // Don't remove error class if Laravel marked it invalid
+                    if (!$(element).hasClass('is-invalid')) {
+                        $(element).removeClass('error').addClass('valid');
+                    }
                 },
-                submitHandler: function(form) {
-                    console.log('Form submitted successfully!');
+                // REMOVED submitHandler - let the form submit normally to Laravel
+                onsubmit: true
+            });
 
-                    // Show loading spinner
-                    const submitBtn = $(form).find('button[type="submit"]');
-                    const buttonText = submitBtn.find('.button-text');
-                    const spinner = submitBtn.find('.spinner-border');
+            // Handle form submission with loading state
+            $('#loginForm').on('submit', function() {
+                const submitBtn = $('#submitBtn');
+                const buttonText = submitBtn.find('.button-text');
 
-                    submitBtn.prop('disabled', true);
-                    buttonText.text('Signing in...');
-                    spinner.removeClass('d-none');
+                // Show loading state
+                buttonText.text('Signing in...');
 
-                    // Get form data
-                    const formData = {
-                        email: $('#email').val(),
-                        password: $('#password').val()
-                    };
+                // Let the form submit normally - don't prevent default
+                return true;
+            });
 
-                    console.log('Login attempt:', formData);
-
-                    // Simulate API call
-                    setTimeout(function() {
-                        const loginSuccess = Math.random() > 0.3;
-
-                        if (loginSuccess) {
-                            window.location.href = '/dashboard';
-                        } else {
-                            alert('Login failed. Please check your credentials.');
-                        }
-
-                        // Reset button state
-                        submitBtn.prop('disabled', false);
-                        buttonText.text('Sign in');
-                        spinner.addClass('d-none');
-                    }, 2000);
-
-                    return false;
+            // Real-time validation feedback (but don't override Laravel errors)
+            $('#email, #password').on('blur', function() {
+                if (!$(this).hasClass('is-invalid')) {
+                    $(this).valid();
                 }
             });
 
-            // Real-time validation feedback
-            $('#email, #password').on('blur', function() {
-                $(this).valid();
-            });
-
-            // Clear validation on focus
+            // Clear frontend validation on focus (but keep Laravel errors)
             $('#email, #password').on('focus', function() {
-                $(this).removeClass('error valid');
-                $(this).closest('.mb-3').find('.validation-message').empty();
+                if (!$(this).hasClass('is-invalid')) {
+                    $(this).removeClass('error valid');
+                    $(this).closest('.mb-3').find('.validation-message').empty();
+                }
             });
 
-            // Toggle password visibility - FIXED VERSION
+            // Toggle password visibility
             $(document).on('click', '.password-toggle', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
 
-                console.log('Password toggle clicked'); // Debug log
-
                 const passwordField = $('#password');
                 const icon = $(this).find('i');
-
-                console.log('Current type:', passwordField.attr('type')); // Debug log
 
                 if (passwordField.attr('type') === 'password') {
                     passwordField.attr('type', 'text');
                     icon.removeClass('fa-eye').addClass('fa-eye-slash');
-                    console.log('Changed to text');
                 } else {
                     passwordField.attr('type', 'password');
                     icon.removeClass('fa-eye-slash').addClass('fa-eye');
-                    console.log('Changed to password');
                 }
             });
-
-            // Ensure the eye icon is visible after page load
-            setTimeout(function() {
-                const toggleBtn = $('.password-toggle');
-                console.log('Toggle button found:', toggleBtn.length);
-                console.log('Toggle button visible:', toggleBtn.is(':visible'));
-                console.log('Toggle button CSS:', {
-                    position: toggleBtn.css('position'),
-                    zIndex: toggleBtn.css('z-index'),
-                    display: toggleBtn.css('display')
-                });
-            }, 100);
 
             console.log('Form validation initialized');
         });
