@@ -206,7 +206,8 @@
                                     <p class="mb-0">Enter your email and password to sign in</p>
                                 </div>
                                 <div class="card-body">
-                                    <form id="loginForm" role="form" action="{{ route('loginstore') }}" method="POST">
+                                    <form id="loginForm" role="form" action="{{ route('loginstore') }}"
+                                        method="POST">
                                         @csrf
                                         <div class="mb-3">
                                             <input type="email" id="email" name="email"
@@ -234,20 +235,19 @@
                                             @enderror
                                             <div class="validation-message"></div>
                                         </div>
+                                        <div class="forgot-password" style="float:right">
+                                            <a href="{{ route('forget.password') }}">Forgot
+                                                password?</a>
+                                        </div>
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-lg btn-primary w-100 mt-4 mb-0" id="submitBtn">
+                                            <button type="submit" class="btn btn-lg btn-primary w-100 mt-4 mb-0"
+                                                id="submitBtn">
                                                 <span class="button-text">Sign in</span>
                                                 <span class="spinner-border spinner-border-sm d-none ms-2"
                                                     role="status" aria-hidden="true"></span>
                                             </button>
                                         </div>
                                     </form>
-                                </div>
-                                <div class="card-footer text-center">
-                                    <p class="mb-4 text-sm mx-auto">
-                                        Don't have an account?
-                                        <a href="javascript:;" class="text-primary font-weight-bold">Sign up</a>
-                                    </p>
                                 </div>
                             </div>
                         </div>
