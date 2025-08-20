@@ -1,4 +1,7 @@
 @extends('frontend.layouts.main')
+ <link rel="stylesheet" href="{{ asset('frontend/Style/d_app.css') }}">
+<link rel="stylesheet" href="{{ asset('frontend/Style/x_app.css') }}">
+<link rel="stylesheet" href="{{ asset('frontend/Style/z_app.css') }}">
 @section('content')
     <style>
         .z_Domestic_destination_card {
