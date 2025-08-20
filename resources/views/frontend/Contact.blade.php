@@ -34,7 +34,8 @@
                     <!-- Contact Form Section -->
                     <div class="col-lg-7 col-md-12 mb-4">
                         <div class="z_contact_form">
-                            <form id="contactForm" novalidate>
+                            <form id="contactForm" novalidate action="{{ route('contactfstore')}}" method="POST">
+                               @csrf
                                 <div class="row">
                                     <div class="mb-3">
                                         <label for="name" class="z_contact_form_label">Name</label>
@@ -53,7 +54,7 @@
                                     <div class="col-md-6 mb-3">
                                         <label for="phone" class="z_contact_form_label">Phone No.</label>
                                         <input type="tel" class="z_contact_form_input" id="phone" name="phone"
-                                            placeholder="Enter your phone no" required pattern="[0-9]{10,15}">
+                                            placeholder="Enter your phone no" required >
                                         <div class="invalid-feedback">Please enter a valid phone number (10-15 digits).
                                         </div>
                                     </div>
@@ -114,7 +115,71 @@
         </div>
     </section>
 @endsection
+
+@push('styles')
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+@endpush
+
 @push('scripts')
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        // Configure toastr options
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+        // Show success message if exists
+        @if(session('success'))
+            console.log('Success session exists: {{ session('success') }}');
+            if (typeof toastr !== 'undefined') {
+                toastr.success('{{ session('success') }}');
+            } else {
+                alert('{{ session('success') }}');
+            }
+        @else
+            console.log('No success session found');
+        @endif
+
+        // Show error message if exists
+        @if(session('error'))
+            console.log('Error session exists: {{ session('error') }}');
+            if (typeof toastr !== 'undefined') {
+                toastr.error('{{ session('error') }}');
+            } else {
+                alert('{{ session('error') }}');
+            }
+        @endif
+
+        // Show validation errors
+        @if ($errors->any())
+            console.log('Validation errors exist');
+            @foreach ($errors->all() as $error)
+                if (typeof toastr !== 'undefined') {
+                    toastr.error('{{ $error }}');
+                } else {
+                    alert('{{ $error }}');
+                }
+            @endforeach
+        @endif
+    </script>
+
     <script>
         // Load header and footer
         $(document).ready(function() {
@@ -122,6 +187,7 @@
             $("#footer-placeholder").load("footer.html");
         });
     </script>
+
     <script>
         $(document).ready(function() {
             $("#header-placeholder").load("header.html", function() {
@@ -136,6 +202,7 @@
             });
         });
     </script>
+
     <script>
         $(document).ready(function() {
             $("#footer-placeholder").load("footer.html", function() {
@@ -155,6 +222,8 @@
         $(document).ready(function() {
             // Contact form validation
             $('#contactForm').on('submit', function(e) {
+                console.log('Form submitted!'); // Debug log
+
                 var isValid = true;
                 var name = $('#name');
                 var email = $('#email');
@@ -166,46 +235,62 @@
                 if (name.val().trim().length < 2) {
                     name.addClass('is-invalid');
                     isValid = false;
+                    console.log('Name validation failed');
                 } else {
                     name.removeClass('is-invalid');
                 }
+
                 // Email validation
                 var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailPattern.test(email.val().trim())) {
                     email.addClass('is-invalid');
                     isValid = false;
+                    console.log('Email validation failed');
                 } else {
                     email.removeClass('is-invalid');
                 }
-                // Phone validation
-                var phonePattern = /^[0-9]{10,15}$/;
-                if (!phonePattern.test(phone.val().trim())) {
+
+                // Phone validation - Made more flexible
+                var phoneValue = phone.val().trim().replace(/\D/g, ''); // Remove non-digits
+                if (phoneValue.length < 10 || phoneValue.length > 15) {
                     phone.addClass('is-invalid');
                     isValid = false;
+                    console.log('Phone validation failed');
                 } else {
                     phone.removeClass('is-invalid');
                 }
+
                 // City validation
                 if (city.val().trim() === '') {
                     city.addClass('is-invalid');
                     isValid = false;
+                    console.log('City validation failed');
                 } else {
                     city.removeClass('is-invalid');
                 }
+
                 // Message validation
                 if (message.val().trim().length < 5) {
                     message.addClass('is-invalid');
                     isValid = false;
+                    console.log('Message validation failed');
                 } else {
                     message.removeClass('is-invalid');
                 }
 
                 if (!isValid) {
                     e.preventDefault();
+                    console.log('Form validation failed, preventing submission');
+                    if (typeof toastr !== 'undefined') {
+                        toastr.error('Please fill all required fields correctly.');
+                    } else {
+                        alert('Please fill all required fields correctly.');
+                    }
                 } else {
-                    alert('Thank you for contacting us!');
+                    console.log('Form validation passed, submitting...');
                 }
             });
+
             // Remove error on input
             $('#contactForm input, #contactForm textarea').on('input', function() {
                 $(this).removeClass('is-invalid');

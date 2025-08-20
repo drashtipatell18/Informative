@@ -19,7 +19,8 @@
     <link rel="stylesheet" href="{{ asset('frontend/Style/d_app.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/Style/x_app.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/Style/z_app.css') }}">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 </head>
 
@@ -45,19 +46,19 @@
                     id="navbarNav">
                     <ul class="d_nav_list navbar-nav mx-auto">
                         <li class="d_nav_item nav-item">
-                            <a class="d_nav_link nav-link" href="{{ route('index')}}">Home</a>
+                            <a class="d_nav_link nav-link" href="{{ route('index') }}">Home</a>
                         </li>
                         <li class="d_nav_item nav-item">
                             <a class="d_nav_link nav-link" href="{{ route('domestic') }}">Domestic</a>
                         </li>
                         <li class="d_nav_item nav-item">
-                            <a class="d_nav_link nav-link" href="{{ route('international')}}">International</a>
+                            <a class="d_nav_link nav-link" href="{{ route('international') }}">International</a>
                         </li>
                         <li class="d_nav_item nav-item">
-                            <a class="d_nav_link nav-link" href="{{ route('about-us')}}">About us</a>
+                            <a class="d_nav_link nav-link" href="{{ route('about-us') }}">About us</a>
                         </li>
                         <li class="d_nav_item nav-item">
-                            <a class="d_nav_link nav-link" href="{{ route('contactf')}}">Contact Us</a>
+                            <a class="d_nav_link nav-link" href="{{ route('contactf') }}">Contact Us</a>
                         </li>
                     </ul>
 

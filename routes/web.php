@@ -116,6 +116,7 @@ Route::get('/tour_details/{id}', [TourDetailsController::class, 'TourDetailsDest
 Route::get('/index',[IndexController::class,'index'])->name('index');
 Route::get('/about-us',[AboutUSController::class,'AboutUS'])->name('about-us');
 Route::get('/contactf',[FrontendContactController::class,'Contact'])->name('contactf');
+Route::post('/contactfstore',[FrontendContactController::class,'ContactStore'])->name('contactfstore');
 Route::get('/domestic',[DomesticController::class,'Domestic'])->name('domestic');
 Route::get('/information',[FrontInformationController::class,'Information'])->name('information');
 Route::get('/international',[FrontInternationalController::class,'International'])->name('international');
