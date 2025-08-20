@@ -13,6 +13,7 @@ use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\TourDetailsController;
+use App\Http\Controllers\SliderController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\AboutUSController;
 use App\Http\Controllers\Frontend\DomesticController;
@@ -104,12 +105,23 @@ Route::post('/information/{id}', [InformationController::class, 'InformationUpda
 Route::get('/information/{id}', [InformationController::class, 'InformationDestroy'])->name('information.destroy');
 
 // Tour Details
+
 Route::get('/tour_details', [TourDetailsController::class, 'TourDetails'])->name('tour_details');
 Route::get('/tour_details/create', [TourDetailsController::class, 'TourDetailsCreate'])->name('tour_details.create');
 Route::post('/tour_details/store', [TourDetailsController::class, 'TourDetailsStore'])->name('tour_details.store');
 Route::get('/tour_details/{id}/edit', [TourDetailsController::class, 'TourDetailsEdit'])->name('tour_details.edit');
-Route::put('/tour_details/{id}', [TourDetailsController::class, 'TourDetailsUpdate'])->name('tour_details.update');
+Route::post('/tour_details/{id}', [TourDetailsController::class, 'TourDetailsUpdate'])->name('tour_details.update');
 Route::get('/tour_details/{id}', [TourDetailsController::class, 'TourDetailsDestroy'])->name('tour_details.destroy');
+
+// Slider
+
+Route::get('/slider', [SliderController::class, 'Slider'])->name('slider');
+Route::get('/slider/create', [SliderController::class, 'SliderCreate'])->name('slider.create');
+Route::post('/slider/store', [SliderController::class, 'SliderStore'])->name('slider.store');
+Route::get('/slider/{id}/edit', [SliderController::class, 'SliderEdit'])->name('slider.edit');
+Route::post('/slider/{id}', [SliderController::class, 'SliderUpdate'])->name('slider.update');
+Route::get('/slider/{id}', [SliderController::class, 'SliderDestroy'])->name('slider.destroy');
+
 
 //frontend
 

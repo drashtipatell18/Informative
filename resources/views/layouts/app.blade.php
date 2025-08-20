@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -116,7 +115,8 @@
     }
 
     footer.footer {
-        background-color: #f8f9fa; /* Light gray background */
+        background-color: #f8f9fa;
+        /* Light gray background */
         padding-top: 1rem;
         padding-bottom: 1rem;
     }
@@ -138,8 +138,8 @@
                 aria-hidden="true" id="iconSidenav"></i>
             <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html "
                 target="_blank">
-                <img src="{{ asset('assets/img/logo-ct-dark.png') }}" width="26px" height="26px" class="navbar-brand-img h-100"
-                    alt="main_logo">
+                <img src="{{ asset('assets/img/logo-ct-dark.png') }}" width="26px" height="26px"
+                    class="navbar-brand-img h-100" alt="main_logo">
                 <span class="ms-1 font-weight-bold">Creative Tim</span>
             </a>
         </div>
@@ -211,8 +211,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('country*') ? 'active' : '' }}"
-                        href="{{ route('country') }}">
+                    <a class="nav-link {{ Request::is('country*') ? 'active' : '' }}" href="{{ route('country') }}">
                         <div
                             class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="ni ni-world-2 text-dark text-sm opacity-10"></i>
@@ -232,7 +231,7 @@
                     </a>
                 </li>
 
-                 <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link {{ Request::is('tour_details*') ? 'active' : '' }}"
                         href="{{ route('tour_details') }}">
                         <div
@@ -240,6 +239,16 @@
                             <i class="ni ni-briefcase-24 text-dark text-sm opacity-10"></i>
                         </div>
                         <span class="nav-link-text ms-1">Tour Details</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('slider*') ? 'active' : '' }}" href="{{ route('slider') }}">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-image text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Slider</span>
                     </a>
                 </li>
 
@@ -277,25 +286,25 @@
                     @yield('content')
                 </div>
             </div>
-        <footer class="footer pt-3">
-            <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-auto">
-                        <div class="copyright text-center text-muted">
-                            ©
-                            <script>
-                                document.write(new Date().getFullYear())
-                            </script>,
-                            made with <i class="fa fa-heart text-danger"></i> by
-                            <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">
-                                Creative Tim
-                            </a>
-                            for a better web.
+            <footer class="footer pt-3">
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <div class="copyright text-center text-muted">
+                                ©
+                                <script>
+                                    document.write(new Date().getFullYear())
+                                </script>,
+                                made with <i class="fa fa-heart text-danger"></i> by
+                                <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">
+                                    Creative Tim
+                                </a>
+                                for a better web.
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </footer>
+            </footer>
 
         </main>
 
