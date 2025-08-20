@@ -25,92 +25,27 @@
     <section class="z_Domestic_destinations">
         <div class="z_Domestic_destinations_container">
             <div class="z_Domestic_destinations_grid">
-                <!-- Destination Card 1 -->
-                <a href="{{ route('information')}}" class="z_Domestic_destination_card">
-                    <div class="z_Domestic_destination_image">
-                        <img src="{{ asset('frontend/Image/Manali.png')}}" alt="Manali">
-                        <div class="z_Domestic_destination_overlay">
-                            <h3 class="z_Domestic_destination_title">Manali</h3>
-                            <p class="z_Domestic_destination_duration">13 Days</p>
-                        </div>
-                    </div>
-                </a>
-                <!-- Destination Card 2 -->
-                <a href="{{ route('information')}}" class="z_Domestic_destination_card">
-                    <div class="z_Domestic_destination_image">
-                        <img src="{{ asset('frontend/Image/KAshmir.png')}}" alt="Kashmir">
-                        <div class="z_Domestic_destination_overlay">
-                            <h3 class="z_Domestic_destination_title">Kashmir</h3>
-                            <p class="z_Domestic_destination_duration">10 Days</p>
-                        </div>
-                    </div>
-                </a>
+                @foreach($countries as $country)
+                    @php
+                        $images = is_array($country->images) ? $country->images : json_decode($country->images, true);
+                        $firstImage = $images[0] ?? null;
+                    @endphp
 
-                <!-- Destination Card 3 -->
-                <a href="{{ route('information')}}" class="z_Domestic_destination_card">
-                    <div class="z_Domestic_destination_image">
-                        <img src="{{ asset('frontend/Image/Darjeeling.png')}}" alt="Darjeeling">
-                        <div class="z_Domestic_destination_overlay">
-                            <h3 class="z_Domestic_destination_title">Darjeeling</h3>
-                            <p class="z_Domestic_destination_duration">13 Days</p>
+                    <a href="{{ route('information', $country->id) }}" class="z_Domestic_destination_card">
+                        <div class="z_Domestic_destination_image">
+                            <img src="{{ $firstImage 
+                                ? asset('images/countries/' . $firstImage) 
+                                : asset('images/countries/dummy_product.png') }}" 
+                                alt="{{ $country->name }}">
+                            
+                            <div class="z_Domestic_destination_overlay">
+                                <h3 class="z_Domestic_destination_title">{{ $country->name }}</h3>
+                                <p class="z_Domestic_destination_duration">{{ $country->day }} Days</p>
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                @endforeach
 
-                <!-- Destination Card 4 -->
-               <a href="{{ route('information')}}" class="z_Domestic_destination_card">
-                    <div class="z_Domestic_destination_image">
-                        <img src="{{ asset('frontend/Image/Kerala.png')}}" alt="Kerala">
-                        <div class="z_Domestic_destination_overlay">
-                            <h3 class="z_Domestic_destination_title">Kerala</h3>
-                            <p class="z_Domestic_destination_duration">13 Days</p>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Destination Card 5 -->
-               <a href="{{ route('information')}}" class="z_Domestic_destination_card">
-                    <div class="z_Domestic_destination_image">
-                        <img src="{{ asset('frontend/Image/Coorg Ooty.png')}}" alt="Coorg Ooty">
-                        <div class="z_Domestic_destination_overlay">
-                            <h3 class="z_Domestic_destination_title">Coorg Ooty</h3>
-                            <p class="z_Domestic_destination_duration">10 Days</p>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Destination Card 6 -->
-                <a href="{{ route('information')}}" class="z_Domestic_destination_card">
-                    <div class="z_Domestic_destination_image">
-                        <img src="{{ asset('frontend/Image/Rajasthan.png')}}" alt="Rajasthan">
-                        <div class="z_Domestic_destination_overlay">
-                            <h3 class="z_Domestic_destination_title">Rajasthan</h3>
-                            <p class="z_Domestic_destination_duration">13 Days</p>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Destination Card 7 -->
-               <a href="{{ route('information')}}" class="z_Domestic_destination_card">
-                    <div class="z_Domestic_destination_image">
-                        <img src="{{ asset('frontend/Image/Pachmarhi.png')}}" alt="Pachmarhi">
-                        <div class="z_Domestic_destination_overlay">
-                            <h3 class="z_Domestic_destination_title">Pachmarhi</h3>
-                            <p class="z_Domestic_destination_duration">13 Days</p>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Destination Card 8 -->
-               <a href="{{ route('information')}}" class="z_Domestic_destination_card">
-                    <div class="z_Domestic_destination_image">
-                        <img src="{{ asset('frontend/Image/Gujrat.png')}}" alt="Gujarat">
-                        <div class="z_Domestic_destination_overlay">
-                            <h3 class="z_Domestic_destination_title">Gujarat</h3>
-                            <p class="z_Domestic_destination_duration">10 Days</p>
-                        </div>
-                    </div>
-                </a>
             </div>
         </div>
     </section>
