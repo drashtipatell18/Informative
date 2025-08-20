@@ -54,8 +54,8 @@
                             <div class="d_footer_column">
                                 <h3 class="d_footer_heading">Support</h3>
                                 <ul class="d_footer_links">
-                                    <li><a href="About_Us.html" class="d_footer_link">About Us</a></li>
-                                    <li><a href="Contact.html" class="d_footer_link">Contact Us</a></li>
+                                    <li><a href="{{ route('about-us') }}" class="d_footer_link">About Us</a></li>
+                                    <li><a href="{{ route('contactf') }}" class="d_footer_link">Contact Us</a></li>
                                 </ul>
                             </div>
                         </div>
