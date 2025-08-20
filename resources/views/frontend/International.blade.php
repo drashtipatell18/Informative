@@ -26,82 +26,26 @@
     <section class="z_Domestic_destinations">
         <div class="z_Domestic_destinations_container">
             <div class="z_Domestic_destinations_grid">
-                <!-- Destination Card 1 -->
-                <a href="{{ route('information') }}" class="z_Domestic_destination_card">
-                    <div class="z_Domestic_destination_image">
-                        <img src="{{ asset('frontend/Image/Dubai.png') }}" alt="Dubai">
-                        <div class="z_Domestic_destination_overlay">
-                            <h3 class="z_Domestic_destination_title">Dubai</h3>
-                            <p class="z_Domestic_destination_duration">13 Days</p>
-                        </div>
-                    </div>
-                </a>
+                @foreach($countries as $country)
+                    @php
+                        $images = is_array($country->images) ? $country->images : json_decode($country->images, true);
+                        $firstImage = $images[0] ?? null;
+                    @endphp
 
-                <!-- Destination Card 2 -->
-                <a href="{{ route('information') }}" class="z_Domestic_destination_card">
-                    <div class="z_Domestic_destination_image">
-                        <img src="{{ asset('frontend/Image/Malaysia.png') }}" alt="Malaysia">
-                        <div class="z_Domestic_destination_overlay">
-                            <h3 class="z_Domestic_destination_title">Malaysia</h3>
-                            <p class="z_Domestic_destination_duration">07 Days</p>
+                    <a href="{{ route('information', $country->id) }}" class="z_Domestic_destination_card">
+                        <div class="z_Domestic_destination_image">
+                            <img src="{{ $firstImage 
+                                ? asset('images/countries/' . $firstImage) 
+                                : asset('images/countries/dummy_product.png') }}" 
+                                alt="{{ $country->name }}">
+                            
+                            <div class="z_Domestic_destination_overlay">
+                                <h3 class="z_Domestic_destination_title">{{ $country->name }}</h3>
+                                <p class="z_Domestic_destination_duration">{{ $country->day }} Days</p>
+                            </div>
                         </div>
-                    </div>
-                </a>
-
-                <!-- Destination Card 3 -->
-                <a href="{{ route('information') }}" class="z_Domestic_destination_card">
-                    <div class="z_Domestic_destination_image">
-                        <img src="{{ asset('frontend/Image/Singapore.png') }}" alt="Singapore">
-                        <div class="z_Domestic_destination_overlay">
-                            <h3 class="z_Domestic_destination_title">Singapore</h3>
-                            <p class="z_Domestic_destination_duration">13 Days</p>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Destination Card 4 -->
-                <a href="{{ route('information') }}" class="z_Domestic_destination_card">
-                    <div class="z_Domestic_destination_image">
-                        <img src="{{ asset('frontend/Image/Bali.png') }}" alt="Bali">
-                        <div class="z_Domestic_destination_overlay">
-                            <h3 class="z_Domestic_destination_title">Bali</h3>
-                            <p class="z_Domestic_destination_duration">13 Days</p>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Destination Card 5 -->
-                <a href="{{ route('information') }}" class="z_Domestic_destination_card">
-                    <div class="z_Domestic_destination_image">
-                        <img src="{{ asset('frontend/Image/Thailand.png') }}" alt="Thailand">
-                        <div class="z_Domestic_destination_overlay">
-                            <h3 class="z_Domestic_destination_title">Thailand</h3>
-                            <p class="z_Domestic_destination_duration">10 Days</p>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Destination Card 6 -->
-                <a href="{{ route('information') }}" class="z_Domestic_destination_card">
-                    <div class="z_Domestic_destination_image">
-                        <img src="{{ asset('frontend/Image/vietnam.png') }}" alt="Vietnam">
-                        <div class="z_Domestic_destination_overlay">
-                            <h3 class="z_Domestic_destination_title">Vietnam</h3>
-                            <p class="z_Domestic_destination_duration">13 Days</p>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Destination Card 7 -->
-                <a href="{{ route('information') }}" class="z_Domestic_destination_card">
-                    <div class="z_Domestic_destination_image">
-                        <img src="{{ asset('frontend/Image/Srilanka.png') }}" alt="Srilanka">
-                        <div class="z_Domestic_destination_overlay">
-                            <h3 class="z_Domestic_destination_title">Srilanka</h3>
-                            <p class="z_Domestic_destination_duration">13 Days</p>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                @endforeach
             </div>
         </div>
     </section>
