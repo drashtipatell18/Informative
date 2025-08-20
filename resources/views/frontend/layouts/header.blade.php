@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
-    <!-- b & f -->
+    <link rel="stylesheet" href="{{ asset('frontend/Style/d_app.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/Style/x_app.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/Style/z_app.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
@@ -16,9 +17,7 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <!-- style -->
-    <link rel="stylesheet" href="{{ asset('frontend/Style/d_app.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/Style/x_app.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/Style/z_app.css') }}">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
@@ -30,7 +29,7 @@
         <nav class="d_navbar navbar navbar-expand-md">
             <div class="container ">
                 <!-- Logo -->
-                <a class="d_logo navbar-brand" href="#">
+                <a class="d_logo navbar-brand" href="{{ route('index') }}">
                     LOGO
                 </a>
 
