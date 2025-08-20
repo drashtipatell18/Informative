@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Enquiry;
+use App\Models\Silder;
 
 class IndexController extends Controller
 {
     public function index()
     {
-        return view('frontend.index');
+        $sliders = Silder::all();
+        return view('frontend.index',compact('sliders'));
     }
 
     public function CreateFrontEnquiry(Request $request)
@@ -32,5 +34,4 @@ class IndexController extends Controller
 
         return redirect()->route('index')->with('success', 'Enquiry created successfully!');
     }
-
 }

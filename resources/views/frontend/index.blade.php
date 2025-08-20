@@ -1,5 +1,5 @@
 @extends('frontend.layouts.main')
- <link rel="stylesheet" href="{{ asset('frontend/Style/d_app.css') }}">
+<link rel="stylesheet" href="{{ asset('frontend/Style/d_app.css') }}">
 <link rel="stylesheet" href="{{ asset('frontend/Style/x_app.css') }}">
 <link rel="stylesheet" href="{{ asset('frontend/Style/z_app.css') }}">
 <style>
@@ -211,27 +211,18 @@
             <h1 class="x_hero_title">It's A Big World Out There,<br>Go Explore.</h1>
             <p class="x_hero_text">Lorem ipsum is simply dummy text of the printing and typesetting industry.Lorem ipsum
                 has been the industry's stan</p>
-            <a href="{{ route('information')}}"><button class="x_explore_btn">Explore More</button></a>
+            <a href="{{ route('information') }}"><button class="x_explore_btn">Explore More</button></a>
         </div>
         <div class="x_main">
             <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper x_mySwiper2">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <img src="{{ asset('frontend/Image/img1.png') }}" />
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="{{ asset('frontend/Image/img2.png') }}" />
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="{{ asset('frontend/Image/img3.png') }}" />
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="{{ asset('frontend/Image/img4.png') }}" />
-                    </div>
-
+                    @foreach ($sliders as $slider)
+                        <div class="swiper-slide">
+                            <img src="{{ asset('images/sliders/' . $slider->image) }}"
+                                alt="{{ $slider->title ?? 'Slider Image' }}" />
+                        </div>
+                    @endforeach
                 </div>
-                <!-- <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div> -->
             </div>
         </div>
 
@@ -239,34 +230,19 @@
         <div class="x_destinations">
             <div class="x_destination_cards_wrapper"
                 style="overflow: hidden; position: absolute; right: -150px; bottom: 50px; z-index: 10; display: flex; width: 50%;">
-                <div class="x_destination_card x_active" style="margin-bottom: 20px;">
-                    <img src="{{ asset('frontend/Image/img1.png') }}" alt="Beach" class="x_dest_img">
-                    <div class="x_dest_info">
-                        <span class="x_dest_label">Get Beach</span>
-                        <h3 class="x_dest_title">Lorem beach</h3>
+
+                @foreach ($sliders as $index => $slider)
+                    <div class="x_destination_card {{ $index === 0 ? 'x_active' : '' }}" style="margin-bottom: 20px;"
+                        data-index="{{ $index }}">
+                        <img src="{{ asset('images/sliders/'.$slider->image) }}" alt="{{ $slider->name ?? 'Destination' }}"
+                            class="x_dest_img">
+                        <div class="x_dest_info">
+                            <span class="x_dest_name">{{ $slider->name ?? 'Get Location' }}</span>
+                            <h3 class="x_dest_description">{{ $slider->description ?? 'Destination Title' }}</h3>
+                        </div>
                     </div>
-                </div>
-                <div class="x_destination_card" style="margin-bottom: 20px;">
-                    <img src="{{ asset('frontend/Image/img2.png') }}" alt="Mountain" class="x_dest_img">
-                    <div class="x_dest_info">
-                        <span class="x_dest_label">Get Lake</span>
-                        <h3 class="x_dest_title">Lack ipsum</h3>
-                    </div>
-                </div>
-                <div class="x_destination_card" style="margin-bottom: 20px;">
-                    <img src="{{ asset('frontend/Image/img3.png') }}" alt="Desert" class="x_dest_img">
-                    <div class="x_dest_info">
-                        <span class="x_dest_label">Dubai</span>
-                        <h3 class="x_dest_title">Jumeira Burj</h3>
-                    </div>
-                </div>
-                <div class="x_destination_card">
-                    <img src="{{ asset('frontend/Image/img4.png') }}" alt="Desert" class="x_dest_img">
-                    <div class="x_dest_info">
-                        <span class="x_dest_label">Dubai</span>
-                        <h3 class="x_dest_title">Jumeira Burj</h3>
-                    </div>
-                </div>
+                @endforeach
+
             </div>
         </div>
     </div>
@@ -328,7 +304,7 @@
                                 laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
                                 architecto beatae vitae dicta sunt explicabo.</p>
                         </div>
-                        <a href="{{ route('about-us')}}"><button class="d_LP_read_more_btn">Read More</button></a>
+                        <a href="{{ route('about-us') }}"><button class="d_LP_read_more_btn">Read More</button></a>
 
                         <!-- Background Graphics -->
                         <div class="d_LP_bg_graphics">
@@ -1125,74 +1101,78 @@
     <script>
         // Wait for DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', function() {
+            // Get dynamic slider count from PHP
+            const sliderCount = {{ count($sliders) }};
+
             var swiper2 = new Swiper(".x_mySwiper2", {
                 spaceBetween: 0,
                 effect: "fade",
-                loop: true,
-
-                // navigation: {
-                //     nextEl: ".swiper-button-next",
-                //     prevEl: ".swiper-button-prev",
-                // },
+                loop: sliderCount > 1, // Only enable loop if more than 1 slide
                 pagination: {
                     el: ".swiper-pagination",
                     clickable: true,
                 },
+                autoplay: sliderCount > 1 ? {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                } : false
             });
 
-            // Get all destination cards
+            // Get all destination cards (dynamic)
             const destinationCards = document.querySelectorAll('.x_destination_card');
 
-            // Sync destination cards with slider
-            destinationCards.forEach(function(card, index) {
-                card.addEventListener('click', function() {
-                    // Remove active class from all cards
-                    destinationCards.forEach(function(c) {
-                        c.classList.remove('x_active');
+            if (destinationCards.length > 0) {
+                // Sync destination cards with slider
+                destinationCards.forEach(function(card, index) {
+                    card.addEventListener('click', function() {
+                        // Remove active class from all cards
+                        destinationCards.forEach(function(c) {
+                            c.classList.remove('x_active');
+                        });
+
+                        // Add active class to clicked card
+                        this.classList.add('x_active');
+
+                        // Move active card to first position with smooth animation
+                        const wrapper = document.querySelector('.x_destination_cards_wrapper');
+                        const activeCard = this;
+
+                        wrapper.style.transition = 'all 0.5s ease';
+                        wrapper.insertBefore(activeCard, wrapper.firstChild);
+
+                        // Change slide to match the card
+                        if (sliderCount > 1) {
+                            swiper2.slideToLoop(index);
+                        } else {
+                            swiper2.slideTo(index);
+                        }
+                    });
+                });
+
+                // Update active card when slide changes
+                swiper2.on('slideChange', function() {
+                    destinationCards.forEach(function(card) {
+                        card.classList.remove('x_active');
                     });
 
-                    // Add active class to clicked card
-                    this.classList.add('x_active');
+                    const activeIndex = swiper2.realIndex;
+                    if (destinationCards[activeIndex]) {
+                        const activeCard = destinationCards[activeIndex];
+                        activeCard.classList.add('x_active');
 
-                    // Move active card to first position with smooth animation
-                    const wrapper = document.querySelector('.x_destination_cards_wrapper');
-                    const activeCard = this;
-
-                    // Add transition for smooth movement
-                    wrapper.style.transition = 'all 0.5s ease';
-
-                    // Move the active card to the beginning
-                    wrapper.insertBefore(activeCard, wrapper.firstChild);
-
-                    // Change slide to match the card (accounting for loop)
-                    swiper2.slideToLoop(index);
-                });
-            });
-
-            // Update active card when slide changes
-            swiper2.on('slideChange', function() {
-                // Remove active class from all cards
-                destinationCards.forEach(function(card) {
-                    card.classList.remove('x_active');
+                        const wrapper = document.querySelector('.x_destination_cards_wrapper');
+                        wrapper.style.transition = 'all 0.5s ease';
+                        wrapper.insertBefore(activeCard, wrapper.firstChild);
+                    }
                 });
 
-                // Add active class to card matching current slide
-                const activeIndex = swiper2.realIndex;
-                if (destinationCards[activeIndex]) {
-                    const activeCard = destinationCards[activeIndex];
-                    activeCard.classList.add('x_active');
-
-                    // Move active card to first position
-                    const wrapper = document.querySelector('.x_destination_cards_wrapper');
-                    wrapper.style.transition = 'all 0.5s ease';
-                    wrapper.insertBefore(activeCard, wrapper.firstChild);
-                }
-            });
-
-            // Set initial active card based on first slide
-            setTimeout(function() {
-                destinationCards[0].classList.add('x_active');
-            }, 100);
+                // Set initial active card
+                setTimeout(function() {
+                    if (destinationCards[0]) {
+                        destinationCards[0].classList.add('x_active');
+                    }
+                }, 100);
+            }
         });
     </script>
     <script>
