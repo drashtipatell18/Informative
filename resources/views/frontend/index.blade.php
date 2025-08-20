@@ -328,7 +328,7 @@
                                 laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
                                 architecto beatae vitae dicta sunt explicabo.</p>
                         </div>
-                        <a href="About_Us.html"><button class="d_LP_read_more_btn">Read More</button></a>
+                        <a href="{{ route('about-us')}}"><button class="d_LP_read_more_btn">Read More</button></a>
 
                         <!-- Background Graphics -->
                         <div class="d_LP_bg_graphics">
