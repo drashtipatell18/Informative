@@ -130,6 +130,6 @@ Route::get('/about-us',[AboutUSController::class,'AboutUS'])->name('about-us');
 Route::get('/contactf',[FrontendContactController::class,'Contact'])->name('contactf');
 Route::post('/contactfstore',[FrontendContactController::class,'ContactStore'])->name('contactfstore');
 Route::get('/domestic',[DomesticController::class,'Domestic'])->name('domestic');
-Route::get('/information',[FrontInformationController::class,'Information'])->name('information');
+Route::get('informationFront/{id}', [FrontInformationController::class, 'Information'])->name('informationFront');
 Route::get('/international',[FrontInternationalController::class,'International'])->name('international');
 Route::post('/create-enquiry', [IndexController::class, 'CreateFrontEnquiry'])->name('create.enquiry');

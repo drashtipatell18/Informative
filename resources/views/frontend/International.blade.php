@@ -32,7 +32,7 @@
                         $firstImage = $images[0] ?? null;
                     @endphp
 
-                    <a href="{{ route('information', $country->id) }}" class="z_Domestic_destination_card">
+                   <a href="{{ route('informationFront', $country->id) }}" class="z_Domestic_destination_card">
                         <div class="z_Domestic_destination_image">
                             <img src="{{ $firstImage 
                                 ? asset('images/countries/' . $firstImage) 

@@ -292,7 +292,7 @@ body {
 /* Hero Section */
 .z_infor_hero {
   height: 466px;
-  background: url("../Image/Information.png") center center/cover no-repeat;
+  /* background: url("../Image/Information.png") center center/cover no-repeat; */
   display: flex;
   align-items: center;
   justify-content: center;
