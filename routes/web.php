@@ -21,7 +21,7 @@ use App\Http\Controllers\Frontend\ContactController as FrontendContactController
 use App\Http\Controllers\Frontend\InternationalController as FrontInternationalController;
 
 Route::get('/', function () {
-   return redirect()->route('login');
+   return redirect()->route('index');
 });
 
 Auth::routes();
