@@ -328,55 +328,20 @@
                 <h2 class="d_OS_title fw-bold">We Offer Best Services</h2>
             </div>
             <div class="row g-4 justify-content-center">
-                <div class="col-6 col-lg-3">
-                    <div class="d_OS_card text-center p-4 bg-white shadow-sm h-100 rounded-4 position-relative">
-                        <div class="d_OS_icon_box position-relative mx-auto mb-4">
-                            <div class="d_OS_icon_bg"></div>
-                            <img src="{{ asset('frontend/Image/icon(1).png') }}" alt="Explore the world"
-                                class="d_OS_icon_positioned">
+                @foreach ($Service as $service)
+                    <div class="col-6 col-lg-3">
+                        <div class="d_OS_card text-center p-4 bg-white shadow-sm h-100 rounded-4 position-relative">
+                            <div class="d_OS_icon_box position-relative mx-auto mb-4">
+                                <div class="d_OS_icon_bg"></div>
+                                <img src="{{ asset('images/services/' . $service->image) }}" alt="{{ $service->name }}"
+                                    class="d_OS_icon_positioned">
+                            </div>
+                            <h5 class="fw-bold">{{ $service->name }}</h5>
+                            <p class="mb-0 text-muted">{{ $service->description }}</p>
                         </div>
-                        <h5 class="fw-bold">Explore the world</h5>
-                        <p class="mb-0 text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry.</p>
                     </div>
-                </div>
+                @endforeach
 
-                <div class="col-6 col-lg-3">
-                    <div class="d_OS_card text-center p-4 bg-white shadow-sm h-100 rounded-4 position-relative">
-                        <div class="d_OS_icon_box position-relative mx-auto mb-4">
-                            <div class="d_OS_icon_bg"></div>
-                            <img src="{{ asset('frontend/Image/icon(4).png') }}" alt="Explore the world"
-                                class="d_OS_icon_positioned">
-                        </div>
-                        <h5 class="fw-semibold">Best Flight Options</h5>
-                        <p class="mb-0 text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry.</p>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3">
-                    <div class="d_OS_card text-center p-4 bg-white shadow-sm h-100 rounded-4 position-relative">
-                        <div class="d_OS_icon_box position-relative mx-auto mb-4">
-                            <div class="d_OS_icon_bg"></div>
-                            <img src="{{ asset('frontend/Image/icon(3).png') }}" alt="Explore the world"
-                                class="d_OS_icon_positioned">
-                        </div>
-                        <h5 class="fw-semibold">Relax & have fun</h5>
-                        <p class="mb-0 text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry.</p>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3">
-                    <div class="d_OS_card text-center p-4 bg-white shadow-sm h-100 rounded-4 position-relative">
-                        <div class="d_OS_icon_box position-relative mx-auto mb-4">
-                            <div class="d_OS_icon_bg"></div>
-                            <img src="{{ asset('frontend/Image/icon(2).png') }}" alt="Explore the world"
-                                class="d_OS_icon_positioned">
-                        </div>
-                        <h5 class="fw-semibold">Cost Efficient</h5>
-                        <p class="mb-0 text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry.</p>
-                    </div>
-                </div>
             </div>
         </div>
 
