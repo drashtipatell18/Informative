@@ -6,13 +6,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Enquiry;
 use App\Models\Silder;
+use App\Models\AboutTravesly;
 
 class IndexController extends Controller
 {
     public function index()
     {
         $sliders = Silder::all();
-        return view('frontend.index',compact('sliders'));
+        $AboutTravesly = AboutTravesly::all();
+
+        foreach ($AboutTravesly as $item) {
+            $item->images = json_decode($item->image); // decode the image JSON array into PHP array
+        }
+        return view('frontend.index',compact('sliders','AboutTravesly'));
     }
 
     public function CreateFrontEnquiry(Request $request)

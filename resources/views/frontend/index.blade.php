@@ -234,8 +234,8 @@
                 @foreach ($sliders as $index => $slider)
                     <div class="x_destination_card {{ $index === 0 ? 'x_active' : '' }}" style="margin-bottom: 20px;"
                         data-index="{{ $index }}">
-                        <img src="{{ asset('images/sliders/'.$slider->image) }}" alt="{{ $slider->name ?? 'Destination' }}"
-                            class="x_dest_img">
+                        <img src="{{ asset('images/sliders/' . $slider->image) }}"
+                            alt="{{ $slider->name ?? 'Destination' }}" class="x_dest_img">
                         <div class="x_dest_info">
                             <span class="x_dest_name">{{ $slider->name ?? 'Get Location' }}</span>
                             <h3 class="x_dest_description">{{ $slider->description ?? 'Destination Title' }}</h3>
@@ -249,73 +249,70 @@
     <!-- Landing Page Section -->
     <section class="d_LP_section ">
         <div class="container">
-            <div class="row align-items-stretch pt-4 ">
-                <!-- Left Column - Image Collage -->
-                <div class="col-md-6 my-auto h-100">
-                    <div class="d_LP_image_collage row">
-                        <div class="col-6">
-                            <!-- Left Images -->
-                            <div class="d-flex flex-column gap-3">
-                                <div class="d_LP_image_item d_LP_top_image">
-                                    <img src="{{ asset('frontend/Image/h(3).png') }}" alt="Hot Air Balloons"
-                                        class="d_LP_img">
-                                </div>
-                                <div class="d_LP_image_item d_LP_bottom_image">
-                                    <img src="{{ asset('frontend/Image/h(4).png') }}" alt="Mountain View" class="d_LP_img">
+            @foreach ($AboutTravesly as $about)
+                <div class="row align-items-stretch pt-4">
+                    <!-- Left Column - Image Collage -->
+                    <div class="col-md-6 my-auto h-100">
+                        <div class="d_LP_image_collage row">
+                            <div class="col-6">
+                                <div class="d-flex flex-column gap-3">
+                                    @if (isset($about->images[0]))
+                                        <div class="d_LP_image_item d_LP_top_image">
+                                            <img src="{{ asset('images/AboutTravesly/' . $about->images[0]) }}"
+                                                alt="Image 1" class="d_LP_img">
+                                        </div>
+                                    @endif
+
+                                    @if (isset($about->images[1]))
+                                        <div class="d_LP_image_item d_LP_bottom_image">
+                                            <img src="{{ asset('images/AboutTravesly/' . $about->images[1]) }}"
+                                                alt="Image 2" class="d_LP_img">
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
 
+                            <div class="col-6">
+                                @if (isset($about->images[2]))
+                                    <div class="d_LP_image_item d_LP_right_image">
+                                        <img src="{{ asset('images/AboutTravesly/' . $about->images[2]) }}" alt="Image 3"
+                                            class="d_LP_img">
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-center align-items-center">
+                                <div class="d_LP_enquiry_button">
+                                    <div class="d_LP_button_circle">
+                                        <img src="{{ isset($about->images[3]) ? asset('images/AboutTravesly/' . $about->images[3]) : asset('frontend/Image/h(2).png') }}"
+                                            alt="Enquiry Now" style="width: 100%; height: 100%; object-fit: contain;" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-6 ">
-                            <!-- Right Image -->
-                            <div class="d_LP_image_item d_LP_right_image">
-                                <img src="{{ asset('frontend/Image/h(5).png') }}" alt="Girl in Yellow Dress"
+                    </div>
+
+                    <!-- Right Column - Content -->
+                    <div class="col-md-6 h-100 ps-lg-5 ps-md-4 mt-md-0 mt-5">
+                        <div class="d_LP_content">
+                            <div class="d_LP_subtitle">ABOUT US</div>
+                            <h2 class="d_LP_title">{{ $about->name ?? 'More About Travesly' }}</h2>
+                            <div class="d_LP_text">
+                                {!! $about->description !!}
+                            </div>
+                            <a href="{{ route('about-us') }}">
+                                <button class="d_LP_read_more_btn">Read More</button>
+                            </a>
+
+                            <!-- Background Graphics -->
+                            <div class="d_LP_bg_graphics">
+                                <img src="{{ asset('frontend/Image/h(1).png') }}" alt="Couple reading map"
                                     class="d_LP_img">
                             </div>
                         </div>
-                        <div class="col-12 d-flex justify-content-center align-items-center">
-                            <div class="d_LP_enquiry_button">
-                                <div class="d_LP_button_circle">
-                                    <img src="{{ asset('frontend/Image/h(2).png') }}" alt="Enquiry Now"
-                                        style="width: 100%; height: 100%; object-fit: contain;" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Centered Image (h (2).png) -->
-
                     </div>
                 </div>
-
-
-                <!-- Right Column - Content -->
-                <div class="col-md-6 h-100 ps-lg-5 ps-md-4 mt-md-0 mt-5">
-                    <div class="d_LP_content">
-                        <div class="d_LP_subtitle">ABOUT US</div>
-                        <h2 class="d_LP_title">More About Travelsy</h2>
-                        <div class="d_LP_text">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                                officia deserunt mollit anim id est laborum.</p>
-                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                                laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                                architecto beatae vitae dicta sunt explicabo.</p>
-                        </div>
-                        <a href="{{ route('about-us') }}"><button class="d_LP_read_more_btn">Read More</button></a>
-
-                        <!-- Background Graphics -->
-                        <div class="d_LP_bg_graphics">
-                            <img src="{{ asset('frontend/Image/h(1).png') }}" alt="Couple reading map" class="d_LP_img">
-                        </div>
-
-                        <!-- Bottom Right Abstract Design -->
-
-                    </div>
-                </div>
-            </div>
+            @endforeach
 
         </div>
         <div class="d_LP_abstract_design"></div>
