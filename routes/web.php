@@ -20,6 +20,7 @@ use App\Http\Controllers\Frontend\DomesticController;
 use App\Http\Controllers\Frontend\InformationController as FrontInformationController;
 use App\Http\Controllers\Frontend\ContactController as FrontendContactController;
 use App\Http\Controllers\Frontend\InternationalController as FrontInternationalController;
+use App\Http\Controllers\AboutTraveslyController;
 
 Route::get('/', function () {
    return redirect()->route('index');
@@ -122,7 +123,16 @@ Route::get('/slider/{id}/edit', [SliderController::class, 'SliderEdit'])->name('
 Route::post('/slider/{id}', [SliderController::class, 'SliderUpdate'])->name('slider.update');
 Route::get('/slider/{id}', [SliderController::class, 'SliderDestroy'])->name('slider.destroy');
 
+// Travesly
 
+Route::get('/travesly', [AboutTraveslyController::class, 'Travesly'])->name('travesly');
+Route::get('/travesly/create', [AboutTraveslyController::class, 'TraveslyCreate'])->name('travesly.create');
+Route::post('/travesly/store', [AboutTraveslyController::class, 'TraveslyStore'])->name('travesly.store');
+Route::get('/travesly/{id}/edit', [AboutTraveslyController::class, 'TraveslyEdit'])->name('travesly.edit');
+Route::post('/travesly/{id}', [AboutTraveslyController::class, 'TraveslyUpdate'])->name('travesly.update');
+Route::get('/travesly/{id}', [AboutTraveslyController::class, 'TraveslyDestroy'])->name('travesly.destroy');
+Route::post('/about-travesly/image/destroy', [AboutTraveslyController::class, 'destroyImage'])
+    ->name('abouttravesly.image.destroy');
 //frontend
 
 Route::get('/index',[IndexController::class,'index'])->name('index');

@@ -31,7 +31,7 @@ class SliderController extends Controller
             'description' => $request->input('description'),
             'image' => $image_name,
         ]);
-        return redirect()->route('slider')->with('success','Service created successfully');
+        return redirect()->route('slider')->with('success','Slider created successfully');
     }
 
     public function SliderEdit($id)
@@ -79,9 +79,8 @@ class SliderController extends Controller
 
     public function SliderDestroy($id)
     {
-        $tour_details = Silder::find($id);
-        $tour_details->delete();
-        return redirect()->route('slider')->with('success','Tour Details deleted successfully');
-
+        $sliders = Silder::find($id);
+        $sliders->delete();
+        return redirect()->route('slider')->with('success','Slider deleted successfully');
     }
 }
