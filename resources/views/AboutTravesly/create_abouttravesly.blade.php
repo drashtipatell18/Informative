@@ -143,7 +143,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Form validation
+            // Form validation (keep your existing validation code)
             $('#about-travel-form').validate({
                 rules: {
                     name: {
@@ -188,14 +188,11 @@
                 }
             });
 
-            window.removeImageImmediately = removeImageImmediately;
-
             // Get the correct about travel ID
             const aboutTravelId = {{ isset($aboutTravel) ? $aboutTravel->id : 'null' }};
-            console.log('About Travel ID:', aboutTravelId); // Debug line
 
-            // Immediate AJAX deletion function
-            function removeImageImmediately(button, imageName) {
+            // Fixed immediate AJAX deletion function
+            window.removeImageImmediately = function(button, imageName) {
                 if (!confirm('Are you sure you want to delete this image?')) {
                     return;
                 }
@@ -216,9 +213,16 @@
                         },
                         success: function(response) {
                             if (response.success) {
+                                // Remove the image container from DOM
                                 imageContainer.fadeOut(300, function() {
                                     $(this).remove();
                                 });
+
+                                // Update the hidden old_image field with the updated images from server
+                                if (response.updated_images) {
+                                    $('#old_image').val(JSON.stringify(response.updated_images));
+                                }
+
                                 showMessage('Image deleted successfully', 'success');
                             } else {
                                 imageContainer.removeClass('image-loading');
@@ -230,8 +234,6 @@
                             imageContainer.removeClass('image-loading');
                             $(button).prop('disabled', false);
                             let errorMessage = 'Error deleting image. Please try again.';
-
-                            console.log('AJAX Error:', xhr); // Debug line
 
                             if (xhr.responseJSON && xhr.responseJSON.message) {
                                 errorMessage = xhr.responseJSON.message;
@@ -247,7 +249,7 @@
                 } else {
                     showMessage('Cannot delete image: About Travel ID not found', 'error');
                 }
-            }
+            };
 
             // Function to show messages
             function showMessage(message, type) {
@@ -256,11 +258,11 @@
 
                 const alertClass = type === 'success' ? 'alert-success' : 'alert-danger';
                 const alertHtml = `
-                    <div class="alert ${alertClass} alert-dismissible fade show" role="alert">
-                        ${message}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                `;
+            <div class="alert ${alertClass} alert-dismissible fade show" role="alert">
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        `;
 
                 $('.card-body').prepend(alertHtml);
 
@@ -270,10 +272,10 @@
                 }, 3000);
             }
 
-            // Preview new images before upload (optional enhancement)
+            // Preview new images before upload
             $('#image').change(function() {
                 const files = this.files;
-                $('#new-image-previews').remove(); // Remove existing previews
+                $('#new-image-previews').remove();
 
                 if (files.length > 0) {
                     let previewsHtml =
@@ -285,11 +287,11 @@
                             const reader = new FileReader();
                             reader.onload = function(e) {
                                 const previewHtml = `
-                                    <div class="image-container">
-                                        <img src="${e.target.result}" alt="New Image Preview" style="width: 120px; height: 120px;" >
-                                        <span class="badge bg-info position-absolute" style="top: -5px; left: -5px; font-size: 10px;">New</span>
-                                    </div>
-                                `;
+                            <div class="image-container">
+                                <img src="${e.target.result}" alt="New Image Preview" style="width: 120px; height: 120px; object-fit: cover;">
+                                <span class="badge bg-info position-absolute" style="top: -5px; left: -5px; font-size: 10px;">New</span>
+                            </div>
+                        `;
                                 $('#new-image-previews').append(previewHtml);
                             };
                             reader.readAsDataURL(file);
