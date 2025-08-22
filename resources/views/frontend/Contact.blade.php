@@ -1,7 +1,15 @@
 @extends('frontend.layouts.main')
- <link rel="stylesheet" href="{{ asset('frontend/Style/d_app.css') }}">
+<link rel="stylesheet" href="{{ asset('frontend/Style/d_app.css') }}">
 <link rel="stylesheet" href="{{ asset('frontend/Style/x_app.css') }}">
 <link rel="stylesheet" href="{{ asset('frontend/Style/z_app.css') }}">
+<style>
+    .error {
+        color: #dc3545;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        display: block;
+    }
+</style>
 @section('content')
     <!-- Hero Section -->
     <section class="z_contact_hero pt-5 ">
@@ -37,8 +45,8 @@
                     <!-- Contact Form Section -->
                     <div class="col-lg-7 col-md-12 mb-4">
                         <div class="z_contact_form">
-                            <form id="contactForm" action="{{ route('contactfstore')}}" method="POST">
-                               @csrf
+                            <form id="contactForm" action="{{ route('contactfstore') }}" method="POST">
+                                @csrf
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
                                         <label for="name" class="z_contact_form_label">Name</label>
@@ -65,8 +73,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="message" class="z_contact_form_label">Message</label>
-                                    <textarea class="z_contact_form_textarea" id="message" name="message" rows="4"
-                                        placeholder="Enter your message">{{ old('message') }}</textarea>
+                                    <textarea class="z_contact_form_textarea" id="message" name="message" rows="4" placeholder="Enter your message">{{ old('message') }}</textarea>
                                 </div>
                                 <div class="z_contact_form_btn_parent">
                                     <button type="submit" class="z_contact_form_btn">Send Message</button>
@@ -112,46 +119,18 @@
         </div>
     </section>
 @endsection
-
-@push('styles')
-    <!-- Toastr CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-
-    <!-- Custom validation styles -->
-    <style>
-        .error {
-            color: #dc3545;
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
-            display: block;
-        }
-
-        .z_contact_form_input.error,
-        .z_contact_form_textarea.error {
-            border-color: #dc3545;
-            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
-        }
-
-        .z_contact_form_input.valid,
-        .z_contact_form_textarea.valid {
-            border-color: #28a745;
-            box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
-        }
-    </style>
-@endpush
-
 @push('scripts')
-    <!-- jQuery (if not already included) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <!-- jQuery Validation Plugin -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-
-    <!-- Toastr JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
     <script>
         $(document).ready(function() {
+            // Add debug flag to prevent multiple executions
+            if (window.contactFormInitialized) {
+                console.log('Contact form already initialized, skipping...');
+                return;
+            }
+            window.contactFormInitialized = true;
+
+            console.log('Initializing contact form...');
+
             // Configure toastr options
             toastr.options = {
                 "closeButton": true,
@@ -159,7 +138,7 @@
                 "newestOnTop": false,
                 "progressBar": true,
                 "positionClass": "toast-top-right",
-                "preventDuplicates": false,
+                "preventDuplicates": true, // This should prevent duplicates
                 "onclick": null,
                 "showDuration": "300",
                 "hideDuration": "1000",
@@ -170,13 +149,6 @@
                 "showMethod": "fadeIn",
                 "hideMethod": "fadeOut"
             };
-
-            // Debug: Check if form exists
-            console.log('Contact form found:', $('#contactForm').length > 0);
-
-            // Debug: Check form method and action
-            console.log('Form action:', $('#contactForm').attr('action'));
-            console.log('Form method:', $('#contactForm').attr('method'));
 
             // Custom validation methods
             $.validator.addMethod("phoneNumber", function(value, element) {
@@ -258,101 +230,41 @@
                     // Show loading message
                     toastr.info('Sending your message...', 'Please wait');
 
-                    // Debug: Log form data before submission
-                    console.log('Form data being submitted:');
-                    $(form).find('input, textarea').each(function() {
-                        console.log($(this).attr('name') + ': ' + $(this).val());
-                    });
+                    // Log form data for debugging
+                    console.log('Form validation passed. Submitting form...');
 
-                    // Submit the form normally (not via AJAX)
+                    // Submit the form
                     form.submit();
-                    return false;
-                },
-                invalidHandler: function(event, validator) {
-                    console.log('Form validation failed. Errors:', validator.numberOfInvalids());
-                    toastr.error('Please fix the errors in the form before submitting.');
-                }
-            });
-
-            // Alternative form submission handler (backup)
-            $('#contactForm').on('submit', function(e) {
-                console.log('Form submit event triggered');
-
-                // If jQuery validation is not working, do basic validation
-                if (!$.validator) {
-                    e.preventDefault();
-                    var isValid = true;
-                    var errors = [];
-
-                    if ($('#name').val().trim() === '') {
-                        errors.push('Name is required');
-                        isValid = false;
-                    }
-                    if ($('#email').val().trim() === '') {
-                        errors.push('Email is required');
-                        isValid = false;
-                    }
-                    if ($('#phone').val().trim() === '') {
-                        errors.push('Phone is required');
-                        isValid = false;
-                    }
-                    if ($('#city').val().trim() === '') {
-                        errors.push('City is required');
-                        isValid = false;
-                    }
-                    if ($('#message').val().trim() === '') {
-                        errors.push('Message is required');
-                        isValid = false;
-                    }
-
-                    if (!isValid) {
-                        errors.forEach(function(error) {
-                            toastr.error(error);
-                        });
-                        return false;
-                    }
                 }
             });
 
             // Real-time validation feedback
             $('#contactForm input, #contactForm textarea').on('keyup blur', function() {
-                if ($.validator && $("#contactForm").data('validator')) {
+                if ($("#contactForm").data('validator')) {
                     $(this).valid();
                 }
             });
 
-            // Show success message if exists
-            @if(session('success'))
-                console.log('Success session exists: {{ session('success') }}');
-                if (typeof toastr !== 'undefined') {
+            // Show success message if exists (with debug)
+            @if (session('success'))
+                console.log('Success session found, showing toastr...');
+                if (!window.successMessageShown) {
+                    window.successMessageShown = true;
                     toastr.success('{{ session('success') }}');
                 } else {
-                    alert('{{ session('success') }}');
+                    console.log('Success message already shown, skipping...');
                 }
-            @else
-                console.log('No success session found');
             @endif
 
-            // Show error message if exists
-            @if(session('error'))
-                console.log('Error session exists: {{ session('error') }}');
-                if (typeof toastr !== 'undefined') {
+            // Show error message if exists (with debug)
+            @if (session('error'))
+                console.log('Error session found, showing toastr...');
+                if (!window.errorMessageShown) {
+                    window.errorMessageShown = true;
                     toastr.error('{{ session('error') }}');
                 } else {
-                    alert('{{ session('error') }}');
+                    console.log('Error message already shown, skipping...');
                 }
-            @endif
-
-            // Show validation errors
-            @if ($errors->any())
-                console.log('Validation errors exist');
-                @foreach ($errors->all() as $error)
-                    if (typeof toastr !== 'undefined') {
-                        toastr.error('{{ $error }}');
-                    } else {
-                        alert('{{ $error }}');
-                    }
-                @endforeach
             @endif
         });
     </script>

@@ -437,7 +437,7 @@
             console.log('jQuery Validation initialized successfully');
         });
     </script>
-
+    @stack('scripts');
 
 </body>
 

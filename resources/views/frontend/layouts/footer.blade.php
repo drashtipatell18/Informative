@@ -65,8 +65,9 @@
                             <div class="d_footer_column">
                                 <h3 class="d_footer_heading">Category</h3>
                                 <ul class="d_footer_links">
-                                    <li><a href="{{ route('domestic')}}" class="d_footer_link">Domestic</a></li>
-                                    <li><a href="{{ route('international') }}" class="d_footer_link">International</a></li>
+                                    <li><a href="{{ route('domestic') }}" class="d_footer_link">Domestic</a></li>
+                                    <li><a href="{{ route('international') }}" class="d_footer_link">International</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -188,6 +189,8 @@
                 }, 100);
             });
         </script>
+        @stack('scripts');
+
     </body>
 
     </html>
