@@ -402,106 +402,25 @@
 
     <div class="d_carousel_container">
         <div class="owl-carousel d_video_carousel">
-            <!-- Video 1 -->
-            <div class="d_video_item">
-                <div class="d_video_container">
-                    <video class="d_video_element" preload="metadata"
-                        poster="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
-                        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-                            type="video/mp4">
-                    </video>
-                    <div class="d_play_overlay" onclick="d_playVideo(this)">
-                        <button class="d_play_button"></button>
-                    </div>
-                    <div class="d_video_controls">
-                        <div class="d_progress_bar">
-                            <div class="d_progress_fill"></div>
+            @foreach ($videoslider as $video)
+                <div class="d_video_item">
+                    <div class="d_video_container">
+                        <video class="d_video_element" preload="metadata" poster="{{ $video->name }}">
+                            <source src="{{ asset('video/videoslider/' . $video->video) }}" type="video/mp4">
+                        </video>
+                        <div class="d_play_overlay" onclick="d_playVideo(this)">
+                            <button class="d_play_button"></button>
                         </div>
-                        <div class="d_video_time">0:00 / 0:00</div>
+                        <div class="d_video_controls">
+                            <div class="d_progress_bar">
+                                <div class="d_progress_fill"></div>
+                            </div>
+                            <div class="d_video_time">0:00 / 0:00</div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endforeach
 
-            <!-- Video 2 -->
-            <div class="d_video_item">
-                <div class="d_video_container">
-                    <video class="d_video_element" preload="metadata"
-                        poster="https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
-                        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
-                            type="video/mp4">
-                    </video>
-                    <div class="d_play_overlay" onclick="d_playVideo(this)">
-                        <button class="d_play_button"></button>
-                    </div>
-                    <div class="d_video_controls">
-                        <div class="d_progress_bar">
-                            <div class="d_progress_fill"></div>
-                        </div>
-                        <div class="d_video_time">0:00 / 0:00</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Video 3 -->
-            <div class="d_video_item">
-                <div class="d_video_container">
-                    <video class="d_video_element" preload="metadata"
-                        poster="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
-                        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
-                            type="video/mp4">
-                    </video>
-                    <div class="d_play_overlay" onclick="d_playVideo(this)">
-                        <button class="d_play_button"></button>
-                    </div>
-                    <div class="d_video_controls">
-                        <div class="d_progress_bar">
-                            <div class="d_progress_fill"></div>
-                        </div>
-                        <div class="d_video_time">0:00 / 0:00</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Video 4 -->
-            <div class="d_video_item">
-                <div class="d_video_container">
-                    <video class="d_video_element" preload="metadata"
-                        poster="https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
-                        <source
-                            src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"
-                            type="video/mp4">
-                    </video>
-                    <div class="d_play_overlay" onclick="d_playVideo(this)">
-                        <button class="d_play_button"></button>
-                    </div>
-                    <div class="d_video_controls">
-                        <div class="d_progress_bar">
-                            <div class="d_progress_fill"></div>
-                        </div>
-                        <div class="d_video_time">0:00 / 0:00</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Video 5 -->
-            <div class="d_video_item">
-                <div class="d_video_container">
-                    <video class="d_video_element" preload="metadata"
-                        poster="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
-                        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"
-                            type="video/mp4">
-                    </video>
-                    <div class="d_play_overlay" onclick="d_playVideo(this)">
-                        <button class="d_play_button"></button>
-                    </div>
-                    <div class="d_video_controls">
-                        <div class="d_progress_bar">
-                            <div class="d_progress_fill"></div>
-                        </div>
-                        <div class="d_video_time">0:00 / 0:00</div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <section class="d_g_dest_section position-relative py-5">

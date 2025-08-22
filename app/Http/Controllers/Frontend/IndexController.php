@@ -10,6 +10,7 @@ use App\Models\AboutTravesly;
 use App\Models\Service;
 use App\Models\Testimonial;
 use App\Models\Country;
+use App\Models\VideoSlider;
 
 class IndexController extends Controller
 {
@@ -20,11 +21,12 @@ class IndexController extends Controller
         $Service = Service::all();
         $testimonials = Testimonial::all();
         $countries = Country::all();
+        $videoslider = VideoSlider::all();
 
         foreach ($AboutTravesly as $item) {
             $item->images = json_decode($item->image); // decode the image JSON array into PHP array
         }
-        return view('frontend.index',compact('sliders','AboutTravesly','Service','testimonials','countries'));
+        return view('frontend.index',compact('sliders','AboutTravesly','Service','testimonials','countries','videoslider'));
     }
 
     public function CreateFrontEnquiry(Request $request)
