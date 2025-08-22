@@ -37,42 +37,36 @@
                     <!-- Contact Form Section -->
                     <div class="col-lg-7 col-md-12 mb-4">
                         <div class="z_contact_form">
-                            <form id="contactForm" novalidate action="{{ route('contactfstore')}}" method="POST">
+                            <form id="contactForm" action="{{ route('contactfstore')}}" method="POST">
                                @csrf
                                 <div class="row">
-                                    <div class="mb-3">
+                                    <div class="col-md-12 mb-3">
                                         <label for="name" class="z_contact_form_label">Name</label>
                                         <input type="text" class="z_contact_form_input" id="name" name="name"
-                                            placeholder="Enter your name" required minlength="2">
-                                        <div class="invalid-feedback">Please enter your name (at least 2 characters).</div>
+                                            placeholder="Enter your name" value="{{ old('name') }}">
                                     </div>
-                                    <div class="mb-3">
+                                    <div class="col-md-12 mb-3">
                                         <label for="email" class="z_contact_form_label">Email</label>
                                         <input type="email" class="z_contact_form_input" id="email" name="email"
-                                            placeholder="Enter your email" required>
-                                        <div class="invalid-feedback">Please enter a valid email address.</div>
+                                            placeholder="Enter your email" value="{{ old('email') }}">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label for="phone" class="z_contact_form_label">Phone No.</label>
                                         <input type="tel" class="z_contact_form_input" id="phone" name="phone"
-                                            placeholder="Enter your phone no" required >
-                                        <div class="invalid-feedback">Please enter a valid phone number (10-15 digits).
-                                        </div>
+                                            placeholder="Enter your phone no" value="{{ old('phone') }}">
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="city" class="z_contact_form_label">City</label>
                                         <input type="text" class="z_contact_form_input" id="city" name="city"
-                                            placeholder="Enter your city" required>
-                                        <div class="invalid-feedback">Please enter your city.</div>
+                                            placeholder="Enter your city" value="{{ old('city') }}">
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="message" class="z_contact_form_label">Message</label>
-                                    <textarea class="z_contact_form_textarea" id="message" name="message" rows="4" placeholder="Enter your message"
-                                        required minlength="5"></textarea>
-                                    <div class="invalid-feedback">Please enter your message (at least 5 characters).</div>
+                                    <textarea class="z_contact_form_textarea" id="message" name="message" rows="4"
+                                        placeholder="Enter your message">{{ old('message') }}</textarea>
                                 </div>
                                 <div class="z_contact_form_btn_parent">
                                     <button type="submit" class="z_contact_form_btn">Send Message</button>
@@ -122,182 +116,244 @@
 @push('styles')
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <!-- Custom validation styles -->
+    <style>
+        .error {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        .z_contact_form_input.error,
+        .z_contact_form_textarea.error {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+        }
+
+        .z_contact_form_input.valid,
+        .z_contact_form_textarea.valid {
+            border-color: #28a745;
+            box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+        }
+    </style>
 @endpush
 
 @push('scripts')
+    <!-- jQuery (if not already included) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- jQuery Validation Plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
     <!-- Toastr JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <script>
-        // Configure toastr options
-        toastr.options = {
-            "closeButton": true,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": true,
-            "positionClass": "toast-top-right",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        };
+        $(document).ready(function() {
+            // Configure toastr options
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
 
-        // Show success message if exists
-        @if(session('success'))
-            console.log('Success session exists: {{ session('success') }}');
-            if (typeof toastr !== 'undefined') {
-                toastr.success('{{ session('success') }}');
-            } else {
-                alert('{{ session('success') }}');
-            }
-        @else
-            console.log('No success session found');
-        @endif
+            // Debug: Check if form exists
+            console.log('Contact form found:', $('#contactForm').length > 0);
 
-        // Show error message if exists
-        @if(session('error'))
-            console.log('Error session exists: {{ session('error') }}');
-            if (typeof toastr !== 'undefined') {
-                toastr.error('{{ session('error') }}');
-            } else {
-                alert('{{ session('error') }}');
-            }
-        @endif
+            // Debug: Check form method and action
+            console.log('Form action:', $('#contactForm').attr('action'));
+            console.log('Form method:', $('#contactForm').attr('method'));
 
-        // Show validation errors
-        @if ($errors->any())
-            console.log('Validation errors exist');
-            @foreach ($errors->all() as $error)
-                if (typeof toastr !== 'undefined') {
-                    toastr.error('{{ $error }}');
-                } else {
-                    alert('{{ $error }}');
+            // Custom validation methods
+            $.validator.addMethod("phoneNumber", function(value, element) {
+                return this.optional(element) || /^[\+]?[0-9\s\-\(\)]{10,15}$/.test(value);
+            }, "Please enter a valid phone number (10-15 digits).");
+
+            $.validator.addMethod("lettersOnly", function(value, element) {
+                return this.optional(element) || /^[a-zA-Z\s]+$/.test(value);
+            }, "Please enter only letters and spaces.");
+
+            // Initialize form validation
+            $("#contactForm").validate({
+                rules: {
+                    name: {
+                        required: true,
+                        minlength: 2,
+                        maxlength: 50,
+                        lettersOnly: true
+                    },
+                    email: {
+                        required: true,
+                        email: true,
+                        maxlength: 100
+                    },
+                    phone: {
+                        required: true,
+                        phoneNumber: true
+                    },
+                    city: {
+                        required: true,
+                        minlength: 2,
+                        maxlength: 50,
+                        lettersOnly: true
+                    },
+                    message: {
+                        required: true,
+                        minlength: 5,
+                        maxlength: 500
+                    }
+                },
+                messages: {
+                    name: {
+                        required: "Please enter your name",
+                        minlength: "Name must be at least 2 characters long",
+                        maxlength: "Name cannot exceed 50 characters"
+                    },
+                    email: {
+                        required: "Please enter your email address",
+                        email: "Please enter a valid email address",
+                        maxlength: "Email cannot exceed 100 characters"
+                    },
+                    phone: {
+                        required: "Please enter your phone number"
+                    },
+                    city: {
+                        required: "Please enter your city",
+                        minlength: "City must be at least 2 characters long",
+                        maxlength: "City cannot exceed 50 characters"
+                    },
+                    message: {
+                        required: "Please enter your message",
+                        minlength: "Message must be at least 5 characters long",
+                        maxlength: "Message cannot exceed 500 characters"
+                    }
+                },
+                errorElement: "span",
+                errorClass: "error",
+                validClass: "valid",
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass(errorClass).removeClass(validClass);
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass(errorClass).addClass(validClass);
+                },
+                errorPlacement: function(error, element) {
+                    error.insertAfter(element);
+                },
+                submitHandler: function(form) {
+                    // Show loading message
+                    toastr.info('Sending your message...', 'Please wait');
+
+                    // Debug: Log form data before submission
+                    console.log('Form data being submitted:');
+                    $(form).find('input, textarea').each(function() {
+                        console.log($(this).attr('name') + ': ' + $(this).val());
+                    });
+
+                    // Submit the form normally (not via AJAX)
+                    form.submit();
+                    return false;
+                },
+                invalidHandler: function(event, validator) {
+                    console.log('Form validation failed. Errors:', validator.numberOfInvalids());
+                    toastr.error('Please fix the errors in the form before submitting.');
                 }
-            @endforeach
-        @endif
-    </script>
-
-    <script>
-        // Load header and footer
-        $(document).ready(function() {
-            $("#header-placeholder").load("header.html");
-            $("#footer-placeholder").load("footer.html");
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $("#header-placeholder").load("header.html", function() {
-                const currentPage = window.location.pathname.split("/").pop();
-                const navLinks = document.querySelectorAll('.d_nav_link');
-
-                navLinks.forEach(link => {
-                    if (link.getAttribute('href') === currentPage) {
-                        link.classList.add('active');
-                    }
-                });
             });
-        });
-    </script>
 
-    <script>
-        $(document).ready(function() {
-            $("#footer-placeholder").load("footer.html", function() {
-                const currentPage = window.location.pathname.split("/").pop();
-                const footerLinks = document.querySelectorAll(".d_footer_link");
-
-                footerLinks.forEach(link => {
-                    if (link.getAttribute("href") === currentPage) {
-                        link.classList.add("active");
-                    }
-                });
-            });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            // Contact form validation
+            // Alternative form submission handler (backup)
             $('#contactForm').on('submit', function(e) {
-                console.log('Form submitted!'); // Debug log
+                console.log('Form submit event triggered');
 
-                var isValid = true;
-                var name = $('#name');
-                var email = $('#email');
-                var phone = $('#phone');
-                var city = $('#city');
-                var message = $('#message');
-
-                // Name validation
-                if (name.val().trim().length < 2) {
-                    name.addClass('is-invalid');
-                    isValid = false;
-                    console.log('Name validation failed');
-                } else {
-                    name.removeClass('is-invalid');
-                }
-
-                // Email validation
-                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailPattern.test(email.val().trim())) {
-                    email.addClass('is-invalid');
-                    isValid = false;
-                    console.log('Email validation failed');
-                } else {
-                    email.removeClass('is-invalid');
-                }
-
-                // Phone validation - Made more flexible
-                var phoneValue = phone.val().trim().replace(/\D/g, ''); // Remove non-digits
-                if (phoneValue.length < 10 || phoneValue.length > 15) {
-                    phone.addClass('is-invalid');
-                    isValid = false;
-                    console.log('Phone validation failed');
-                } else {
-                    phone.removeClass('is-invalid');
-                }
-
-                // City validation
-                if (city.val().trim() === '') {
-                    city.addClass('is-invalid');
-                    isValid = false;
-                    console.log('City validation failed');
-                } else {
-                    city.removeClass('is-invalid');
-                }
-
-                // Message validation
-                if (message.val().trim().length < 5) {
-                    message.addClass('is-invalid');
-                    isValid = false;
-                    console.log('Message validation failed');
-                } else {
-                    message.removeClass('is-invalid');
-                }
-
-                if (!isValid) {
+                // If jQuery validation is not working, do basic validation
+                if (!$.validator) {
                     e.preventDefault();
-                    console.log('Form validation failed, preventing submission');
-                    if (typeof toastr !== 'undefined') {
-                        toastr.error('Please fill all required fields correctly.');
-                    } else {
-                        alert('Please fill all required fields correctly.');
+                    var isValid = true;
+                    var errors = [];
+
+                    if ($('#name').val().trim() === '') {
+                        errors.push('Name is required');
+                        isValid = false;
                     }
-                } else {
-                    console.log('Form validation passed, submitting...');
+                    if ($('#email').val().trim() === '') {
+                        errors.push('Email is required');
+                        isValid = false;
+                    }
+                    if ($('#phone').val().trim() === '') {
+                        errors.push('Phone is required');
+                        isValid = false;
+                    }
+                    if ($('#city').val().trim() === '') {
+                        errors.push('City is required');
+                        isValid = false;
+                    }
+                    if ($('#message').val().trim() === '') {
+                        errors.push('Message is required');
+                        isValid = false;
+                    }
+
+                    if (!isValid) {
+                        errors.forEach(function(error) {
+                            toastr.error(error);
+                        });
+                        return false;
+                    }
                 }
             });
 
-            // Remove error on input
-            $('#contactForm input, #contactForm textarea').on('input', function() {
-                $(this).removeClass('is-invalid');
+            // Real-time validation feedback
+            $('#contactForm input, #contactForm textarea').on('keyup blur', function() {
+                if ($.validator && $("#contactForm").data('validator')) {
+                    $(this).valid();
+                }
             });
+
+            // Show success message if exists
+            @if(session('success'))
+                console.log('Success session exists: {{ session('success') }}');
+                if (typeof toastr !== 'undefined') {
+                    toastr.success('{{ session('success') }}');
+                } else {
+                    alert('{{ session('success') }}');
+                }
+            @else
+                console.log('No success session found');
+            @endif
+
+            // Show error message if exists
+            @if(session('error'))
+                console.log('Error session exists: {{ session('error') }}');
+                if (typeof toastr !== 'undefined') {
+                    toastr.error('{{ session('error') }}');
+                } else {
+                    alert('{{ session('error') }}');
+                }
+            @endif
+
+            // Show validation errors
+            @if ($errors->any())
+                console.log('Validation errors exist');
+                @foreach ($errors->all() as $error)
+                    if (typeof toastr !== 'undefined') {
+                        toastr.error('{{ $error }}');
+                    } else {
+                        alert('{{ $error }}');
+                    }
+                @endforeach
+            @endif
         });
     </script>
 @endpush

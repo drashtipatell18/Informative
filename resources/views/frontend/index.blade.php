@@ -381,7 +381,7 @@
                             </div>
                         </div>
 
-                        <a href="Contact.html"><button class="btn d_WC_btn_outline_success mt-2">Contact
+                        <a href="{{ route('contactf') }}"><button class="btn d_WC_btn_outline_success mt-2">Contact
                                 Us</button></a>
                     </div>
                 </div>
@@ -605,98 +605,32 @@
         </div>
 
         <div class="d_TS_testimonial-content">
-            <div class="d_TS_testimonial-text active" id="activeTestimonial">
-                I had the most incredible vacation experience thanks to the amazing team at XYZ Travel Agency! From the
-                moment I contacted them, their friendly and knowledgeable staff helped me plan the perfect itinerary.
-                They took care of every detail, from booking flights and accommodations to arranging local tours and
-                activities.
-            </div>
+            @foreach ($testimonials as $index => $testimonial)
+                <div class="d_TS_testimonial-text {{ $index === 0 ? 'active' : '' }}"
+                    id="{{ $index === 0 ? 'activeTestimonial' : '' }}">
+                    {{ $testimonial->description }}
+                </div>
+            @endforeach
         </div>
 
         <div class="d_TS_stars">
-            <span class="d_TS_star">★</span>
-            <span class="d_TS_star">★</span>
-            <span class="d_TS_star">★</span>
-            <span class="d_TS_star">★</span>
-            <span class="d_TS_star">★</span>
+            @php $rating = $testimonials[0]->rating ?? 5; @endphp
+            @for ($i = 0; $i < 5; $i++)
+                <span class="d_TS_star">{{ $i < $rating ? '★' : '☆' }}</span>
+            @endfor
         </div>
 
         <div class="d_TS_slider-container">
             <div class="d_TS_avatar-slider" id="avatarSlider">
-                <div class="d_TS_avatar clone" data-index="4">
-                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face"
-                        alt="Klaus">
-                    <div class="d_TS_avatar-name">Klaus</div>
-                </div>
-                <div class="d_TS_avatar clone" data-index="5">
-                    <img src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=150&h=150&fit=crop&crop=face"
-                        alt="Bryan">
-                    <div class="d_TS_avatar-name">Bryan</div>
-                </div>
-                <div class="d_TS_avatar clone" data-index="6">
-                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face"
-                        alt="Emma">
-                    <div class="d_TS_avatar-name">Emma</div>
-                </div>
-
-                <div class="d_TS_avatar" data-index="0">
-                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=150&h=150&fit=crop&crop=face"
-                        alt="Helen">
-                    <div class="d_TS_avatar-name">Helen</div>
-                </div>
-                <div class="d_TS_avatar" data-index="1">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
-                        alt="Peter">
-                    <div class="d_TS_avatar-name">Peter</div>
-                </div>
-                <div class="d_TS_avatar" data-index="2">
-                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-                        alt="Victor">
-                    <div class="d_TS_avatar-name">Victor</div>
-                </div>
-                <div class="d_TS_avatar" data-index="3">
-                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
-                        alt="Nora Achola">
-                    <div class="d_TS_avatar-name">Nora Achola</div>
-                </div>
-                <div class="d_TS_avatar" data-index="4">
-                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face"
-                        alt="Klaus">
-                    <div class="d_TS_avatar-name">Klaus</div>
-                </div>
-                <div class="d_TS_avatar" data-index="5">
-                    <img src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=150&h=150&fit=crop&crop=face"
-                        alt="Bryan">
-                    <div class="d_TS_avatar-name">Bryan</div>
-                </div>
-                <div class="d_TS_avatar" data-index="6">
-                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face"
-                        alt="Emma">
-                    <div class="d_TS_avatar-name">Emma</div>
-                </div>
-                <div class="d_TS_avatar" data-index="7">
-                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face"
-                        alt="Emma">
-                    <div class="d_TS_avatar-name">Emma</div>
-                </div>
-
-                <div class="d_TS_avatar clone" data-index="0">
-                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=150&h=150&fit=crop&crop=face"
-                        alt="Helen">
-                    <div class="d_TS_avatar-name">Helen</div>
-                </div>
-                <div class="d_TS_avatar clone" data-index="1">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
-                        alt="Peter">
-                    <div class="d_TS_avatar-name">Peter</div>
-                </div>
-                <div class="d_TS_avatar clone" data-index="2">
-                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-                        alt="Victor">
-                    <div class="d_TS_avatar-name">Victor</div>
-                </div>
+                @foreach ($testimonials as $index => $testimonial)
+                    <div class="d_TS_avatar {{ $index === 0 ? 'clone' : '' }}" data-index="{{ $index }}">
+                        <img src="{{ asset('images/testimnial/' . $testimonial->image) }}" alt="{{ $testimonial->name }}">
+                        <div class="d_TS_avatar-name">{{ $testimonial->name }}</div>
+                    </div>
+                @endforeach
             </div>
         </div>
+
     </div>
 @endsection
 @push('scripts')

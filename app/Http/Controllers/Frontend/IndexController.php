@@ -8,6 +8,7 @@ use App\Models\Enquiry;
 use App\Models\Silder;
 use App\Models\AboutTravesly;
 use App\Models\Service;
+use App\Models\Testimonial;
 
 class IndexController extends Controller
 {
@@ -16,11 +17,12 @@ class IndexController extends Controller
         $sliders = Silder::all();
         $AboutTravesly = AboutTravesly::all();
         $Service = Service::all();
+        $testimonials = Testimonial::all();
 
         foreach ($AboutTravesly as $item) {
             $item->images = json_decode($item->image); // decode the image JSON array into PHP array
         }
-        return view('frontend.index',compact('sliders','AboutTravesly','Service'));
+        return view('frontend.index',compact('sliders','AboutTravesly','Service','testimonials'));
     }
 
     public function CreateFrontEnquiry(Request $request)
