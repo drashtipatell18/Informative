@@ -22,6 +22,8 @@ use App\Http\Controllers\Frontend\InformationController as FrontInformationContr
 use App\Http\Controllers\Frontend\ContactController as FrontendContactController;
 use App\Http\Controllers\Frontend\InternationalController as FrontInternationalController;
 use App\Http\Controllers\AboutTraveslyController;
+use App\Http\Controllers\AboutUSController as BackendAboutUsController;
+
 
 Route::get('/', function () {
    return redirect()->route('index');
@@ -143,6 +145,17 @@ Route::post('/travesly/{id}', [AboutTraveslyController::class, 'TraveslyUpdate']
 Route::get('/travesly/{id}', [AboutTraveslyController::class, 'TraveslyDestroy'])->name('travesly.destroy');
 Route::post('/about-travesly/image/destroy', [AboutTraveslyController::class, 'destroyImage'])
     ->name('abouttravesly.image.destroy');
+
+
+// About Us
+Route::get('/aboutus', [BackendAboutUsController::class, 'aboutusBackend'])->name('aboutus');
+Route::get('/aboutus/create', [BackendAboutUsController::class, 'aboutusCreate'])->name('aboutus.create');
+Route::post('/aboutus/store', [BackendAboutUsController::class, 'aboutusStore'])->name('aboutus.store');
+Route::get('/aboutus/{id}/edit', [BackendAboutUsController::class, 'aboutusEdit'])->name('aboutus.edit');
+Route::post('/aboutus/{id}', [BackendAboutUsController::class, 'aboutusUpdate'])->name('aboutus.update');
+Route::delete('/aboutus/{id}', [BackendAboutUsController::class, 'aboutusDestroy'])->name('aboutus.destroy');
+Route::post('/about-us/image/destroy', [BackendAboutUsController::class, 'destroyImage'])
+    ->name('aboutus.image.destroy');
 
 
     //frontend

@@ -275,6 +275,18 @@
                         <span class="nav-link-text ms-1">About Travesly</span>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('aboutus*') ? 'active' : '' }}"
+                        href="{{ route('aboutus') }}">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-image text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">About Us</span>
+                    </a>
+                </li>    
+
             </ul>
         </div>
 
