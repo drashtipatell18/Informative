@@ -14,4 +14,9 @@ class Country extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    protected $casts = [
+    'images' => 'array',
+];
+
 }

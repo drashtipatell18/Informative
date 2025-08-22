@@ -513,77 +513,40 @@
             </div>
 
             <div class="row g-4">
-                <!-- Left Side: 2 Rows of 3 Cards -->
+                <!-- Left Side: Dynamic Cards from Database -->
                 <div class="col-lg-9">
                     <div class="row g-4">
-                        <!-- Row 1 -->
-                        <div class="col-md-4">
-                            <div class="d_g_card position-relative text-white rounded overflow-hidden">
-                                <img src="{{ asset('frontend/Image/g(1).png') }}"
-                                    class="img-fluid w-100 h-100 object-fit-cover" alt="Manali">
-                                <div class="d_g_overlay p-3">
-                                    <h5 class="mb-1">Manali</h5>
-                                    <small>13 Days</small>
-                                </div>
-                            </div>
-                        </div>
+                        @foreach ($countries as $index => $destination)
+                            @if ($index < 3)
+                                <!-- Row 1: First 3 destinations -->
+                                <div class="col-md-4">
+                                    <div class="d_g_card position-relative text-white rounded overflow-hidden">
+                                        <img src="{{ asset('images/countries/' . ($destination->images[0] ?? 'default.jpg')) }}"
+                                            class="img-fluid w-100 h-100 object-fit-cover"
+                                            alt="{{ $destination->name }}">
 
-                        <div class="col-md-4">
-                            <div class="d_g_card position-relative text-white rounded overflow-hidden">
-                                <img src="{{ asset('frontend/Image/g(1).jpg') }}"
-                                    class="img-fluid w-100 h-100 object-fit-cover" alt="Kashmir">
-                                <div class="d_g_overlay p-3">
-                                    <h5 class="mb-1">Kashmir</h5>
-                                    <small>10 Days</small>
+                                        <div class="d_g_overlay p-3">
+                                            <h5 class="mb-1">{{ $destination->name }}</h5>
+                                            <small>{{ $destination->duration ?? '7 Days' }}</small>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            @elseif($index < 5)
+                                <!-- Row 2: Next 2 destinations (wider cards) -->
+                                <div class="col-md-6">
+                                    <div class="d_g_card position-relative text-white rounded overflow-hidden">
+                                        <img src="{{ asset('images/countries/' . ($destination->images[0] ?? 'default.jpg')) }}"
+                                            class="img-fluid w-100 h-100 object-fit-cover"
+                                            alt="{{ $destination->name }}">
 
-                        <div class="col-md-4">
-                            <div class="d_g_card position-relative text-white rounded overflow-hidden">
-                                <img src="{{ asset('frontend/Image/g(5).png') }}"
-                                    class="img-fluid w-100 h-100 object-fit-cover" alt="Malaysia">
-                                <div class="d_g_overlay p-3">
-                                    <h5 class="mb-1">Malaysia</h5>
-                                    <small>07 Days</small>
+                                        <div class="d_g_overlay p-3">
+                                            <h5 class="mb-1">{{ $destination->name }}</h5>
+                                            <small>{{ $destination->duration ?? '7 Days' }}</small>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <!-- Row 2 -->
-                        <div class="col-md-6">
-                            <div class="d_g_card position-relative text-white rounded overflow-hidden">
-                                <img src="{{ asset('frontend/Image/g(4).png') }}"
-                                    class="img-fluid w-100 h-100 object-fit-cover" alt="Bali">
-                                <div class="d_g_overlay p-3">
-                                    <h5 class="mb-1">Bali</h5>
-                                    <small>13 Days</small>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="d_g_card position-relative text-white rounded overflow-hidden">
-                                <img src="{{ asset('frontend/Image/g(3).png') }}"
-                                    class="img-fluid w-100 h-100 object-fit-cover" alt="Thailand">
-                                <div class="d_g_overlay p-3">
-                                    <h5 class="mb-1">Thailand</h5>
-                                    <small>20 Days</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right Side: Single Tall Card (Gujarat) -->
-                <div class="col-lg-3">
-                    <div class="d_g_card_vertical position-relative text-white rounded overflow-hidden h-100">
-                        <img src="{{ asset('frontend/Image/g(2).png') }}" class="img-fluid w-100 h-100 object-fit-cover"
-                            alt="Gujarat">
-                        <div class="d_g_overlay p-3">
-                            <h5 class="mb-1">Gujarat</h5>
-                            <small>10 Days</small>
-                        </div>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -624,7 +587,8 @@
             <div class="d_TS_avatar-slider" id="avatarSlider">
                 @foreach ($testimonials as $index => $testimonial)
                     <div class="d_TS_avatar {{ $index === 0 ? 'clone' : '' }}" data-index="{{ $index }}">
-                        <img src="{{ asset('images/testimnial/' . $testimonial->image) }}" alt="{{ $testimonial->name }}">
+                        <img src="{{ asset('images/testimnial/' . $testimonial->image) }}"
+                            alt="{{ $testimonial->name }}">
                         <div class="d_TS_avatar-name">{{ $testimonial->name }}</div>
                     </div>
                 @endforeach
