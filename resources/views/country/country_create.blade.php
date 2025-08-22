@@ -10,6 +10,7 @@
                 <form action="{{ isset($country) ? route('country.update', $country->id) : route('country.store') }}"
                     method="post" enctype="multipart/form-data" id="country-form">
                     @csrf
+
                     <div class="mb-3 form-group">
                         <label for="code" class="form-label">Country Code</label>
                         <input type="text" class="form-control" id="code" name="code"
@@ -24,14 +25,15 @@
 
                     <div class="mb-3 form-group">
                         <label for="category_id" class="form-label">Category</label>
-                            <select class="form-control" name="category_id" id="category_id" required>
-                                <option value="">-- Select Category --</option>
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                                        {{ $category->name }}
-                                    </option>
-                                @endforeach
-                            </select>
+                        <select class="form-control" name="category_id" id="category_id" required>
+                            <option value="">-- Select Category --</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ old('category_id', isset($country) ? $country->category_id : '') == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="mb-3 form-group">
@@ -43,25 +45,27 @@
                     <div class="mb-3 form-group">
                         <label for="images" class="form-label">Images</label>
                         <input type="file" class="form-control" id="images" name="images[]" multiple>
-                        @if (isset($country) && $country->images)
-                            <div class="mt-2 d-flex flex-wrap gap-2" id="existing-images">
-                                @foreach (json_decode($country->images, true) as $key => $image)
-                                    <div class="position-relative d-inline-block me-2 mb-2">
-                                        <img src="{{ asset('images/countries/' . $image) }}" width="100"
-                                            class="border rounded">
-                                        <button type="button"
-                                            class="btn btn-sm btn-primary custom-btn position-absolute top-0 start-100 translate-middle remove-image rounded-circle"
-                                            data-image="{{ $image }}"
-                                            style="width: 24px; height: 24px; padding: 0; font-size: 14px; line-height: 1; display: flex; align-items: center; justify-content: center;">
-                                            &times;
-                                        </button>
-                                    </div>
-                                @endforeach
+                        @if (isset($country) && $country->images && is_array($country->images) && count($country->images) > 0)
+                            <div class="mt-3">
+                                <label>Existing Images:</label>
+                                <div class="d-flex flex-wrap gap-4" id="existing-images">
+                                    @foreach ($country->images as $index => $image)
+                                        <div class="position-relative existing-image" data-image="{{ $image }}">
+                                            <img src="{{ asset('images/countries/' . $image) }}" alt="Country Image"
+                                                class="img-thumbnail" width="100">
+                                            <button type="button"
+                                                class="btn btn-sm btn-primary custom-btn position-absolute top-0 start-100 translate-middle remove-image rounded-circle"
+                                                data-image="{{ $image }}"
+                                                style="width: 24px; height: 24px; padding: 0; font-size: 14px; line-height: 1; display: flex; align-items: center; justify-content: center;">
+                                                &times;
+                                            </button>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <input type="hidden" id="removed-images" name="removed_images" value="">
                             </div>
-                            <input type="hidden" name="removed_images" id="removed_images" value="">
                         @endif
                     </div>
-
 
                     <div class="text-center mb-3">
                         <button type="submit" class="btn btn-primary custom-btn">
@@ -153,8 +157,9 @@
                 }
             });
         });
+
         document.addEventListener('DOMContentLoaded', function() {
-            const removedImagesInput = document.getElementById('removed_images');
+            const removedImagesInput = document.getElementById('removed-images');
 
             document.querySelectorAll('.remove-image').forEach(button => {
                 button.addEventListener('click', function() {

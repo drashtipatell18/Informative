@@ -24,7 +24,15 @@ class CountryController extends Controller
 
     // Store a newly created country in storage
    public function CountryStore(Request $request)
-   {
+    {
+        $request->validate([
+            'code' => 'required|unique:countries',
+            'name' => 'required',
+            'category_id' => 'required',
+            'day' => 'required',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
         $imageNames = [];
 
         if ($request->hasFile('images')) {
@@ -40,67 +48,84 @@ class CountryController extends Controller
             'name' => $request->input('name'),
             'category_id' => $request->input('category_id'),
             'day' => $request->input('day'),
-            // Store image names as JSON
-            'images' => json_encode($imageNames),
+            'images' => $imageNames, // No need for json_encode with casting
         ]);
 
         return redirect()->route('country')->with('success', 'Country created successfully.');
     }
 
-    // Show the form for editing the specified country
     public function CountryEdit($id)
     {
         $country = Country::findOrFail($id);
+        // dd($country);
         $categories = Category::all();
         return view('country.country_create', compact('country', 'categories'));
     }
 
-    // Update the specified country in storage
     public function CountryUpdate(Request $request, $id)
-    {
-        $country = Country::findOrFail($id);
+{
+    $request->validate([
+        'code' => 'required|unique:countries,code,' . $id,
+        'name' => 'required',
+        'category_id' => 'required',
+        'day' => 'required',
+        'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+    ]);
 
-        // Get existing images from DB (decode JSON to array)
-        $existingImages = json_decode($country->images, true) ?? [];
+    $country = Country::findOrFail($id);
 
-        // Handle image removal
-        if ($request->filled('removed_images')) {
-            $removedImages = explode(',', $request->input('removed_images'));
+    // Get existing images and ensure it's an array
+    $existingImages = $country->images ?? [];
 
-            // Delete files from storage
-            foreach ($removedImages as $image) {
-                $imagePath = public_path('images/countries/' . $image);
-                if (file_exists($imagePath)) {
-                    unlink($imagePath);
-                }
-            }
-
-            // Remove deleted images from existingImages array
-            $existingImages = array_values(array_diff($existingImages, $removedImages));
-        }
-
-        // Handle new image uploads
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('images/countries'), $imageName);
-                $existingImages[] = $imageName;
-            }
-        }
-
-        // Update the country
-        $country->update([
-            'code' => $request->input('code'),
-            'name' => $request->input('name'),
-            'category_id' => $request->input('category_id'),
-            'day' => $request->input('day'),
-            'images' => json_encode($existingImages),
-        ]);
-
-        return redirect()->route('country')->with('success', 'Country updated successfully.');
+    // If images is stored as JSON string, decode it
+    if (is_string($existingImages)) {
+        $existingImages = json_decode($existingImages, true) ?? [];
     }
 
+    // Ensure it's always an array
+    if (!is_array($existingImages)) {
+        $existingImages = [];
+    }
 
+    // Initialize removedImages as empty array
+    $removedImages = [];
+
+    // Handle image removal
+    if ($request->filled('removed_images')) {
+        $removedImages = explode(',', $request->input('removed_images'));
+
+        // Delete files from storage
+        foreach ($removedImages as $image) {
+            $imagePath = public_path('images/countries/' . trim($image));
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
+    }
+
+    // Remove deleted images from existingImages array
+    $existingImages = array_values(array_diff($existingImages, $removedImages));
+
+    // Handle new image uploads
+    if ($request->hasFile('images')) {
+        foreach ($request->file('images') as $image) {
+            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images/countries'), $imageName);
+            $existingImages[] = $imageName;
+        }
+    }
+
+    // Update the country
+    $country->update([
+        'code' => $request->input('code'),
+        'name' => $request->input('name'),
+        'category_id' => $request->input('category_id'),
+        'day' => $request->input('day'),
+        'images' => $existingImages, // No need for json_encode with casting
+    ]);
+
+    return redirect()->route('country')->with('success', 'Country updated successfully.');
+}
 
     // Remove the specified country from storage
     public function CountryDestroy($id)

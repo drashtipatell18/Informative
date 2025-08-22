@@ -34,26 +34,44 @@
                                     <td class="align-middle text-center text-sm">{{ $country->id }}</td>
                                     <td class="align-middle text-center text-sm">{{ $country->code }}</td>
                                     <td class="align-middle text-center text-sm">{{ $country->name }}</td>
-                                    <td class="align-middle text-center text-sm">{{ $country->category->name ?? 'N/A' }}
-                                    </td>
+                                    <td class="align-middle text-center text-sm">{{ $country->category->name ?? 'N/A' }}</td>
                                     <td class="align-middle text-center text-sm">{{ $country->day }}</td>
                                     <td class="align-middle text-center text-sm">
-                                        @foreach (json_decode($country->images, true) as $image)
-                                            <img src="{{ asset('images/countries/' . $image) }}" alt="Image"
-                                                width="50" class="me-1 mb-1">
-                                        @endforeach
+                                        @php
+                                            // Handle both string and array cases
+                                            $images = $country->images;
+                                            if (is_string($images)) {
+                                                $images = json_decode($images, true) ?? [];
+                                            } elseif (is_null($images)) {
+                                                $images = [];
+                                            }
+                                        @endphp
+
+                                        @if (is_array($images) && count($images) > 0)
+                                            @foreach ($images as $image)
+                                                <img src="{{ asset('images/countries/' . $image) }}"
+                                                     alt="Country Image"
+                                                     width="50"
+                                                     class="me-1 mb-1"
+                                                     onerror="this.style.display='none'">
+                                            @endforeach
+                                        @else
+                                            <span class="text-muted">No images</span>
+                                        @endif
                                     </td>
                                     <td class="align-middle text-center text-sm">
                                         <a href="{{ route('country.edit', $country->id) }}"
-                                            class="btn btn-primary custom-btn" title="Edit"><i
-                                                class="bi bi-pencil-square"></i></a>
+                                            class="btn btn-primary custom-btn" title="Edit">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
                                         <form action="{{ route('country.destroy', $country->id) }}" method="POST"
                                             style="display:inline;">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-danger custom-btn" title="Delete"
-                                                onclick="return confirm('Are you sure you want to delete this country?');"><i
-                                                    class="bi bi-trash"></i></button>
+                                                onclick="return confirm('Are you sure you want to delete this country?');">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
                                         </form>
                                     </td>
                                 </tr>
