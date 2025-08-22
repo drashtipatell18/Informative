@@ -1228,13 +1228,6 @@
             });
         });
     </script>
-     <script>
-        // Load header and footer
-        $(document).ready(function () {
-            $("#header-placeholder").load("header.html");
-            $("#footer-placeholder").load("footer.html");
-        });
-    </script>
     <script>
         $(document).ready(function () {
             $("#header-placeholder").load("header.html", function () {
@@ -1249,21 +1242,6 @@
             });
         });
     </script>
-<script>
-    $(document).ready(function () {
-        $("#footer-placeholder").load("footer.html", function () {
-            const currentPage = window.location.pathname.split("/").pop();
-            const footerLinks = document.querySelectorAll(".d_footer_link");
-
-            footerLinks.forEach(link => {
-                if (link.getAttribute("href") === currentPage) {
-                    link.classList.add("active");
-                }
-            });
-        });
-    });
-</script>
-
 </body>
 
 </html>
