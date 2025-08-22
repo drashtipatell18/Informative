@@ -10,7 +10,8 @@ class AboutUsController extends Controller
      public function aboutusBackend()
     {
         $aboutus = AboutUs::all();
-        return view('AboutUs.view_about', compact('aboutus'));
+        $aboutUsSecond = AboutUs::all()->skip(1)->take(1);
+        return view('AboutUs.view_about', compact('aboutus','aboutUsSecond'));
     }
 
     public function aboutusCreate()
@@ -135,6 +136,6 @@ class AboutUsController extends Controller
     {
         $aboutus = AboutUs::find($id);
         $aboutus->delete();
-        return redirect()->route('travesly')->with('success','About Us deleted successfully');
+        return redirect()->route('aboutus')->with('success','About Us deleted successfully');
     }
 }
