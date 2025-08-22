@@ -253,6 +253,19 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link {{ Request::is('videoslider*') ? 'active' : '' }}"
+                        href="{{ route('videoslider') }}">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-collection text-dark text-sm opacity-10"></i>
+                            <!-- Collection/Slider icon -->
+                        </div>
+                        <span class="nav-link-text ms-1">Video Slider</span>
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
                     <a class="nav-link {{ Request::is('travesly*') ? 'active' : '' }}"
                         href="{{ route('travesly') }}">
                         <div
@@ -261,7 +274,7 @@
                         </div>
                         <span class="nav-link-text ms-1">About Travesly</span>
                     </a>
-                </li>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+                </li>
             </ul>
         </div>
 

@@ -14,6 +14,7 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\TourDetailsController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\VideoSliderController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\AboutUSController;
 use App\Http\Controllers\Frontend\DomesticController;
@@ -123,6 +124,15 @@ Route::get('/slider/{id}/edit', [SliderController::class, 'SliderEdit'])->name('
 Route::post('/slider/{id}', [SliderController::class, 'SliderUpdate'])->name('slider.update');
 Route::get('/slider/{id}', [SliderController::class, 'SliderDestroy'])->name('slider.destroy');
 
+// VideoSlider
+
+Route::get('/videoslider', [VideoSliderController::class, 'VideoSlider'])->name('videoslider');
+Route::get('/videoslider/create', [VideoSliderController::class, 'VideoSliderCreate'])->name('videoslider.create');
+Route::post('/videoslider/store', [VideoSliderController::class, 'VideoSliderStore'])->name('videoslider.store');
+Route::get('/videoslider/{id}/edit', [VideoSliderController::class, 'VideoSliderEdit'])->name('videoslider.edit');
+Route::post('/videoslider/{id}', [VideoSliderController::class, 'VideoSliderUpdate'])->name('videoslider.update');
+Route::get('/videoslider/{id}', [VideoSliderController::class, 'VideoSliderDestroy'])->name('videoslider.destroy');
+
 // Travesly
 
 Route::get('/travesly', [AboutTraveslyController::class, 'Travesly'])->name('travesly');
@@ -133,7 +143,9 @@ Route::post('/travesly/{id}', [AboutTraveslyController::class, 'TraveslyUpdate']
 Route::get('/travesly/{id}', [AboutTraveslyController::class, 'TraveslyDestroy'])->name('travesly.destroy');
 Route::post('/about-travesly/image/destroy', [AboutTraveslyController::class, 'destroyImage'])
     ->name('abouttravesly.image.destroy');
-//frontend
+
+
+    //frontend
 
 Route::get('/index',[IndexController::class,'index'])->name('index');
 Route::get('/about-us',[AboutUSController::class,'AboutUS'])->name('about-us');
