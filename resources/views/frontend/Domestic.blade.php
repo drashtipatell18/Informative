@@ -33,11 +33,11 @@
 
                    <a href="{{ route('informationFront', $country->id) }}" class="z_Domestic_destination_card">
                         <div class="z_Domestic_destination_image">
-                            <img src="{{ $firstImage 
-                                ? asset('images/countries/' . $firstImage) 
-                                : asset('images/countries/dummy_product.png') }}" 
+                            <img src="{{ $firstImage
+                                ? asset('images/countries/' . $firstImage)
+                                : asset('images/countries/dummy_product.png') }}"
                                 alt="{{ $country->name }}">
-                            
+
                             <div class="z_Domestic_destination_overlay">
                                 <h3 class="z_Domestic_destination_title">{{ $country->name }}</h3>
                                 <p class="z_Domestic_destination_duration">{{ $country->day }} Days</p>
@@ -51,11 +51,6 @@
     </section>
 @endsection
 @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- slider -->
-    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
      <script>
         // Load header and footer
         $(document).ready(function () {
