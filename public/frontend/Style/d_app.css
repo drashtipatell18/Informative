@@ -1716,7 +1716,7 @@ body {
 /* Front image or button wrapper */
 .d_WC_img_front_wrapper {
   position: absolute;
-  top: 79%;
+  top: 100%;
   left: 45%;
   transform: translate(-30%, -50%);
 }
