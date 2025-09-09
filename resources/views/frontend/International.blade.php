@@ -16,7 +16,7 @@
         <div class="z_Domestic_hero_overlay">
             <div class="z_Domestic_hero_content">
                 <h1 class="z_Domestic_hero_title">International</h1>
-                <p class="z_Domestic_hero_breadcrumb"><a href="landingpage.html"
+                <p class="z_Domestic_hero_breadcrumb"><a href="{{ route('index')}}"
                         style="text-decoration:none;color:inherit;">Home</a> / International</p>
             </div>
         </div>

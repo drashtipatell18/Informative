@@ -28,7 +28,7 @@
         <div class="z_contact_hero_overlay"></div>
         <div class="z_contact_hero_content">
             <h1 class="z_contact_hero_title">Contact Us</h1>
-            <p class="z_contact_hero_breadcrumb"><a href="landingpage.html"
+            <p class="z_contact_hero_breadcrumb"><a href="{{ route('index')}}"
                     style="text-decoration:none;color:inherit;">Home</a> / Contact Us</p>
         </div>
     </section>
