@@ -44,8 +44,8 @@
     }
 
     .d_TS_testimonial-content {
-        margin-bottom: 40px;
-        min-height: 120px;
+        margin-bottom: 50px;
+        min-height: 150px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -506,7 +506,7 @@
             <div class="d_TS_avatar-slider" id="avatarSlider">
                 @foreach ($testimonials as $index => $testimonial)
                     <div class="d_TS_avatar {{ $index === 0 ? 'clone' : '' }}" data-index="{{ $index }}">
-                        <img src="{{ asset('images/testimnial/' . $testimonial->image) }}"
+                        <img src="{{ asset('images/testimonial/' . $testimonial->image) }}"
                             alt="{{ $testimonial->name }}">
                         <div class="d_TS_avatar-name">{{ $testimonial->name }}</div>
                     </div>
