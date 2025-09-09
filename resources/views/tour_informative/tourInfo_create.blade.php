@@ -10,9 +10,6 @@
                 <form action="{{ isset($tour_details) ? route('tour_details.update', $tour_details->id) : route('tour_details.store') }}"
                     method="post" enctype="multipart/form-data" id="tour_details-form">
                     @csrf
-                    @if (isset($tour_details))
-                        @method('PUT')
-                    @endif
 
                     <div class="mb-3 form-group">
                         <label for="country_id" class="form-label">Country</label>
@@ -50,24 +47,6 @@
                         <label for="description" class="form-label">Description</label>
                         <textarea class="form-control" id="description" name="description" rows="5">{{ old('description', $tour_details->description ?? '') }}</textarea>
                     </div>
-
-                   <div class="mb-3 form-group" id="image-group" style="display: none;">
-                        <label for="images" class="form-label">Upload Images</label>
-                        <input type="file" name="images[]" id="images" multiple accept="image/*" class="form-control" />
-
-                        @if(!empty($tour_details->image_path))
-                            <div class="mt-3" id="image-preview">
-                                @php
-                                    $images = explode(',', $tour_details->image_path);
-                                @endphp
-                                @foreach($images as $img)
-                                    <img src="{{ asset('tour_images/' . $img) }}" alt="Tour Image" style="max-width: 150px; margin-right: 10px; margin-bottom:10px;"/>
-                                @endforeach
-                            </div>
-                        @endif
-                    </div>
-
-                    
 
                     <div class="text-center mb-3">
                         <button type="submit" class="btn btn-primary custom-btn">
@@ -168,7 +147,7 @@
             });
         });
     </script>
-   
+
 
     <script>
         ClassicEditor

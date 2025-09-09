@@ -29,50 +29,14 @@ class TourDetailsController extends Controller
 
     public function TourDetailsStore(Request $request)
     {
-        if ($request->hasFile('images')) {
-            $imagePaths = [];
-            $destinationPath = public_path('tour_images');
-
-            // Make sure the folder exists
-            if (!file_exists($destinationPath)) {
-                mkdir($destinationPath, 0755, true);
-            }
-
-            foreach ($request->file('images') as $image) {
-                // Generate unique filename
-                $filename = time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
-
-                // Move the file to public/tour_images
-                $image->move($destinationPath, $filename);
-
-                // Save relative path for DB
-                $imagePaths[] = $filename;
-            }
-
-            // Join multiple image paths as comma-separated string
-            $imagePathString = implode(',', $imagePaths);
-
-            // Insert into DB
-            TourDetails::insert([
-                'country_id' => $request->input('country_id'),
-                'information_id' => $request->input('information_id'),
-                'title' => $request->input('title'),
-                'description' => null,
-                'image_path' => $imagePathString,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        } else {
             TourDetails::insert([
                 'country_id' => $request->input('country_id'),
                 'information_id' => $request->input('information_id'),
                 'title' => $request->input('title'),
                 'description' => $request->input('description'),
-                'image_path' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
-        }
 
         return redirect()->route('tour_details')->with('success', 'Tour Details created successfully');
     }
