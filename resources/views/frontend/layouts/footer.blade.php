@@ -96,7 +96,7 @@
             <div class="d_footer_bottom">
                 <div class="container">
                     <div class="d_copyright_text">
-                        All Right Reserved © 2024
+
                     </div>
                 </div>
             </div>
