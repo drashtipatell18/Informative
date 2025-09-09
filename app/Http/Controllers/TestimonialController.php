@@ -21,7 +21,7 @@ class TestimonialController extends Controller
         if($request->hasFile('image')){
             $file = $request->file('image');
             $ImageName = time().'.'.$file->getClientOriginalExtension();
-            $file->move(public_path('images/testimnial'),$ImageName);
+            $file->move(public_path('images/testimonial'),$ImageName);
         }
         Testimonial::create([
             'name' => $request->input('name'),

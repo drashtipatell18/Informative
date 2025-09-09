@@ -31,7 +31,7 @@
                         @if(isset($testimonial) && $testimonial->image)
                             <input type="hidden" name="old_image" value="{{ $testimonial->image }}">
                             <div class="mt-2">
-                                <img src="{{ asset('images/testimnial/' . $testimonial->image) }}"
+                                <img src="{{ asset('images/testimonial/' . $testimonial->image) }}"
                                      alt="Testimonial Image" class="img-fluid rounded" width="100">
                             </div>
                         @endif

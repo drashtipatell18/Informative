@@ -204,7 +204,7 @@
                                             </div>
                                             <div class="validation-message"></div>
                                         </div>
-                                       
+
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-lg btn-primary w-100 mt-4 mb-0">
                                                 <span class="button-text">Change Password</span>
@@ -246,7 +246,7 @@
             // Initialize form validation
             $("#reset").validate({
                rules: {
-                   newpassword: {
+                newpassword: {
                     required: true,
                     minlength: 6,
                     maxlength: 50

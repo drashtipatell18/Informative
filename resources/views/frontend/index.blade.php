@@ -381,7 +381,7 @@
                             </div>
                         </div>
 
-                        <a href="{{ route('contactf') }}"><button class="btn d_WC_btn_outline_success mt-2">Contact
+                        <a href="{{ route('contactf') }}"><button class="d_LP_read_more_btn">Contact
                                 Us</button></a>
                     </div>
                 </div>

@@ -28,7 +28,7 @@
                                     </td>
 
                                     <td class="text-center">
-                                        <img src="{{ $testimonial->image ? asset('images/testimnial/' . $testimonial->image) : asset('assets/img/placeholder.jpg') }}"
+                                        <img src="{{ $testimonial->image ? asset('images/testimonial/' . $testimonial->image) : asset('assets/img/placeholder.jpg') }}"
                                              alt="testimonial image" width="50" height="50"
                                              class="rounded-circle">
                                     </td>

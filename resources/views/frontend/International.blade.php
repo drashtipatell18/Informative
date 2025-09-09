@@ -34,11 +34,11 @@
 
                    <a href="{{ route('informationFront', $country->id) }}" class="z_Domestic_destination_card">
                         <div class="z_Domestic_destination_image">
-                            <img src="{{ $firstImage 
-                                ? asset('images/countries/' . $firstImage) 
-                                : asset('images/countries/dummy_product.png') }}" 
+                            <img src="{{ $firstImage
+                                ? asset('images/countries/' . $firstImage)
+                                : asset('images/countries/dummy_product.png') }}"
                                 alt="{{ $country->name }}">
-                            
+
                             <div class="z_Domestic_destination_overlay">
                                 <h3 class="z_Domestic_destination_title">{{ $country->name }}</h3>
                                 <p class="z_Domestic_destination_duration">{{ $country->day }} Days</p>
