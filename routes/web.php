@@ -133,7 +133,7 @@ Route::get('/videoslider/create', [VideoSliderController::class, 'VideoSliderCre
 Route::post('/videoslider/store', [VideoSliderController::class, 'VideoSliderStore'])->name('videoslider.store');
 Route::get('/videoslider/{id}/edit', [VideoSliderController::class, 'VideoSliderEdit'])->name('videoslider.edit');
 Route::post('/videoslider/{id}', [VideoSliderController::class, 'VideoSliderUpdate'])->name('videoslider.update');
-Route::get('/videoslider/{id}', [VideoSliderController::class, 'VideoSliderDestroy'])->name('videoslider.destroy');
+Route::delete('/videoslider/{id}', [VideoSliderController::class, 'VideoSliderDestroy'])->name('videoslider.destroy');
 
 // Travesly
 
@@ -142,7 +142,7 @@ Route::get('/travesly/create', [AboutTraveslyController::class, 'TraveslyCreate'
 Route::post('/travesly/store', [AboutTraveslyController::class, 'TraveslyStore'])->name('travesly.store');
 Route::get('/travesly/{id}/edit', [AboutTraveslyController::class, 'TraveslyEdit'])->name('travesly.edit');
 Route::post('/travesly/{id}', [AboutTraveslyController::class, 'TraveslyUpdate'])->name('travesly.update');
-Route::get('/travesly/{id}', [AboutTraveslyController::class, 'TraveslyDestroy'])->name('travesly.destroy');
+Route::delete('/travesly/{id}', [AboutTraveslyController::class, 'TraveslyDestroy'])->name('travesly.destroy');
 Route::post('/about-travesly/image/destroy', [AboutTraveslyController::class, 'destroyImage'])
     ->name('abouttravesly.image.destroy');
 

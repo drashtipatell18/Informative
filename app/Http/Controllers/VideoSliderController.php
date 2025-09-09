@@ -85,14 +85,6 @@ class VideoSliderController extends Controller
     public function VideoSliderDestroy($id)
     {
         $videoslider = VideoSlider::findOrFail($id);
-
-        // Delete video file from storage
-        $videoPath = public_path('video/videoslider/' . $videoslider->video);
-        if (file_exists($videoPath)) {
-            unlink($videoPath);
-        }
-
-        // Delete record from database
         $videoslider->delete();
 
         return redirect()->route('videoslider')->with('success', 'VideoSlider deleted successfully.');
