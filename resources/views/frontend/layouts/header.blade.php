@@ -73,7 +73,7 @@
                             <a class="d_nav_link nav-link" href="{{ route('international') }}">International</a>
                         </li>
                         <li class="d_nav_item nav-item">
-                            <a class="d_nav_link nav-link" href="{{ route('about-us') }}">About us</a>
+                            <a class="d_nav_link nav-link" href="{{ route('about-us') }}">About Us</a>
                         </li>
                         <li class="d_nav_item nav-item">
                             <a class="d_nav_link nav-link" href="{{ route('contactf') }}">Contact Us</a>
