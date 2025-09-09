@@ -94,8 +94,8 @@
                     { targets: 4, orderable: false, searchable: false }
                 ],
                 language: {
-                    search: "Search:",
-                    lengthMenu: "Show _MENU_ entries",
+                    search: "Search Testimonial:",
+                    lengthMenu: "Show _MENU_ testimonial per page",
                     info: "Showing _START_ to _END_ of _TOTAL_ testimonials",
                     infoEmpty: "Showing 0 to 0 of 0 testimonials",
                     infoFiltered: "(filtered from _MAX_ total testimonials)",
