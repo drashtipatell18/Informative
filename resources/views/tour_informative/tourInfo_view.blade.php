@@ -76,7 +76,7 @@
                     }
                 ],
                 language: {
-                    search: "Search TourDetails`:",
+                    search: "Search TourDetails :",
                     lengthMenu: "Show _MENU_ TourDetails per page",
                     info: "Showing _START_ to _END_ of _TOTAL_ TourDetails",
                     infoEmpty: "Showing 0 to 0 of 0 TourDetails",
