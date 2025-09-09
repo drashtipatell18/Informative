@@ -4,7 +4,7 @@
     <div class="container mt-5">
         <div class="card">
             <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-                <h6 class="mb-0">Country List</h6>
+                <h6 class="mb-0">Countries List</h6>
                 <a href="{{ route('country.create') }}" class="btn btn-primary custom-btn">Add Country</a>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
