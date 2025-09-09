@@ -321,7 +321,7 @@
 
     <!-- OUR SERVICEs -->
 
-    <section class="d_OS_services_section position-relative py-5">
+    <section class="d_OS_services_section position-relative">
         <div class="container">
             <div class="text-center mb-5">
                 <h6 class="d_OS_subtitle" style="color: #004F11;">OUR SERVICES</h6>
