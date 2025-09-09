@@ -13,19 +13,19 @@
                     <table id="EnquiryTable" class="table align-items-center mb-0">
                         <thead>
                             <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Contact</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Travel Date
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Id</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Name</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Contact</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Travel Date
                                 </th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">City</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Passengers
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">City</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Passengers
                                 </th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Interest
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Interest
                                 </th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Message
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Message
                                 </th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Date</th>
                                 <th class="text-secondary opacity-7">Actions</th>
                             </tr>
                         </thead>
