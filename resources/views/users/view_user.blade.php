@@ -13,17 +13,17 @@
                     <table id="userTable" class="table align-items-center mb-0">
                         <thead>
                             <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Id</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User Info
                                 </th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                     Role
                                 </th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                     Status</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                     Phone</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                     Created Date</th>
                                 <th class="text-secondary opacity-7">Actions</th>
                             </tr>
