@@ -9,6 +9,18 @@
         margin-top: 0.25rem;
         display: block;
     }
+
+    .z_contact_form_input,
+    .z_contact_form_textarea,
+    .z_contact_form_input:focus,
+    .z_contact_form_textarea:focus,
+    .z_contact_form_input:invalid,
+    .z_contact_form_textarea:invalid {
+        color: #000 !important;
+        /* Force black text */
+        border-color: #ced4da !important;
+        /* Normal border */
+    }
 </style>
 @section('content')
     <!-- Hero Section -->
