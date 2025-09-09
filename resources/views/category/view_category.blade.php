@@ -12,9 +12,12 @@
                     <table id="categoryTable" class="table align-items-center mb-0">
                         <thead>
                             <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Id</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Name</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Actions</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                    Id</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                    Name</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                    Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -23,8 +26,25 @@
                                     <td class="align-middle text-center text-sm">{{ $item->id }}</td>
                                     <td class="align-middle text-center text-sm">{{ $item->name }}</td>
                                     <td class="align-middle text-center text-sm">
-                                        <a href="{{ route('category.edit', $item->id) }}" class="btn btn-primary custom-btn" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                                        <a href="{{ route('category.destroy', $item->id) }}" class="btn btn-danger custom-btn" title="Delete"><i class="bi bi-trash"></i></a>
+                                        <!-- Edit icon -->
+                                        <a href="{{ route('category.edit', $item->id) }}"
+                                            class="text-secondary font-weight-bold text-xs me-2 d-inline custom-btn"
+                                            data-toggle="tooltip" data-original-title="Edit category">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+
+                                        <!-- Delete icon -->
+                                        <form action="{{ route('category.destroy', $item->id) }}" method="POST"
+                                            class="d-inline" id="delete-form-{{ $item->id }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <a href="javascript:void(0)"
+                                                onclick="confirm('Are you sure you want to delete this category?') ? document.getElementById('delete-form-{{ $item->id }}').submit() : false;"
+                                                class="text-danger font-weight-bold text-xs custom-btn"
+                                                data-toggle="tooltip" data-original-title="Delete user">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -49,8 +69,7 @@
                 order: [
                     [0, 'asc']
                 ], // Sort by ID by default
-                columnDefs: [
-                    {
+                columnDefs: [{
                         targets: [0], // ID column - sortable and searchable
                         orderable: true,
                         searchable: true
