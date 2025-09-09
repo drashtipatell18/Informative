@@ -312,9 +312,9 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
-
         </div>
+        @endforeach
+
         <div class="d_LP_abstract_design"></div>
     </section>
 
@@ -381,7 +381,8 @@
                             </div>
                         </div>
 
-                        <a href="{{ route('contactf') }}" style="text-decoration: none;"><button class="d_LP_read_more_btn">Contact
+                        <a href="{{ route('contactf') }}" style="text-decoration: none;"><button
+                                class="d_LP_read_more_btn">Contact
                                 Us</button></a>
                     </div>
                 </div>
@@ -392,7 +393,7 @@
                         <img src="{{ asset('frontend/Image/r1.png') }}" alt="Mountains" class="img-fluid ">
                         <div class="d_WC_img_front_wrapper ">
                             <!-- <img src="../Image/photo2.png" alt="Hiker" class="img-fluid d_WC_img_front"> -->
-                            <button class="d_LP_read_more_btn">Explore More</button>
+                            {{-- <button class="d_LP_read_more_btn">Explore More</button> --}}
                         </div>
                     </div>
                 </div>
