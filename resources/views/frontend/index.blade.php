@@ -204,6 +204,13 @@
             height: 60px;
         }
     }
+
+    @media (min-width: 992px) {
+        .col-lg-9 {
+            flex: 0 0 auto;
+            width: 100% !important;
+        }
+    }
 </style>
 @section('content')
     <div class="x_hero_section">
