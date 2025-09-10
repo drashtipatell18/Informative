@@ -211,6 +211,120 @@
             width: 100% !important;
         }
     }
+
+    /* Container for the entire slider */
+    .d_TS_slider-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        padding: 20px 0;
+    }
+
+    /* Avatar slider wrapper */
+    .d_TS_avatar-slider {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        /* Space between avatars */
+        flex-wrap: nowrap;
+        overflow: hidden;
+        /* Hide scrollbar completely */
+        width: 100%;
+        max-width: 600px;
+        /* Adjust based on your design */
+
+        /* Additional scrollbar hiding for different browsers */
+        -ms-overflow-style: none;
+        /* Internet Explorer 10+ */
+        scrollbar-width: none;
+        /* Firefox */
+    }
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .d_TS_avatar-slider::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Individual avatar container */
+    .d_TS_avatar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        min-width: 80px;
+        /* Prevent shrinking too small */
+        flex-shrink: 0;
+        /* Prevent avatars from shrinking */
+    }
+
+    /* Avatar image styling */
+    .d_TS_avatar img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+        margin: 0 auto 8px auto;
+        /* Center the image and add bottom margin */
+        border: 2px solid #ddd;
+        /* Optional border */
+    }
+
+    /* Avatar name styling */
+    .d_TS_avatar-name {
+        font-size: 12px;
+        color: #666;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 80px;
+    }
+
+    /* Active/Clone avatar highlighting */
+    .d_TS_avatar.clone {
+        transform: scale(1.1);
+        transition: transform 0.3s ease;
+    }
+
+    .d_TS_avatar.clone img {
+        border-color: #007bff;
+        /* Highlight active avatar */
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+        .d_TS_avatar-slider {
+            gap: 15px;
+            padding: 0 20px;
+        }
+
+        .d_TS_avatar img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .d_TS_avatar-name {
+            font-size: 11px;
+            max-width: 70px;
+        }
+    }
+
+    /* Alternative: If you want them in a single centered row */
+    .d_TS_avatar-slider.centered-row {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    /* Alternative: If you want them stacked vertically and centered */
+    .d_TS_avatar-slider.vertical {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
 </style>
 @section('content')
     <div class="x_hero_section">
