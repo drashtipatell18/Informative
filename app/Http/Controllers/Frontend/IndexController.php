@@ -11,7 +11,9 @@ use App\Models\Service;
 use App\Models\Testimonial;
 use App\Models\Country;
 use App\Models\VideoSlider;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewsletterMail;
+use App\Models\Newsletter;
 class IndexController extends Controller
 {
     public function index()
@@ -47,5 +49,19 @@ class IndexController extends Controller
         }
 
         return redirect()->route('index')->with('success', 'Enquiry created successfully!');
+    }
+
+    public function subscribe(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email'
+        ]);
+        Newsletter::create([
+            'email' => $request->email
+        ]);
+        // Send confirmation email
+        Mail::to($request->email)->send(new NewsletterMail());
+
+        return back()->with('success', 'Subscription successful! Please check your email.');
     }
 }

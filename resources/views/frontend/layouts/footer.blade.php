@@ -77,14 +77,18 @@
                             <div class="d_footer_column">
                                 <h3 class="d_footer_heading">Newsletter</h3>
                                 <div class="d_newsletter_form">
-                                    <div class="d_input_group">
-                                        <input type="email" class="d_newsletter_input"
-                                            placeholder="Your email here...">
-                                        <button class="d_subscribe_btn">Subscribe</button>
-                                    </div>
+                                    <form id="newsletterForm" action="{{ route('subscribe')}}" method="POST">
+                                        @csrf
+                                        <div class="d_input_group">
+                                            <input type="email" class="d_newsletter_input" name="email"
+                                                placeholder="Your email here..." required id="emailInput">
+                                            <button type="submit" class="d_subscribe_btn">Subscribe</button>
+                                        </div>
+                                    </form>
                                     <p class="d_newsletter_text">
                                         Be the first to know about our latest travel deals and updates, Subscribe Now
                                     </p>
+                                    <div id="messageContainer"></div>
                                 </div>
                             </div>
                         </div>

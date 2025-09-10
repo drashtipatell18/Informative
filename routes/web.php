@@ -161,6 +161,7 @@ Route::post('/about-us/image/destroy', [BackendAboutUsController::class, 'destro
     //frontend
 
 Route::get('/index',[IndexController::class,'index'])->name('index');
+Route::post('/subscribe', [IndexController::class, 'subscribe'])->name('subscribe');
 Route::get('/about-us',[AboutUSController::class,'AboutUS'])->name('about-us');
 Route::get('/contactf',[FrontendContactController::class,'Contact'])->name('contactf');
 Route::post('/contactfstore',[FrontendContactController::class,'ContactStore'])->name('contactfstore');
