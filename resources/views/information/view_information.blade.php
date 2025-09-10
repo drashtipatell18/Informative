@@ -18,7 +18,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($informations as $item)
+                            @foreach ($informations as $key => $item)
                                 <tr>
                                     <td class="align-middle text-center text-sm">{{ $item->id }}</td>
                                     <td class="align-middle text-center text-sm">{{ $item->type }}</td>

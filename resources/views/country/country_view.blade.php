@@ -29,9 +29,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($countries as $country)
+                            @foreach ($countries as $key => $country)
                                 <tr>
-                                    <td class="align-middle text-center text-sm">{{ $country->id }}</td>
+                                    <td class="align-middle text-center text-sm">{{ $key + 1 }}</td>
                                     <td class="align-middle text-center text-sm">{{ $country->code }}</td>
                                     <td class="align-middle text-center text-sm">{{ $country->name }}</td>
                                     <td class="align-middle text-center text-sm">{{ $country->category->name ?? 'N/A' }}</td>
