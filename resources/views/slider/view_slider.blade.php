@@ -13,11 +13,16 @@
                     <table id="SliderTable" class="table align-items-center mb-0">
                         <thead>
                             <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Image</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Description</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                    Id</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                    Image</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                    Name</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                    Description</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                    Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -27,12 +32,8 @@
                                         <span class="text-sm">{{ $slider->id }}</span>
                                     </td>
                                     <td class="text-center">
-                                        <div class="d-flex px-2 py-1">
-                                            <div>
-                                                <img src="{{ $slider->image ? asset('images/sliders/' . $slider->image) : asset('assets/img/team-2.jpg') }}"
-                                                    class="avatar avatar-sm me-3" alt="slider{{ $slider->id }}">
-                                            </div>
-                                        </div>
+                                        <img src="{{ $slider->image ? asset('images/sliders/' . $slider->image) : asset('assets/img/team-2.jpg') }}"
+                                            class="avatar avatar-sm me-3" alt="slider{{ $slider->id }}">
                                     </td>
                                     <td class="align-middle text-center">
                                         <div class="d-flex flex-column justify-content-center">
@@ -44,7 +45,7 @@
                                             {{ $slider->description ? Str::words($slider->description, 10, '...') : 'N/A' }}
                                         </span>
                                     </td>
-                                    <td class="align-middle">
+                                    <td class="align-middle text-center">
                                         <!-- Edit icon -->
                                         <a href="{{ route('slider.edit', $slider->id) }}"
                                             class="text-secondary font-weight-bold text-xs me-2 d-inline custom-btn"
@@ -90,8 +91,7 @@
                 order: [
                     [0, 'asc']
                 ], // Sort by ID by default
-                columnDefs: [
-                    {
+                columnDefs: [{
                         targets: [0], // ID column - sortable and searchable
                         orderable: true,
                         searchable: true
