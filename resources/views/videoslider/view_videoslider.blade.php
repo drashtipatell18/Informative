@@ -19,7 +19,8 @@
                                     Video</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                     Name</th>
-                                <th class="text-secondary opacity-7 text-center">Actions</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                    Actions</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -14,7 +14,7 @@
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Id</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User Info
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">User Info
                                 </th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                     Role
@@ -25,7 +25,8 @@
                                     Phone</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                     Created Date</th>
-                                <th class="text-secondary opacity-7">Actions</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                    Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,7 +65,7 @@
                                             {{ $user->created_at ? $user->created_at->format('d/m/y') : 'N/A' }}
                                         </span>
                                     </td>
-                                    <td class="align-middle">
+                                    <td class="align-middle text-center">
                                         <!-- Edit icon -->
                                         <a href="{{ route('users.edit', $user->id) }}"
                                             class="text-secondary font-weight-bold text-xs me-2 d-inline custom-btn"

@@ -16,8 +16,8 @@
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Id</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Image</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Name</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 text-center">Description</th>
-                                <th class="text-secondary opacity-7 text-center">Actions</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Description</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -27,12 +27,12 @@
                                         <span class="text-sm">{{ $service->id }}</span>
                                     </td>
                                     <td class="text-center">
-                                        <div class="d-flex px-2 py-1">
+                                        {{-- <div class="d-flex px-2 py-1"> --}}
                                             <div>
                                                 <img src="{{ $service->image ? asset('images/services/' . $service->image) : asset('assets/img/team-2.jpg') }}"
                                                     class="avatar avatar-sm me-3" alt="service{{ $service->id }}">
                                             </div>
-                                        </div>
+                                        {{-- </div> --}}
                                     </td>
                                     <td class="align-middle text-center">
                                         <div class="d-flex flex-column justify-content-center">
@@ -44,7 +44,7 @@
                                             {{ $service->description ? Str::words($service->description, 10, '...') : 'N/A' }}
                                         </span>
                                     </td>
-                                    <td class="align-middle">
+                                    <td class="align-middle text-center">
                                         <!-- Edit icon -->
                                         <a href="{{ route('service.edit', $service->id) }}"
                                             class="text-secondary font-weight-bold text-xs me-2 d-inline custom-btn"
