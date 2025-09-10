@@ -450,7 +450,7 @@
             </div>
             <div class="row g-4 justify-content-center">
                 @foreach ($Service as $service)
-                    <div class="col-6 col-lg-3">
+                    <div class="col-6 col-lg-3 mb-3">
                         <div class="d_OS_card text-center p-4 bg-white shadow-sm h-100 rounded-4 position-relative">
                             <div class="d_OS_icon_box position-relative mx-auto mb-4">
                                 <div class="d_OS_icon_bg"></div>
