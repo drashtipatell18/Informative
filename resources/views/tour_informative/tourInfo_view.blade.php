@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-.ck.ck-powered-by {
-    display: none !important;
-}
-</style>
+    <style>
+        .ck.ck-powered-by {
+            display: none !important;
+        }
+    </style>
     <div class="container mt-5">
         <div class="card">
             <div class="card-header pb-0 d-flex justify-content-between align-items-center">
@@ -17,11 +17,16 @@
                     <table id="tourDetailsTable" class="table align-items-center mb-0">
                         <thead>
                             <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Id</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Information</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Title</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Description</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Actions</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                    Id</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                    Information</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                    Title</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                    Description</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                    Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,10 +35,13 @@
                                     <td class="align-middle text-center text-sm">{{ $item->id }}</td>
                                     <td class="align-middle text-center text-sm">{{ $item->information->type }}</td>
                                     <td class="align-middle text-center text-sm">{{ $item->title }}</td>
-                                    <td class="align-middle text-center text-sm">{{ $item->description }}</td>
+                                    <td class="align-middle text-center text-sm">{{ Str::words(strip_tags($item->description), 10, '...') }}</td>
                                     <td class="align-middle text-center text-sm">
-                                        <a href="{{ route('tour_details.edit', $item->id) }}" class="btn btn-primary custom-btn" title="Edit"><i class="bi bi-pencil-square"></i></a>
-                                        <a href="{{ route('tour_details.destroy', $item->id) }}" class="btn btn-danger custom-btn" title="Delete"><i class="bi bi-trash"></i></a>
+                                        <a href="{{ route('tour_details.edit', $item->id) }}"
+                                            class="btn btn-primary custom-btn" title="Edit"><i
+                                                class="bi bi-pencil-square"></i></a>
+                                        <a href="{{ route('tour_details.destroy', $item->id) }}"
+                                            class="btn btn-danger custom-btn" title="Delete"><i class="bi bi-trash"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -58,8 +66,7 @@
                 order: [
                     [0, 'asc']
                 ], // Sort by ID by default
-                columnDefs: [
-                    {
+                columnDefs: [{
                         targets: [0], // ID column - sortable and searchable
                         orderable: true,
                         searchable: true

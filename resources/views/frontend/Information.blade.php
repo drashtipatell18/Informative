@@ -17,7 +17,8 @@
             <div class="z_infor_details_row">
                 <span class="z_infor_detail">
 
-                    <svg width="22" height="20" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg width="22" height="20" viewBox="0 0 24 22" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M21.0497 1.55832H19.3781V0.937694C19.3781 0.738781 19.2991 0.548016 19.1585 0.407364C19.0178 0.266711 18.827 0.187694 18.6281 0.187694C18.4292 0.187694 18.2384 0.266711 18.0978 0.407364C17.9571 0.548016 17.8781 0.738781 17.8781 0.937694V1.55832H12.75V0.937694C12.75 0.738781 12.671 0.548016 12.5303 0.407364C12.3897 0.266711 12.1989 0.187694 12 0.187694C11.8011 0.187694 11.6103 0.266711 11.4697 0.407364C11.329 0.548016 11.25 0.738781 11.25 0.937694V1.55832H6.12187V0.937694C6.12438 0.837656 6.10683 0.738129 6.07028 0.644975C6.03372 0.551821 5.9789 0.466924 5.90903 0.395286C5.83916 0.323647 5.75566 0.266715 5.66345 0.227843C5.57124 0.188971 5.47218 0.168945 5.37211 0.168945C5.27204 0.168945 5.17298 0.188971 5.08077 0.227843C4.98856 0.266715 4.90506 0.323647 4.83519 0.395286C4.76532 0.466924 4.71049 0.551821 4.67394 0.644975C4.63738 0.738129 4.61984 0.837656 4.62234 0.937694V1.55832H2.95078C2.29286 1.55894 1.66205 1.82051 1.19674 2.28564C0.731426 2.75078 0.469619 3.38149 0.46875 4.03941V19.331C0.469494 19.9889 0.731183 20.6197 1.1964 21.0849C1.66163 21.5501 2.29239 21.8118 2.95031 21.8125H21.0492C21.7071 21.8118 22.3379 21.5501 22.8031 21.0849C23.2683 20.6197 23.53 19.9889 23.5308 19.331V4.03941C23.53 3.38149 23.2683 2.75073 22.8031 2.28551C22.3379 1.82028 21.7071 1.55859 21.0492 1.55785L21.0497 1.55832ZM2.95078 3.05832H4.62187V3.67848C4.62187 3.87739 4.70089 4.06815 4.84154 4.20881C4.9822 4.34946 5.17296 4.42848 5.37187 4.42848C5.57079 4.42848 5.76155 4.34946 5.9022 4.20881C6.04286 4.06815 6.12187 3.87739 6.12187 3.67848V3.05832H11.25V3.67848C11.2475 3.77851 11.265 3.87804 11.3016 3.97119C11.3382 4.06435 11.393 4.14925 11.4628 4.22088C11.5327 4.29252 11.6162 4.34945 11.7084 4.38833C11.8006 4.4272 11.8997 4.44722 11.9998 4.44722C12.0998 4.44722 12.1989 4.4272 12.2911 4.38833C12.3833 4.34945 12.4668 4.29252 12.5367 4.22088C12.6066 4.14925 12.6614 4.06435 12.6979 3.97119C12.7345 3.87804 12.752 3.77851 12.7495 3.67848V3.05832H17.8777V3.67848C17.8777 3.87739 17.9567 4.06815 18.0973 4.20881C18.238 4.34946 18.4287 4.42848 18.6277 4.42848C18.8266 4.42848 19.0173 4.34946 19.158 4.20881C19.2986 4.06815 19.3777 3.87739 19.3777 3.67848V3.05832H21.0492C21.5906 3.05832 22.0312 3.49894 22.0312 4.03988V6.56176H1.96875V4.03988C1.96875 3.49848 2.40937 3.05832 2.95078 3.05832ZM21.0497 20.313H2.95078C2.69049 20.3128 2.44092 20.2093 2.25682 20.0253C2.07272 19.8413 1.96912 19.5917 1.96875 19.3314V8.06129H22.0312V19.3314C22.0312 19.8729 21.5911 20.313 21.0497 20.313Z"
                             fill="white" />
@@ -51,340 +52,49 @@
         </div>
     </section>
 
-    <!-- Navigation Tabs -->
-    <div class="z_tour_tabs_container">
-        <div class="z_tour_tabs">
-            @foreach($informations as $index => $tab)
-                <button class="z_tour_tab_btn {{ $loop->first ? 'active' : '' }}"
-                        data-tab="{{ $tab->tab_key }}">
-                    {{ $tab->type }}
-                </button>
-            @endforeach
-        </div>
+{{-- Debug to check data --}}
+{{-- @dd($informations, $tour_details); --}}
+
+<!-- Tabs Navigation -->
+<div class="z_tour_tabs_container">
+    <div class="z_tour_tabs">
+        @foreach($informations as $index => $tab)
+            <button
+                class="z_tour_tab_btn {{ $loop->first ? 'active' : '' }}"
+                data-tab="tab-{{ $tab->id }}">
+                {{ $tab->type }}
+            </button>
+        @endforeach
     </div>
+</div>
 
-    <!-- Tab Content -->
-    <div class="z_tour_content">
-        <!-- Tour Details Tab -->
-        <div class="z_tour_tab_content active" id="tour-details">
-            <div class="z_tour_day_item">
-                <h3 class="z_tour_day_title"> <span class="fw-normal">Day 1 :</span>Lorem Ipsum is simply dummy</h3>
-                <p class="z_tour_day_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    Lorem Ipsum has been the industry's stan Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's stan Lorem Ipsum is simply dummy text of
-                    the printing and typesetting industry. Lorem Ipsum has been the industry's stan</p>
-            </div>
-            <div class="z_tour_day_item">
-                <h3 class="z_tour_day_title"><span class="fw-normal">Day 2 :</span> Lorem Ipsum is simply dummy text
-                </h3>
-                <p class="z_tour_day_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    Lorem Ipsum has been the industry's stan Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's stan Lorem Ipsum is simply dummy text of
-                    the printing and typesetting industry. Lorem Ipsum has been the industry's stan Lorem Ipsum is
-                    simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's stan
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-            </div>
-            <div class="z_tour_day_item">
-                <h3 class="z_tour_day_title"><span class="fw-normal">Day 3 :</span> Lorem Ipsum is simply</h3>
-                <p class="z_tour_day_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    Lorem Ipsum has been the industry's stan Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's stan Lorem Ipsum is simply dummy text of
-                    the printing and typesetting industry. Lorem Ipsum has been the industry's stan</p>
-            </div>
-            <div class="z_tour_day_item">
-                <h3 class="z_tour_day_title"><span class="fw-normal">Day 4 :</span> Lorem Ipsum is simply</h3>
-                <p class="z_tour_day_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    Lorem Ipsum has been the industry's stan Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's stan Lorem Ipsum is simply dummy text of
-                    the printing and typesetting industry. Lorem Ipsum has been the industry's stan</p>
-            </div>
-            <div class="z_tour_day_item">
-                <h3 class="z_tour_day_title"><span class="fw-normal">Day 5 :</span> Lorem Ipsum is simply</h3>
-                <p class="z_tour_day_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    Lorem Ipsum has been the industry's stan Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's stan Lorem Ipsum is simply dummy text of
-                    the printing and typesetting industry. Lorem Ipsum has been the industry's stan</p>
-            </div>
-            <div class="z_tour_day_item">
-                <h3 class="z_tour_day_title"><span class="fw-normal">Day 6 :</span> Lorem Ipsum is simply dummy text</h3>
-                <p class="z_tour_day_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    Lorem Ipsum has been the industry's stan Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's stan Lorem Ipsum is simply dummy text of
-                    the printing and typesetting industry. Lorem Ipsum has been the industry's stan Lorem Ipsum is
-                    simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's stan
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-            </div>
-            <div class="z_tour_day_item">
-                <h3 class="z_tour_day_title"><span class="fw-normal">Day 7 :</span> Lorem Ipsum is simply</h3>
-                <p class="z_tour_day_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    Lorem Ipsum has been the industry's stan Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's stan Lorem Ipsum is simply dummy text of
-                    the printing and typesetting industry. Lorem Ipsum has been the industry's stan</p>
-            </div>
-        </div>
+<!-- Tabs Content -->
+<div class="z_tour_content">
+    @foreach ($informations as $index => $tab)
+        <div class="z_tour_tab_content {{ $loop->first ? 'active' : '' }}"
+             id="tab-{{ $tab->id }}">
 
-        <!-- Package Details Tab -->
-        <div class="z_tour_tab_content" id="package-details">
-            <div class="z_tour_section">
-                <h3 class="z_tour_section_title">Travelling Details</h3>
-                <ul class="z_tour_list">
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                </ul>
-            </div>
-            <div class="z_tour_section">
-                <h3 class="z_tour_section_title">Package Includes</h3>
-                <ul class="z_tour_list">
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                </ul>
-            </div>
-            <div class="z_tour_section">
-                <h3 class="z_tour_section_title">Package Excludes</h3>
-                <ul class="z_tour_list">
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                </ul>
-            </div>
-        </div>
+            @php
+                // Filter tour_details by the current tab (information_id)
+                $filteredDetails = $tour_details->where('information_id', $tab->id);
+            @endphp
 
-        <!-- Visa Details Tab -->
-        <div class="z_tour_tab_content" id="visa-details">
-            <ul class="z_tour_list">
-                <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
-                <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
-                <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
-                <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
-                <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
-                <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
-                <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
-                <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
-            </ul>
-        </div>
-
-        <!-- Media Tab -->
-        <div class="z_tour_tab_content" id="media">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-6 mb-3">
-                        <div class="z_tour_media_item" onclick="openImageModal(0)">
-                            <img src="{{ asset('frontend/Image/1.png')}}" alt="Travel Scene 1" class="img-fluid">
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-6 mb-3">
-                        <div class="z_tour_media_item" onclick="openImageModal(1)">
-                            <img src="{{ asset('frontend/Image/2.png')}}" alt="Travel Scene 2" class="img-fluid">
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-6 mb-3">
-                        <div class="z_tour_media_item" onclick="openImageModal(2)">
-                            <img src="{{ asset('frontend/Image/3.png')}}" alt="Travel Scene 3" class="img-fluid">
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-6 mb-3">
-                        <div class="z_tour_media_item" onclick="openImageModal(3)">
-                            <img src="{{ asset('frontend/Image/4.png')}}" alt="Travel Scene 4" class="img-fluid">
-                        </div>
-                    </div>
+            @forelse ($filteredDetails as $day)
+                <div class="z_tour_day_item">
+                    <h3 class="z_tour_day_title">
+                        <span class="fw-normal">Day {{ $loop->iteration }}:</span> {{ $day->title }}
+                    </h3>
+                    <p class="z_tour_day_text">{!! $day->description !!}</p>
                 </div>
-                <div class="row">
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-6 mb-3">
-                        <div class="z_tour_media_item" onclick="openImageModal(4)">
-                            <img src="{{ asset('frontend/Image/5.png')}}" alt="Travel Scene 5" class="img-fluid">
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-6 mb-3">
-                        <div class="z_tour_media_item" onclick="openImageModal(5)">
-                            <img src="{{ asset('frontend/Image/6.png')}}" alt="Travel Scene 6" class="img-fluid">
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-6 mb-3">
-                        <div class="z_tour_media_item" onclick="openImageModal(6)">
-                            <img src="{{ asset('frontend/Image/2.png')}}" alt="Travel Scene 7" class="img-fluid">
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-6 mb-3">
-                        <div class="z_tour_media_item" onclick="openImageModal(7)">
-                            <img src="{{ asset('frontend/Image/4.png')}}" alt="Travel Scene 8" class="img-fluid">
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @empty
+                <p>No details available for "{{ $tab->type }}".</p>
+            @endforelse
         </div>
+    @endforeach
+</div>
 
-        <!-- Image Preview Modal -->
-        <div id="imageModal" class="z_image_modal">
-            <div class="z_image_modal_content">
-                <span class="z_image_modal_close" onclick="closeImageModal()">&times;</span>
 
-                <!-- Main Image Container -->
-                <div class="z_image_main_container">
-                    <button class="z_image_nav_btn z_image_prev" onclick="changeImage(-1)">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
 
-                    <div class="z_image_main">
-                        <img id="modalMainImage" src="" alt="Main Image">
-                    </div>
-
-                    <button class="z_image_nav_btn z_image_next" onclick="changeImage(1)">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-
-                <!-- Thumbnail Gallery -->
-                <div class="z_image_thumbnails">
-                    <div class="z_image_thumb active" onclick="selectImage(0)">
-                        <img src="{{ asset('frontend/Image/1.png')}}" alt="Thumbnail 1">
-                    </div>
-                    <div class="z_image_thumb" onclick="selectImage(1)">
-                        <img src="{{ asset('frontend/Image/2.png')}}" alt="Thumbnail 2">
-                    </div>
-                    <div class="z_image_thumb" onclick="selectImage(2)">
-                        <img src="{{ asset('frontend/Image/3.png')}}" alt="Thumbnail 3">
-                    </div>
-                    <div class="z_image_thumb" onclick="selectImage(3)">
-                        <img src="{{ asset('frontend/Image/4.png')}}" alt="Thumbnail 4">
-                    </div>
-                    <div class="z_image_thumb" onclick="selectImage(4)">
-                        <img src="{{ asset('frontend/Image/5.png')}}" alt="Thumbnail 5">
-                    </div>
-                    <div class="z_image_thumb" onclick="selectImage(5)">
-                        <img src="{{ asset('frontend/Image/6.png')}}" alt="Thumbnail 6">
-                    </div>
-                    <div class="z_image_thumb" onclick="selectImage(6)">
-                        <img src="{{ asset('frontend/Image/2.png')}}" alt="Thumbnail 7">
-                    </div>
-                    <div class="z_image_thumb" onclick="selectImage(7)">
-                        <img src="{{ asset('frontend/Image/4.png')}}" alt="Thumbnail 8">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Terms & Conditions Tab -->
-        <div class="z_tour_tab_content" id="terms">
-            <div class="z_tour_section">
-                <h3 class="z_tour_section_title">Remarks</h3>
-                <ul class="z_tour_list">
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                </ul>
-            </div>
-            <div class="z_tour_section">
-                <h3 class="z_tour_section_title">Cancellation Policy</h3>
-                <ul class="z_tour_list">
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                </ul>
-            </div>
-            <div class="z_tour_section">
-                <h3 class="z_tour_section_title">Terms & Conditions</h3>
-                <ul class="z_tour_list">
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                    <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's stan Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
 @endsection
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
