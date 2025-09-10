@@ -105,7 +105,7 @@
                                 <i class="fas fa-map-marker-alt"></i>
                             </div>
                             <h3 class="z_contact_card_title">Address</h3>
-                            <p class="z_contact_card_text">4140 Parker Rd. Allentown, New Mexico 31134</p>
+                            <p class="z_contact_card_text">411, Kyros Business Center, Sarthana Jakatnaka, Surat</p>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 mb-4">
@@ -114,7 +114,7 @@
                                 <i class="fas fa-phone"></i>
                             </div>
                             <h3 class="z_contact_card_title">Call Us</h3>
-                            <p class="z_contact_card_text">(246) 565 1100<br>(246) 565 1109</p>
+                            <p class="z_contact_card_text">+91 7096828255<br>+91 9537632323</p>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 mb-4">
@@ -123,7 +123,7 @@
                                 <i class="fas fa-envelope"></i>
                             </div>
                             <h3 class="z_contact_card_title">Email Us</h3>
-                            <p class="z_contact_card_text">exampl@gmail.com<br>example@gmail.com</p>
+                            <p class="z_contact_card_text">shreenathji35@gmail.com</p>
                         </div>
                     </div>
                 </div>
