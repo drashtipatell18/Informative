@@ -285,7 +285,7 @@
                         </div>
                         <span class="nav-link-text ms-1">About Us</span>
                     </a>
-                </li>    
+                </li>
 
             </ul>
         </div>
@@ -326,7 +326,7 @@
                     <div class="row justify-content-center">
                         <div class="col-auto">
                             <div class="copyright text-center text-muted">
-                                ©
+                                {{-- ©
                                 <script>
                                     document.write(new Date().getFullYear())
                                 </script>,
@@ -334,7 +334,7 @@
                                 <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">
                                     Creative Tim
                                 </a>
-                                for a better web.
+                                for a better web. --}}
                             </div>
                         </div>
                     </div>
