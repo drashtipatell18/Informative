@@ -332,7 +332,7 @@
             <h1 class="x_hero_title">It's A Big World Out There,<br>Go Explore.</h1>
             <p class="x_hero_text">Lorem ipsum is simply dummy text of the printing and typesetting industry.Lorem ipsum
                 has been the industry's stan</p>
-            <a href="{{ route('information') }}"><button class="x_explore_btn">Explore More</button></a>
+            <a href="{{ route('domestic') }}"><button class="x_explore_btn">Explore More</button></a>
         </div>
         <div class="x_main">
             <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper x_mySwiper2">
