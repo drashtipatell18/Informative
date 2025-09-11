@@ -8,12 +8,20 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ForgotPasswordMail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Category;
+use App\Models\Service;
+use App\Models\Testimonial;
+use App\Models\Information;
 
 class DashboardController extends Controller
 {
     public function dashboard()
     {
-        return view('dashboard');
+        $categories = Category::count();
+        $services = Service::count();
+        $testimonial = Testimonial::count();
+        $infomation = Information::count();
+        return view('dashboard',compact('categories','services','testimonial','infomation'));
     }
 
     public function showForgetPasswordForm()
@@ -25,7 +33,7 @@ class DashboardController extends Controller
     {
         $request->validate(['email' => 'required|email']);
         $user = User::where('email', '=', $request->email)->first();
-        
+
 
         if (!empty($user)) {
             $user->remember_token = Str::random(40);
@@ -59,7 +67,7 @@ class DashboardController extends Controller
         }
 
         $user = User::where('remember_token', '=', $token)->first();
-      
+
         if (!empty($user)) {
             if (empty($user->email_verified_at)) {
                 $user->email_verified_at = now();
