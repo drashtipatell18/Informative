@@ -27,7 +27,11 @@
                         <!-- LOGO Column -->
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="d_footer_column">
-                                <a href="landingpage.html" class="d_footer_heading d_footer_logo_link">LOGO</a>
+                                <a class="d_logo navbar-brand" href="{{ route('index') }}">
+                                    <img src="{{ asset('assets/img/logo__2.png') }}" alt="Medical Stock Logo"
+                                        class="logo-img" style="width: 150px; height: auto;">
+                                </a>
+
                                 <p class="d_footer_text">
                                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
                                     Ipsum has been the industry's stan
@@ -77,7 +81,7 @@
                             <div class="d_footer_column">
                                 <h3 class="d_footer_heading">Newsletter</h3>
                                 <div class="d_newsletter_form">
-                                    <form id="newsletterForm" action="{{ route('subscribe')}}" method="POST">
+                                    <form id="newsletterForm" action="{{ route('subscribe') }}" method="POST">
                                         @csrf
                                         <div class="d_input_group">
                                             <input type="email" class="d_newsletter_input" name="email"

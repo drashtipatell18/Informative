@@ -49,7 +49,8 @@
             <div class="container ">
                 <!-- Logo -->
                 <a class="d_logo navbar-brand" href="{{ route('index') }}">
-                    LOGO
+                    <img src="{{ asset('assets/img/logo__2.png') }}" alt="Medical Stock Logo" class="logo-img"
+                        style="width: 150px; height: auto;">
                 </a>
 
                 <!-- Mobile Toggle Button -->
