@@ -23,22 +23,22 @@
                         <tbody>
                             @forelse($testimonials as $testimonial)
                                 <tr>
-                                    <td class="text-center">
-                                        {{ $testimonial->id }}
+                                    <td class="align-middle text-center">
+                                         <span class="text-sm">{{ $testimonial->id }}</span>
                                     </td>
 
-                                    <td class="text-center">
+                                    <td class="align-middle text-center">
                                         <img src="{{ $testimonial->image ? asset('images/testimonial/' . $testimonial->image) : asset('assets/img/placeholder.jpg') }}"
                                              alt="testimonial image" width="50" height="50"
                                              class="rounded-circle">
                                     </td>
 
-                                    <td class="text-center">
-                                        {{ $testimonial->name }}
+                                    <td class="align-middle text-center">
+                                         <span class="text-xs">{{ $testimonial->name }}</span>
                                     </td>
 
-                                    <td class="text-center">
-                                        {{ Str::words($testimonial->description, 10, '...') }}
+                                    <td class="align-middle text-center">
+                                         <span class="text-xs">{{ Str::words($testimonial->description, 10, '...') }}</span>
                                     </td>
 
                                     <td class="text-center">
