@@ -28,12 +28,13 @@
         font-size: 2.5rem;
         font-weight: 300;
         margin-bottom: 10px;
-        text-shadow: 2px 2px 4px rgba(0,20,60,0.3);
+        color: white;
     }
 
     .dashboard-header p {
         font-size: 1.1rem;
         opacity: 0.9;
+        color: #000
     }
 
     .stats-grid {
