@@ -14,6 +14,9 @@ use App\Models\VideoSlider;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NewsletterMail;
 use App\Models\Newsletter;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Str;
+use App\Models\TourDetails;
 class IndexController extends Controller
 {
     public function index()
@@ -63,5 +66,24 @@ class IndexController extends Controller
         Mail::to($request->email)->send(new NewsletterMail());
 
         return back()->with('success', 'Subscription successful! Please check your email.');
+    }
+
+  
+    public function downloadPDF($id)
+    {
+        $country = Country::findOrFail($id);
+        $images = is_array($country->images) ? $country->images : json_decode($country->images, true);
+
+        $tourDetails = TourDetails::where('country_id', $id)->where('information_id', 1)->get();
+        $packageDetails = TourDetails::where('country_id', $id)->where('information_id', 2)->get();
+        $visaDetails = TourDetails::where('country_id', $id)->where('information_id', 3)->get();
+
+        $pdf = Pdf::loadView('frontend.pdfdownload', compact(
+            'country', 'images', 'tourDetails', 'packageDetails', 'visaDetails'
+        ));
+
+        $filename = Str::slug($country->name) . '_details.pdf';
+
+        return $pdf->download($filename);
     }
 }

@@ -169,3 +169,4 @@ Route::get('/domestic',[DomesticController::class,'Domestic'])->name('domestic')
 Route::get('informationFront/{id}', [FrontInformationController::class, 'Information'])->name('informationFront');
 Route::get('/international',[FrontInternationalController::class,'International'])->name('international');
 Route::post('/create-enquiry', [IndexController::class, 'CreateFrontEnquiry'])->name('create.enquiry');
+Route::get('/download-tour-details/{country}', [IndexController::class, 'downloadPDF'])->name('country.download');

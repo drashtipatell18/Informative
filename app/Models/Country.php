@@ -19,4 +19,9 @@ class Country extends Model
     'images' => 'array',
 ];
 
+public function tourDetails()
+{
+    return $this->hasMany(TourDetails::class, 'country_id');
+}
+
 }
