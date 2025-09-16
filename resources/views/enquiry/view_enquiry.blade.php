@@ -37,7 +37,7 @@
                                     </td>
                                     <td class="align-middle text-center">
                                         <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm">{{ $enquiry->name }}</h6>
+                                            <span class="mb-0 text-xs">{{ $enquiry->name }}</span>
                                         </div>
                                     </td>
                                     <td class="align-middle text-center">

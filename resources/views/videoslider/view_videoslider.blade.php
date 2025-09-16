@@ -57,7 +57,7 @@
                                     </td>
                                     <td class="align-middle text-center">
                                         <div class="d-flex flex-column justify-content-center">
-                                            <h3 class="mb-0 text-sm">{{ $slider->name }}</h3>
+                                            <span class="mb-0 text-xs">{{ $slider->name }}</span>
                                         </div>
                                     </td>
                                     <td class="align-middle text-center">

@@ -24,7 +24,7 @@
                             @foreach ($category as $key => $item)
                                 <tr>
                                     <td class="align-middle text-center text-sm">{{ $key + 1 }}</td>
-                                    <td class="align-middle text-center text-sm">{{ $item->name }}</td>
+                                    <td class="align-middle text-center text-xs">{{ $item->name }}</td>
                                     <td class="align-middle text-center text-sm">
                                         <!-- Edit icon -->
                                         <a href="{{ route('category.edit', $item->id) }}"
