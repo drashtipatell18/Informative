@@ -126,6 +126,11 @@
             margin-top: 10px !important;
         }
     }
+
+    .dataTables_info {
+        font-size: 12px;
+        line-height: 30px;
+    }
 </style>
 
 <body class="g-sidenav-show   bg-gray-100">
