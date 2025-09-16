@@ -13,11 +13,16 @@
                     <table id="ServiceTable" class="table align-items-center mb-0">
                         <thead>
                             <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Id</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Image</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Name</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Description</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">Actions</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                    Id</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                    Image</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                    Name</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                    Description</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                    Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -28,16 +33,16 @@
                                     </td>
                                     <td class="text-center">
                                         {{-- <div class="d-flex px-2 py-1"> --}}
-                                            <div>
-                                                <img src="{{ $service->image ? asset('images/services/' . $service->image) : asset('assets/img/team-2.jpg') }}"
-                                                    class="avatar avatar-sm me-3" alt="service{{ $service->id }}">
-                                            </div>
+                                        <div>
+                                            <img src="{{ $service->image ? asset('images/services/' . $service->image) : asset('assets/img/team-2.jpg') }}"
+                                                class="avatar avatar-sm me-3" alt="service{{ $service->id }}">
+                                        </div>
                                         {{-- </div> --}}
                                     </td>
                                     <td class="align-middle text-center">
-                                        <div class="d-flex flex-column justify-content-center">
-                                            <h3 class="mb-0 text-sm">{{ $service->name }}</h3>
-                                        </div>
+                                        <span class="text-secondary text-xs">
+                                            {{ $service->name }}
+                                        </span>
                                     </td>
                                     <td class="align-middle text-center">
                                         <span class="text-secondary text-xs">
@@ -94,8 +99,7 @@
                 order: [
                     [0, 'asc']
                 ], // Sort by ID by default
-                columnDefs: [
-                    {
+                columnDefs: [{
                         targets: [0], // ID column - sortable and searchable
                         orderable: true,
                         searchable: true
