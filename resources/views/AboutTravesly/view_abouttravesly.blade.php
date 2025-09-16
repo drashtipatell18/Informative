@@ -30,7 +30,7 @@
                                     <td class="align-middle text-center text-sm">{{ $item->id }}</td>
                                     <td class="align-middle text-center text-sm">
                                         <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm">{{ Str::limit($item->name, 30) }}</h6>
+                                            <span class="mb-0 text-xs">{{ Str::limit($item->name, 30) }}</span>
                                         </div>
                                     </td>
                                     <td class="align-middle text-center text-sm">
