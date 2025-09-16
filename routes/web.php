@@ -124,7 +124,7 @@ Route::get('/slider/create', [SliderController::class, 'SliderCreate'])->name('s
 Route::post('/slider/store', [SliderController::class, 'SliderStore'])->name('slider.store');
 Route::get('/slider/{id}/edit', [SliderController::class, 'SliderEdit'])->name('slider.edit');
 Route::post('/slider/{id}', [SliderController::class, 'SliderUpdate'])->name('slider.update');
-Route::get('/slider/{id}', [SliderController::class, 'SliderDestroy'])->name('slider.destroy');
+Route::delete('/slider/{id}', [SliderController::class, 'SliderDestroy'])->name('slider.destroy');
 
 // VideoSlider
 
