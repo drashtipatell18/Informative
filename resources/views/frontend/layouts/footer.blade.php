@@ -29,7 +29,7 @@
                             <div class="d_footer_column">
                                 <a class="d_logo navbar-brand" href="{{ route('index') }}">
                                     <img src="{{ asset('assets/img/logo__2.png') }}" alt="Medical Stock Logo"
-                                        class="logo-img" style="width: 150px; height: auto;">
+                                        class="logo-img" style="width: 150px; height: auto; margin-top:-11px">
                                 </a>
 
                                 <p class="d_footer_text">
