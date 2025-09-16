@@ -37,8 +37,17 @@
                                     <td class="align-middle text-center text-sm">{{ $item->phone }}</td>
                                     <td class="align-middle text-center text-sm">{{ $item->message }}</td>
                                     <td class="align-middle text-center text-sm">
-                                        <a href="{{ route('contact.destroy', $item->id) }}"
-                                            class="btn btn-danger custom-btn"><i class="bi bi-trash"></i></a>
+                                        <form action="{{ route('contact.destroy', $item->id) }}" method="POST"
+                                            class="d-inline" id="delete-form-{{ $item->id }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <a href="javascript:void(0)"
+                                                onclick="confirm('Are you sure you want to delete this contact?') ? document.getElementById('delete-form-{{ $item->id }}').submit() : false;"
+                                                class="text-danger font-weight-bold text-xs custom-btn"
+                                                data-toggle="tooltip" data-original-title="Delete Contact">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
