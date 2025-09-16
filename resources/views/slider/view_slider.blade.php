@@ -26,10 +26,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($sliders as $slider)
+                            @forelse($sliders as $key => $slider)
                                 <tr>
                                     <td class="text-center">
-                                        <span class="text-sm">{{ $slider->id }}</span>
+                                        <span class="text-sm">{{ $key + 1 }}</span>
                                     </td>
                                     <td class="text-center">
                                         <img src="{{ $slider->image ? asset('images/sliders/' . $slider->image) : asset('assets/img/team-2.jpg') }}"

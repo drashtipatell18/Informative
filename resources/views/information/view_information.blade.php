@@ -20,7 +20,7 @@
                         <tbody>
                             @foreach ($informations as $key => $item)
                                 <tr>
-                                    <td class="align-middle text-center text-sm">{{ $item->id }}</td>
+                                    <td class="align-middle text-center text-sm">{{ $key + 1 }}</td>
                                     <td class="align-middle text-center text-sm">{{ $item->type }}</td>
                                     <td class="align-middle text-center text-sm">
                                         <a href="{{ route('information.edit', $item->id) }}" class="btn btn-primary custom-btn" title="Edit"><i class="bi bi-pencil-square"></i></a>

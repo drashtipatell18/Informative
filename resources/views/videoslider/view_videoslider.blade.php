@@ -24,10 +24,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($videosliders as $slider)
+                            @forelse($videosliders as $key => $slider)
                                 <tr>
                                     <td class="text-center">
-                                        <span class="text-sm">{{ $slider->id }}</span>
+                                        <span class="text-sm">{{ $key + 1 }}</span>
                                     </td>
                                     <td class="text-center">
                                         <div class="d-flex px-2 py-1 justify-content-center">

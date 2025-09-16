@@ -30,9 +30,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($tour_details as $item)
+                            @foreach ($tour_details as $key => $item)
                                 <tr>
-                                    <td class="align-middle text-center text-sm">{{ $item->id }}</td>
+                                    <td class="align-middle text-center text-sm">{{ $key + 1 }}</td>
                                     <td class="align-middle text-center text-sm">{{ $item->information->type }}</td>
                                     <td class="align-middle text-center text-sm">{{ $item->title }}</td>
                                     <td class="align-middle text-center text-sm">{{ Str::words(strip_tags($item->description), 10, '...') }}</td>

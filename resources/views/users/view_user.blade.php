@@ -30,10 +30,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($users as $user)
+                            @forelse($users as $key => $user)
                                 <tr>
                                     <td class="text-center">
-                                        <span class="text-sm">{{ $user->id }}</span>
+                                        <span class="text-sm">{{ $key + 1 }}</span>
                                     </td>
                                     <td class="text-center">
                                         <div class="d-flex px-2 py-1">

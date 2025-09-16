@@ -21,10 +21,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($testimonials as $testimonial)
+                            @forelse($testimonials as $key => $testimonial)
                                 <tr>
                                     <td class="align-middle text-center">
-                                         <span class="text-sm">{{ $testimonial->id }}</span>
+                                         <span class="text-sm">{{ $key + 1 }}</span>
                                     </td>
 
                                     <td class="align-middle text-center">

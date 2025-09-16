@@ -30,10 +30,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($enquirys as $enquiry)
+                            @forelse($enquirys as $key => $enquiry)
                                 <tr>
                                     <td class="text-center">
-                                        <span class="text-sm">{{ $enquiry->id }}</span>
+                                        <span class="text-sm">{{ $key + 1 }}</span>
                                     </td>
                                     <td class="align-middle text-center">
                                         <div class="d-flex flex-column justify-content-center">
