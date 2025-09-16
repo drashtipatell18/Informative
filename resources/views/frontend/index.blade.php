@@ -125,7 +125,6 @@
 
     .d_TS_avatar.active {
         transform: scale(1.2);
-        border-color: #004F11;
         opacity: 1;
     }
 
