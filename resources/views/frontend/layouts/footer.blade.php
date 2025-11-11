@@ -16,6 +16,34 @@
         <link rel="stylesheet" href="{{ asset('frontend/Style/d_app.css') }}">
 
     </head>
+     <style>
+        /* Scroll to Top Button */
+        #scrollToTopBtn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #415447;
+            color: white;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            display: none; /* hidden by default */
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease-in-out;
+        }
+
+        #scrollToTopBtn:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+        }
+    </style>
 
     <body>
 
@@ -115,6 +143,9 @@
                 <div class="d_mountain_illustration"></div>
             </div>
         </footer>
+          <button id="scrollToTopBtn">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -196,6 +227,22 @@
                     destinationCards[0].classList.add('x_active');
                 }, 100);
             });
+
+               window.addEventListener('scroll', function () {
+            const scrollBtn = document.getElementById('scrollToTopBtn');
+            if (window.scrollY > 300) {
+                scrollBtn.style.display = 'flex';
+            } else {
+                scrollBtn.style.display = 'none';
+            }
+        });
+
+        document.getElementById('scrollToTopBtn').addEventListener('click', function () {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
         </script>
         @stack('scripts')
 
