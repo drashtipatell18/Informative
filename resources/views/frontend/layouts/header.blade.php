@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <link rel="shortcut icon" href="{{ asset('assets/img/favicon.png') }}">
+    <title>
+        Shreenathjitourism
+    </title>
     <link rel="stylesheet" href="{{ asset('frontend/Style/d_app.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/Style/x_app.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/Style/z_app.css') }}">
@@ -24,6 +27,33 @@
 
 </head>
 <style>
+    #scrollToTopBtn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #415447;
+        color: white;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        display: none;
+        /* hidden by default */
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        z-index: 1000;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease-in-out;
+    }
+
+    #scrollToTopBtn:hover {
+        background-color: #0056b3;
+        transform: translateY(-3px);
+    }
+
     .invalid-feedback {
         display: block !important;
         color: #dc3545;

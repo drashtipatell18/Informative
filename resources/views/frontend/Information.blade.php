@@ -1,4 +1,5 @@
 @extends('frontend.layouts.main')
+<link rel="icon" type="image/x-icon" href="{{ asset('frontend/image/favicon.png') }}">
 <link rel="stylesheet" href="{{ asset('frontend/Style/d_app.css') }}">
 <link rel="stylesheet" href="{{ asset('frontend/Style/x_app.css') }}">
 <link rel="stylesheet" href="{{ asset('frontend/Style/z_app.css') }}">

@@ -24,12 +24,8 @@ use App\Http\Controllers\Frontend\InternationalController as FrontInternationalC
 use App\Http\Controllers\AboutTraveslyController;
 use App\Http\Controllers\AboutUSController as BackendAboutUsController;
 
-
-Route::get('/', function () {
-   return redirect()->route('index');
-});
-
 Auth::routes();
+Route::get('/', [IndexController::class, 'index']);
 Route::get('/admin/login', [HomeController::class, 'Login'])->name('login');
 Route::post('/login', [HomeController::class, 'LoginStore'])->name('loginstore');
 Route::get('/logout',[HomeController::class,'logout'])->name('logout');
