@@ -12,8 +12,7 @@
                         </a>
 
                         <p class="d_footer_text">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                            Ipsum has been the industry's stan
+                            {{ $footerDescription ?? '' }}
                         </p>
                         <div class="d_social_icons">
                             <a href="https://twitter.com" class="d_social_icon" target="_blank"

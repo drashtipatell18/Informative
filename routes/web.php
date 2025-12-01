@@ -23,6 +23,7 @@ use App\Http\Controllers\Frontend\ContactController as FrontendContactController
 use App\Http\Controllers\Frontend\InternationalController as FrontInternationalController;
 use App\Http\Controllers\AboutTraveslyController;
 use App\Http\Controllers\AboutUSController as BackendAboutUsController;
+use App\Http\Controllers\FooterDescriptionController;
 
 Auth::routes();
 Route::get('/', [IndexController::class, 'index']);
@@ -152,6 +153,15 @@ Route::post('/aboutus/{id}', [BackendAboutUsController::class, 'aboutusUpdate'])
 Route::delete('/aboutus/{id}', [BackendAboutUsController::class, 'aboutusDestroy'])->name('aboutus.destroy');
 Route::post('/about-us/image/destroy', [BackendAboutUsController::class, 'destroyImage'])
     ->name('aboutus.image.destroy');
+
+
+// Footer Description
+Route::get('/footerDescription', [FooterDescriptionController::class, 'FooterDescription'])->name('footer_description');
+Route::get('/footerDescription/create', [FooterDescriptionController::class, 'FooterDescriptionCreate'])->name('footer_description.create');
+Route::post('/footerDescription/store', [FooterDescriptionController::class, 'FooterDescriptionStore'])->name('footer_description.store');
+Route::get('/footerDescription/{id}/edit', [FooterDescriptionController::class, 'FooterDescriptionEdit'])->name('footer_description.edit');
+Route::post('/footerDescription/{id}', [FooterDescriptionController::class, 'FooterDescriptionUpdate'])->name('footer_description.update');
+Route::delete('/footerDescription/{id}', [FooterDescriptionController::class, 'FooterDescriptionDestroy'])->name('footer_description.destroy');
 
 
     //frontend
