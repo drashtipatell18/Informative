@@ -329,9 +329,14 @@
 @section('content')
     <div class="x_hero_section">
         <div class="x_hero_content">
-            <h1 class="x_hero_title">It's A Big World Out There,<br>Go Explore.</h1>
-            <p class="x_hero_text">Lorem ipsum is simply dummy text of the printing and typesetting industry.Lorem ipsum
-                has been the industry's stan</p>
+        <h1 class="x_hero_title" id="heroTitle">
+            {{ $sliders[0]->name ?? "Default Title" }}
+        </h1>
+
+        <p class="x_hero_text" id="heroText">
+            {{ $sliders[0]->description ?? "Default Description" }}
+        </p>
+            
             <a href="{{ route('domestic') }}"><button class="x_explore_btn">Explore More</button></a>
         </div>
         <div class="x_main">
@@ -354,7 +359,7 @@
 
                 @foreach ($sliders as $index => $slider)
                     <div class="x_destination_card {{ $index === 0 ? 'x_active' : '' }}" style="margin-bottom: 20px;"
-                        data-index="{{ $index }}">
+                        data-index="{{ $index }}" data-title="{{ $slider->name }}" data-description="{{ $slider->description }}">
                         <img src="{{ asset('images/sliders/' . $slider->image) }}"
                             alt="{{ $slider->name ?? 'Destination' }}" class="x_dest_img">
                         <div class="x_dest_info">
@@ -1137,4 +1142,24 @@
             });
         });
     </script>
+    <!-- Dynamic Hero Section Update Script -->
+    <script>
+        const cards = document.querySelectorAll('.x_destination_card');
+        const heroTitle = document.getElementById('heroTitle');
+        const heroText = document.getElementById('heroText');
+
+        cards.forEach(card => {
+            card.addEventListener('click', function () {
+
+                // remove active class
+                cards.forEach(c => c.classList.remove('x_active'));
+                this.classList.add('x_active');
+
+                // update hero section text
+                heroTitle.innerHTML = this.dataset.title;
+                heroText.innerHTML = this.dataset.description;
+            });
+        });
+    </script>
+
 @endpush
