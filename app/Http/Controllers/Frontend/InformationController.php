@@ -14,9 +14,7 @@ class InformationController extends Controller
     public function Information($id)
     {
         $country = Country::findOrFail($id);
-        // $tour_details = TourDetails::findOrFail($id);
-        $tour_details = TourDetails::all();
-        // dd($tour_details);
+        $tour_details = TourDetails::where('country_id',$id)->get();
          $informations = Information::all();
 
         return view('frontend.information',compact('country','tour_details','informations'));
