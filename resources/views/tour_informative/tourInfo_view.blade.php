@@ -33,9 +33,12 @@
                             @foreach ($tour_details as $key => $item)
                                 <tr>
                                     <td class="align-middle text-center text-sm">{{ $key + 1 }}</td>
-                                    <td class="align-middle text-center text-sm">{{ $item->information->type }}</td>
-                                    <td class="align-middle text-center text-sm">{{ $item->title }}</td>
-                                    <td class="align-middle text-center text-sm">{{ Str::words(strip_tags($item->description), 10, '...') }}</td>
+                                    <td class="align-middle text-center text-sm">
+                                        {{ isset($item->information) ? $item->information->type : 'N/A' }}
+                                    </td>
+                                     <td class="align-middle text-center text-sm">{{ $item->title }}</td>
+                                    <td class="align-middle text-center text-sm">
+                                        {{ Str::words(strip_tags($item->description), 10, '...') }}</td>
                                     <td class="align-middle text-center text-sm">
                                         <a href="{{ route('tour_details.edit', $item->id) }}"
                                             class="btn btn-primary custom-btn" title="Edit"><i
