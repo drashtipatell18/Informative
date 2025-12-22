@@ -90,9 +90,7 @@
 
             @forelse ($filteredDetails as $day)
                 <div class="z_tour_day_item">
-                    <h3 class="z_tour_day_title">
-                        <span class="fw-normal">Day {{ $loop->iteration }}:</span> {{ $day->title }}
-                    </h3>
+
                     <p class="z_tour_day_text">{!! $day->description !!}</p>
                 </div>
             @empty
