@@ -132,249 +132,213 @@
                 });
             });
         });
-// PDF Download with proper content spacing on all pages
-let isGeneratingPDF = false;
 
-document.getElementById('downloadTourDetails').addEventListener('click', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
+        let isGeneratingPDF = false;
 
-    if (isGeneratingPDF) {
-        return false;
-    }
-    isGeneratingPDF = true;
+        document.getElementById('downloadTourDetails').addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
 
-    this.style.pointerEvents = 'none';
-    this.style.opacity = '0.6';
-    const originalText = this.innerHTML;
-    this.innerHTML = this.innerHTML.replace('Download PDF', 'Generating PDF...');
+            if (isGeneratingPDF) return;
+            isGeneratingPDF = true;
 
-    const placeNameElem = document.querySelector('.z_infor_hero_title');
-    const placeName = placeNameElem ? placeNameElem.textContent.trim() : 'Tour Details';
-    const tourDays = '{{ $country->day }}';
-    const tourNights = tourDays;
+            const button = this;
+            const originalText = button.innerHTML;
+            button.style.pointerEvents = 'none';
+            button.style.opacity = '0.6';
+            button.innerHTML = 'Generating PDF...';
 
-    const logoPath = "{{ asset('frontend/image/logo.png') }}";
-    const activeContent = document.querySelector('.z_tour_tab_content.active').innerHTML;
+            const placeNameElem = document.querySelector('.z_infor_hero_title');
+            const placeName = placeNameElem ? placeNameElem.textContent.trim() : 'Tour Details';
 
-    const pdfContainer = document.createElement('div');
-    pdfContainer.style.cssText = 'position:absolute;left:-9999px;width:210mm;background:#fff;font-family:Arial,sans-serif;padding:45mm 0 25mm 0';
+            const tourDays = '{{ $country->day }}';
+            const tourNights = tourDays;
 
-    pdfContainer.innerHTML = `
-        <div style="position:relative;background:#fff">
-            <!-- Content with consistent spacing -->
-            <div style="padding:0 45px 30px 45px;background:#fff;line-height:1.9">
-                <div style="color:#000;font-size:13px">
-                    ${activeContent}
-                </div>
+            const logoPath = "{{ asset('frontend/image/logo.png') }}";
+            const activeContent = document.querySelector('.z_tour_tab_content.active').innerHTML;
+
+            /* ================= CREATE HIDDEN PDF CONTAINER ================= */
+            const pdfContainer = document.createElement('div');
+            pdfContainer.style.cssText = `
+                position:absolute;
+                left:-9999px;
+                width:210mm;
+                background:#fff;
+                font-family:Arial,sans-serif;
+                padding:30mm 0 45mm 0; /* ⬅️ INCREASE BOTTOM SPACE */
+            `;
+
+            pdfContainer.innerHTML = `
+            <div style="padding:45px 45px 45px 45px;line-height:1.9;font-size:13px;color:#000">
+                ${activeContent}
             </div>
-        </div>
-    `;
+            `;
 
-    document.body.appendChild(pdfContainer);
+            document.body.appendChild(pdfContainer);
 
-    const images = pdfContainer.getElementsByTagName('img');
-    const loadPromises = Array.from(images).map(img => {
-        if (img.complete) return Promise.resolve();
-        return new Promise(resolve => {
-            img.onload = resolve;
-            img.onerror = resolve;
-            setTimeout(resolve, 2000);
-        });
-    });
+            /* ================= WAIT FOR IMAGES ================= */
+            const images = pdfContainer.getElementsByTagName('img');
+            const loadPromises = Array.from(images).map(img => {
+                if (img.complete) return Promise.resolve();
+                return new Promise(resolve => {
+                    img.onload = resolve;
+                    img.onerror = resolve;
+                    setTimeout(resolve, 2000);
+                });
+            });
 
-    const buttonElement = this;
+            Promise.all(loadPromises).then(() => {
+                html2canvas(pdfContainer, {
+                    scale: 2.5,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: '#ffffff'
+                }).then(canvas => {
+                    document.body.removeChild(pdfContainer);
 
-    function resetButton() {
-        buttonElement.style.pointerEvents = 'auto';
-        buttonElement.style.opacity = '1';
-        buttonElement.innerHTML = originalText;
-        isGeneratingPDF = false;
-    }
+                    const pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
 
-    Promise.all(loadPromises).then(() => {
-        html2canvas(pdfContainer, {
-            scale: 2.5,
-            useCORS: true,
-            allowTaint: true,
-            logging: false,
-            backgroundColor: '#ffffff'
-        }).then(canvas => {
-            document.body.removeChild(pdfContainer);
+                    const pageWidth = pdf.internal.pageSize.getWidth();
+                    const pageHeight = pdf.internal.pageSize.getHeight();
 
-            const imgData = canvas.toDataURL('image/png', 1.0);
-            const pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
-            const pageWidth = pdf.internal.pageSize.getWidth();
-            const pageHeight = pdf.internal.pageSize.getHeight();
+                    const headerZone = 45;
+                    const footerZone = 25;
+                    const contentZone = pageHeight - headerZone - footerZone;
 
-            // Define clear zones for header, content, and footer
-            const headerZone = 45; // Header takes 45mm from top (more space)
-            const footerZone = 25; // Footer takes 25mm from bottom (more space)
-            const contentZone = pageHeight - headerZone - footerZone; // Available space for content
+                    const imgWidth = pageWidth;
+                    const pageCanvas = document.createElement('canvas');
+                    const pageCtx = pageCanvas.getContext('2d');
 
-            const imgWidth = pageWidth;
-            const imgHeight = canvas.height * imgWidth / canvas.width;
+                    pageCanvas.width = canvas.width;
+                    pageCanvas.height = (contentZone * canvas.width) / imgWidth;
 
-            const logoImg = new Image();
-            logoImg.crossOrigin = 'anonymous';
-            logoImg.src = logoPath;
+                    let renderedHeight = 0;
+                    let page = 0;
 
-            logoImg.onload = function() {
-                let contentRemaining = imgHeight;
-                let pageNum = 0;
+                    /* ================= PAGE SLICING (NO CUT ISSUE) ================= */
+                    while (renderedHeight < canvas.height) {
+                        if (page > 0) pdf.addPage();
 
-                // Add pages and content
-                while (contentRemaining > 0) {
-                    if (pageNum > 0) {
-                        pdf.addPage();
+                        pageCtx.clearRect(0, 0, pageCanvas.width, pageCanvas.height);
+
+                        pageCtx.drawImage(
+                            canvas,
+                            0,
+                            renderedHeight,
+                            canvas.width,
+                            pageCanvas.height,
+                            0,
+                            0,
+                            canvas.width,
+                            pageCanvas.height
+                        );
+
+                        const pageImgData = pageCanvas.toDataURL('image/png', 1.0);
+                        const safeContentZone = contentZone - 5;
+                        pdf.addImage(
+                            pageImgData,
+                            'PNG',
+                            0,
+                            headerZone,
+                            imgWidth,
+                            contentZone
+                        );
+
+                        renderedHeight += pageCanvas.height;
+                        page++;
                     }
 
-                    // Calculate how much content to show on this page
-                    const contentYOffset = pageNum * contentZone;
+                    const logoImg = new Image();
+                    logoImg.src = logoPath;
+                    logoImg.onload = function() {
 
-                    // Position content: start from headerZone and offset by page number
-                    pdf.addImage(
-                        imgData,
-                        'PNG',
-                        0,
-                        headerZone - contentYOffset,
-                        imgWidth,
-                        imgHeight
-                    );
+                        const totalPages = pdf.internal.pages.length - 1;
 
-                    contentRemaining -= contentZone;
-                    pageNum++;
-                }
+                        for (let i = 1; i <= totalPages; i++) {
+                            pdf.setPage(i);
 
-                // Add header, footer, and watermark to ALL pages
-                const totalPages = pdf.internal.pages.length - 1;
+                            /* ===== WHITE ZONES ===== */
+                            pdf.setFillColor(255, 255, 255);
+                            pdf.rect(0, 0, pageWidth, headerZone, 'F');
+                            pdf.rect(0, pageHeight - footerZone, pageWidth, footerZone, 'F');
 
-                for (let i = 1; i <= totalPages; i++) {
-                    pdf.setPage(i);
+                            /* ===== HEADER ===== */
+                            const logoWidth = 35;
+                            const logoHeight = (logoImg.height / logoImg.width) * logoWidth;
+                            pdf.addImage(logoImg, 'PNG', 15, 14, logoWidth, logoHeight);
 
-                    // ========== WATERMARK (draw first, at the bottom layer) ==========
-                    pdf.saveGraphicsState();
-                    pdf.setGState(new pdf.GState({opacity: 0.08}));
+                            pdf.setFontSize(9);
+                            pdf.setFont('helvetica', 'bold');
+                            pdf.text('BHAVIK BAVADIYA: +91 9537632323', pageWidth - 15, 19, {
+                                align: 'right'
+                            });
+                            pdf.text('JENISH BAVADIYA: +91 7096828255', pageWidth - 15, 25, {
+                                align: 'right'
+                            });
+                            pdf.text('ALSO CALL US AT: +91 9033060035', pageWidth - 15, 31, {
+                                align: 'right'
+                            });
 
-                    const watermarkWidth = 100;
-                    const watermarkHeight = (logoImg.height / logoImg.width) * watermarkWidth;
-                    const watermarkX = (pageWidth - watermarkWidth) / 2;
-                    const watermarkY = (pageHeight - watermarkHeight) / 2;
+                            pdf.setDrawColor(200);
+                            pdf.line(10, headerZone - 5, pageWidth - 10, headerZone - 5);
 
-                    pdf.addImage(logoImg, 'PNG', watermarkX, watermarkY, watermarkWidth, watermarkHeight);
+                            /* ===== TITLE (FIRST PAGE ONLY) ===== */
+                            if (i === 1) {
+                                pdf.setFontSize(32);
+                                pdf.setFont('helvetica', 'bold');
+                                const title = placeName.toUpperCase();
+                                pdf.text(title, pageWidth / 2, headerZone + 10, {
+                                    align: 'center'
+                                });
 
-                    pdf.setFontSize(20);
-                    pdf.setFont('helvetica', 'bold');
-                    pdf.setTextColor(220, 220, 220);
-                    const companyName = 'Shreenathji Tourism';
-                    const companyWidth = pdf.getTextWidth(companyName);
-                    pdf.text(companyName, (pageWidth - companyWidth) / 2, watermarkY + watermarkHeight + 8);
+                                pdf.setFontSize(17);
+                                pdf.text(
+                                    `${tourNights} NIGHTS ${parseInt(tourNights) + 1} DAYS TOUR`,
+                                    pageWidth / 2,
+                                    headerZone + 20, {
+                                        align: 'center'
+                                    }
+                                );
 
-                    pdf.setFontSize(10);
-                    pdf.setFont('helvetica', 'normal');
-                    const tagline = 'All India Tour Organizer';
-                    const taglineWidth = pdf.getTextWidth(tagline);
-                    pdf.text(tagline, (pageWidth - taglineWidth) / 2, watermarkY + watermarkHeight + 14);
+                                pdf.setLineWidth(1);
+                                pdf.line(10, headerZone + 25, pageWidth - 10, headerZone + 25);
+                            }
 
-                    pdf.restoreGraphicsState();
+                            /* ===== FOOTER ===== */
+                            const footerY = pageHeight - footerZone + 14;
+                            pdf.setFontSize(9);
+                            pdf.setFont('helvetica', 'normal');
+                            pdf.setTextColor(102);
+                            pdf.text(
+                                '411 Kyros Business Center, Sarthana Jakatnaka, Surat-395006',
+                                pageWidth / 2,
+                                footerY, {
+                                    align: 'center'
+                                }
+                            );
+                        }
 
-                    // ========== WHITE ZONES (cover overflow content) ==========
-                    pdf.setFillColor(255, 255, 255);
-                    // Top zone (for header)
-                    pdf.rect(0, 0, pageWidth, headerZone, 'F');
-                    // Bottom zone (for footer)
-                    pdf.rect(0, pageHeight - footerZone, pageWidth, footerZone, 'F');
+                        pdf.save(placeName + '_Tour_Details.pdf');
 
-                    // ========== HEADER (draw on top of white background) ==========
-                    const logoWidth = 35;
-                    const logoHeight = (logoImg.height / logoImg.width) * logoWidth;
-                    pdf.addImage(logoImg, 'PNG', 15, 14, logoWidth, logoHeight);
+                        reset();
+                    };
 
-                    pdf.setFontSize(9);
-                    pdf.setFont('helvetica', 'bold');
-                    pdf.setTextColor(0, 0, 0);
-
-                    const rightX = pageWidth - 15;
-                    pdf.text('BHAVIK BAVADIYA: +91 9537632323', rightX, 19, { align: 'right' });
-                    pdf.text('JENISH BAVADIYA: +91 7096828255', rightX, 25, { align: 'right' });
-                    pdf.text('ALSO CALL US AT: +91 9033060035', rightX, 31, { align: 'right' });
-
-                    pdf.setDrawColor(200, 200, 200);
-                    pdf.setLineWidth(0.5);
-                    pdf.line(10, headerZone - 5, pageWidth - 10, headerZone - 5);
-
-                    // ========== TITLE SECTION (ONLY ON FIRST PAGE) ==========
-                    if (i === 1) {
-                        // Place name
-                        pdf.setFontSize(32);
-                        pdf.setFont('helvetica', 'bold');
-                        pdf.setTextColor(0, 0, 0);
-                        const titleText = placeName.toUpperCase();
-                        const titleWidth = pdf.getTextWidth(titleText);
-                        pdf.text(titleText, (pageWidth - titleWidth) / 2, headerZone + 10);
-
-                        // Tour duration
-                        pdf.setFontSize(17);
-                        pdf.setFont('helvetica', 'bold');
-                        const tourText = `${tourNights} NIGHTS ${parseInt(tourNights) + 1} DAYS TOUR`;
-                        const tourWidth = pdf.getTextWidth(tourText);
-                        pdf.text(tourText, (pageWidth - tourWidth) / 2, headerZone + 20);
-
-                        // Border below title
-                        pdf.setDrawColor(0, 0, 0);
-                        pdf.setLineWidth(1);
-                        pdf.line(10, headerZone + 25, pageWidth - 10, headerZone + 25);
+                    function reset() {
+                        button.style.pointerEvents = 'auto';
+                        button.style.opacity = '1';
+                        button.innerHTML = originalText;
+                        isGeneratingPDF = false;
                     }
 
-                    // ========== FOOTER (draw on top of white background) ==========
-                    const footerStartY = pageHeight - footerZone;
-
-                    pdf.setDrawColor(200, 200, 200);
-                    pdf.setLineWidth(0.5);
-                    pdf.line(10, footerStartY + 6, pageWidth - 10, footerStartY + 6);
-
-                    pdf.setFontSize(9);
-                    pdf.setFont('helvetica', 'normal');
-                    pdf.setTextColor(102, 102, 102);
-                    const addressText = '411 Kyros Business Center, Sarthana Jakatnaka, Surat-395006';
-                    const addressWidth = pdf.getTextWidth(addressText);
-                    pdf.text(addressText, (pageWidth - addressWidth) / 2, footerStartY + 14);
-                }
-
-                pdf.save(placeName + '_Tour_Details.pdf');
-                resetButton();
-            };
-
-            logoImg.onerror = function() {
-                console.warn('Logo failed to load');
-
-                let position = 0;
-                let heightLeft = imgHeight;
-                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-
-                while (heightLeft >= 0) {
-                    position = heightLeft - imgHeight;
-                    pdf.addPage();
-                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                    heightLeft -= pageHeight;
-                }
-
-                pdf.save(placeName + '_Tour_Details.pdf');
-                resetButton();
-            };
-
-        }).catch(err => {
-            console.error('PDF error:', err);
-            if (document.body.contains(pdfContainer)) {
-                document.body.removeChild(pdfContainer);
-            }
-            alert('Failed to generate PDF. Please try again.');
-            resetButton();
+                }).catch(err => {
+                    console.error(err);
+                    alert('PDF generation failed');
+                    isGeneratingPDF = false;
+                    button.innerHTML = originalText;
+                    button.style.pointerEvents = 'auto';
+                    button.style.opacity = '1';
+                });
+            });
         });
-    });
-
-    return false;
-});
     </script>
 @endpush
