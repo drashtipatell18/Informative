@@ -11,10 +11,11 @@
         }
 
         body {
-            font-family: 'Noto Color Emoji', 'Segoe UI Emoji', 'Apple Color Emoji', Arial, sans-serif;
+            font-family: Arial, 'DejaVu Sans', sans-serif;
             line-height: 1.5;
             color: #000;
             background: #fff;
+            font-size: 11px;
         }
 
         .header {
@@ -37,6 +38,7 @@
             font-size: 11px;
             line-height: 1.4;
             font-weight: bold;
+            font-family: Arial, sans-serif;
         }
 
         .logo-section img {
@@ -57,29 +59,33 @@
             font-weight: bold;
             letter-spacing: 0.3px;
             margin-bottom: 6px;
+            font-family: Arial, sans-serif;
         }
 
         .tour-subtitle {
             font-size: 11.5px;
             font-weight: bold;
             margin-bottom: 4px;
+            font-family: Arial, sans-serif;
         }
 
         .tour-locations {
             font-size: 11px;
             font-weight: normal;
             margin-bottom: 6px;
+            font-family: Arial, sans-serif;
         }
 
         .tour-dates {
             font-size: 11px;
             font-weight: bold;
             color: #d40000;
+            font-family: Arial, sans-serif;
         }
 
         /* PDF Body */
         .pdf-body {
-            font-family: DejaVu Sans, Arial, sans-serif;
+            font-family: Arial, 'DejaVu Sans', sans-serif;
             font-size: 11px;
             color: #000;
         }
@@ -92,15 +98,21 @@
         .journey-title {
             margin: 8px 40px 4px;
             font-weight: bold;
+            font-size: 11px;
+            font-family: Arial, sans-serif;
         }
 
         .journey-desc {
             margin: 0 40px 8px;
+            font-size: 11px;
+            font-family: Arial, sans-serif;
         }
 
         .section-heading {
             margin: 8px 40px;
             font-weight: bold;
+            font-size: 11px;
+            font-family: Arial, sans-serif;
         }
 
         .day-block {
@@ -110,14 +122,50 @@
         .day-title {
             font-weight: bold;
             margin-bottom: 4px;
+            font-size: 11px;
+            font-family: Arial, sans-serif;
         }
 
         .day-list {
-            margin-left: 18px;
+            padding-left: 25px;
+            margin-top: 4px;
         }
 
         .day-list li {
-            margin-bottom: 4px;
+            margin-left: 10px;
+            margin-bottom: 6px;
+            line-height: 1.6;
+            font-size: 11px;
+            font-family: Arial, sans-serif;
+        }
+
+        .info-section {
+            margin: 10px 40px;
+            font-size: 11px;
+            font-family: Arial, sans-serif;
+        }
+
+        .info-section h4 {
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 6px;
+            font-family: Arial, sans-serif;
+        }
+
+        .info-section p {
+            font-size: 11px;
+            margin-bottom: 6px;
+            line-height: 1.6;
+            font-family: Arial, sans-serif;
+        }
+
+        .emoji-icon {
+            display: inline-block;
+            font-size: 14px;
+            line-height: 1;
+            vertical-align: middle;
+            margin-right: 3px;
+            font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', Arial, sans-serif;
         }
     </style>
 </head>
@@ -142,7 +190,7 @@
 
     <!-- Title Section -->
     <div class="title-section">
-        <div class="tour-title-main">🛵✨ ROYAL {{ strtoupper($country->name) }} – SPECIAL HONEYMOON TOUR ✨🛵</div>
+        <div class="tour-title-main">ROYAL {{ strtoupper($country->name) }} – SPECIAL HONEYMOON TOUR</div>
         @php
             $totalDays = (int) $country->day;
             $days = $totalDays - 2;   // 09
@@ -160,19 +208,32 @@
 
     <!-- PDF Body -->
     <div class="pdf-body">
-        <div class="journey-title">🏔️❤️ A Journey of Love in Kashmir – The Paradise on Earth</div>
+        <div class="journey-title">A Journey of Love in Kashmir – The Paradise on Earth</div>
         <div class="journey-desc">Specially designed for couples to enjoy comfort, romance, nature & unforgettable
             memories.</div>
 
         <div class="divider-line"></div>
 
-        <div class="section-heading">📅 DAY–WISE ITINERARY (Beautiful & Easy-to-Read)</div>
+        <div class="section-heading">DAY–WISE ITINERARY (Beautiful & Easy-to-Read)</div>
 
         <div class="divider-line"></div>
 
         <div class="day-block">
             @php
                 use Illuminate\Support\Str;
+
+                // Emoji Unicode characters for each day
+                $dayIcons = [
+                    1 => '🚂',  // Train/Arrival
+                    2 => '🚗',  // Car/Journey
+                    3 => '🏔️',  // Mountain/Valley
+                    4 => '❄️',  // Snow
+                    5 => '🚠',  // Gondola/Cable Car
+                    6 => '🏛️',  // Garden/Temple
+                    7 => '🌄',  // Sunrise/Meadow
+                    8 => '🔄',  // Return
+                    9 => '👋',  // Departure
+                ];
             @endphp
 
             @foreach($packageDetails as $detail)
@@ -190,14 +251,25 @@
                 {{-- Check if title contains "Day" --}}
                 @if(Str::contains($detail->title, 'Day'))
 
+                    @php
+                        // Extract day number from title
+                        preg_match('/Day\s+(\d+)/i', $detail->title, $matches);
+                        $dayNumber = isset($matches[1]) ? (int) $matches[1] : null;
+
+                        // Get icon for this day, or use default
+                        $icon = isset($dayIcons[$dayNumber]) ? $dayIcons[$dayNumber] : '📅';
+                    @endphp
+
                     <div class="day-block">
                         <div class="day-title">
-                            <strong>{{ $detail->title }}</strong>
+                            <strong><span class="emoji-icon">{{ $icon }}</span> {{ $detail->title }}</strong>
                         </div>
 
                         <ul class="day-list">
-                            @foreach($lines as $line)
-                                <li>{{ $line }}</li>
+                            @foreach($lines as $index => $line)
+                                <li class="{{ $index < 2 ? 'day-meta' : '' }}">
+                                    {{ $line }}
+                                </li>
                             @endforeach
                         </ul>
                     </div>
@@ -214,37 +286,35 @@
             @endforeach
 
 
-            @if($visaDetails && $visaDetails->count())
-                <hr>
-                <div class="info-section">
-                    <h3>🛂 Visa Information</h3>
-                    <div class="content">
-                        @foreach($visaDetails as $detail)
-                            <h4>{{ $detail->title }}</h4>
+            @if($tourDetails && $tourDetails->count())
+                <div class="section">
+                    <h2>🧭 Tour Details</h2>
+                    @foreach($tourDetails as $detail)
+                        <div class="card">
+                            <h3>{{ $detail->title }}</h3>
                             {!! $detail->description !!}
-                        @endforeach
-                    </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+
+            @if($visaDetails && $visaDetails->count())
+                <div class="section">
+                    <h2>🛂 Visa Information</h2>
+                    @foreach($visaDetails as $detail)
+                        <div class="card">
+                            <h3>{{ $detail->title }}</h3>
+                            {!! $detail->description !!}
+                        </div>
+                    @endforeach
                 </div>
             @endif
 
 
-            <div class="footer-address">
-                411 Kyros Business Center, Sarthana Jakatnaka, Surat-395006
-            </div>
 
         </div>
 
-
-
-
-
-
     </div>
-
-
-
-
-
 
 </body>
 
