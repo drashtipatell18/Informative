@@ -15,17 +15,13 @@
                             {{ $footerDescription ?? '' }}
                         </p>
                         <div class="d_social_icons">
-                            <a href="https://twitter.com" class="d_social_icon" target="_blank"
-                                rel="noopener noreferrer">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a href="https://instagram.com" class="d_social_icon" target="_blank"
+                            <a href="https://www.instagram.com/shreenathji_tourism?igsh=MTBucGt3a290ZjVqdA%3D%3D&utm_source=qr" class="d_social_icon" target="_blank"
                                 rel="noopener noreferrer">
                                 <i class="fab fa-instagram"></i>
                             </a>
-                            <a href="https://youtube.com" class="d_social_icon" target="_blank"
+                            <a href="https://api.whatsapp.com/message/LVTJGK4PEPNVO1?autoload=1&app_absent=0" class="d_social_icon" target="_blank"
                                 rel="noopener noreferrer">
-                                <i class="fab fa-youtube"></i>
+                                <i class="fab fa-whatsapp"></i>
                             </a>
                         </div>
                     </div>
