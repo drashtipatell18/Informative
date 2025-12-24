@@ -160,19 +160,19 @@
             /* ================= CREATE HIDDEN PDF CONTAINER ================= */
             const pdfContainer = document.createElement('div');
             pdfContainer.style.cssText = `
-                position:absolute;
-                left:-9999px;
-                width:210mm;
-                background:#fff;
-                font-family:Arial,sans-serif;
-                padding:30mm 0 45mm 0; /* ⬅️ INCREASE BOTTOM SPACE */
-            `;
+            position:absolute;
+            left:-9999px;
+            width:210mm;
+            background:#fff;
+            font-family:Arial,sans-serif;
+            padding:30mm 0 45mm 0;
+        `;
 
             pdfContainer.innerHTML = `
-            <div style="padding:45px 45px 45px 45px;line-height:1.9;font-size:13px;color:#000">
-                ${activeContent}
-            </div>
-            `;
+        <div style="padding:45px 45px 45px 45px;line-height:1.9;font-size:13px;color:#000">
+            ${activeContent}
+        </div>
+        `;
 
             document.body.appendChild(pdfContainer);
 
@@ -215,7 +215,7 @@
                     let renderedHeight = 0;
                     let page = 0;
 
-                    /* ================= PAGE SLICING (NO CUT ISSUE) ================= */
+                    /* ================= PAGE SLICING ================= */
                     while (renderedHeight < canvas.height) {
                         if (page > 0) pdf.addPage();
 
@@ -234,7 +234,6 @@
                         );
 
                         const pageImgData = pageCanvas.toDataURL('image/png', 1.0);
-                        const safeContentZone = contentZone - 5;
                         pdf.addImage(
                             pageImgData,
                             'PNG',
@@ -249,6 +248,7 @@
                     }
 
                     const logoImg = new Image();
+
                     logoImg.src = logoPath;
                     logoImg.onload = function() {
 
@@ -257,69 +257,210 @@
                         for (let i = 1; i <= totalPages; i++) {
                             pdf.setPage(i);
 
-                            /* ===== WHITE ZONES ===== */
-                            pdf.setFillColor(255, 255, 255);
-                            pdf.rect(0, 0, pageWidth, headerZone, 'F');
-                            pdf.rect(0, pageHeight - footerZone, pageWidth, footerZone, 'F');
+                            /* ===== HEADER BACKGROUND GRADIENT ===== */
+                            // Top gradient band
+                            pdf.setFillColor(41, 128, 185); // Blue
+                            pdf.rect(0, 0, pageWidth, 8, 'F');
 
-                            /* ===== HEADER ===== */
+                            pdf.setFillColor(52, 152, 219); // Lighter Blue
+                            pdf.rect(0, 8, pageWidth, 4, 'F');
+
+                            // White header area
+                            pdf.setFillColor(255, 255, 255);
+                            pdf.rect(0, 12, pageWidth, headerZone - 12, 'F');
+
+                            /* ===== DECORATIVE CORNER ELEMENTS ===== */
+                            // Top left corner accent
+                            pdf.setFillColor(230, 126, 34); // Orange
+                            pdf.circle(0, 0, 8, 'F');
+
+                            // Top right corner accent
+                            pdf.setFillColor(46, 204, 113); // Green
+                            pdf.circle(pageWidth, 0, 8, 'F');
+
+                            /* ===== LOGO ===== */
                             const logoWidth = 35;
                             const logoHeight = (logoImg.height / logoImg.width) * logoWidth;
-                            pdf.addImage(logoImg, 'PNG', 15, 14, logoWidth, logoHeight);
 
-                            pdf.setFontSize(9);
+                            // Logo shadow/background
+                            pdf.setFillColor(245, 245, 245);
+                            pdf.roundedRect(13, 16, logoWidth + 4, logoHeight + 2, 2, 2, 'F');
+
+                            pdf.addImage(logoImg, 'PNG', 15, 17, logoWidth, logoHeight);
+
+                            /* ===== CONTACT INFO BOX ===== */
+                            const contactBoxX = pageWidth - 75;
+                            const contactBoxY = 16;
+                            const contactBoxWidth = 60;
+                            const contactBoxHeight = 20;
+
+                            // Contact box background with gradient effect
+                            pdf.setFillColor(236, 240, 241); // Light gray
+                            pdf.roundedRect(contactBoxX, contactBoxY, contactBoxWidth,
+                                contactBoxHeight, 2, 2, 'F');
+
+                            // Accent border
+                            pdf.setDrawColor(41, 128, 185);
+                            pdf.setLineWidth(0.5);
+                            pdf.roundedRect(contactBoxX, contactBoxY, contactBoxWidth,
+                                contactBoxHeight, 2, 2, 'S');
+
+                            // Contact icon circles
+                            pdf.setFillColor(41, 128, 185);
+                            pdf.circle(contactBoxX + 5, contactBoxY + 5, 1.5, 'F');
+                            pdf.circle(contactBoxX + 5, contactBoxY + 11, 1.5, 'F');
+                            pdf.circle(contactBoxX + 5, contactBoxY + 17, 1.5, 'F');
+
+                            // Contact text
+                            pdf.setFontSize(8);
                             pdf.setFont('helvetica', 'bold');
-                            pdf.text('BHAVIK BAVADIYA: +91 9537632323', pageWidth - 15, 19, {
-                                align: 'right'
+                            pdf.setTextColor(41, 128, 185);
+                            pdf.text('BHAVIK: +91 9537632323', contactBoxX + 8, contactBoxY +
+                            6, {
+                                align: 'left'
                             });
-                            pdf.text('JENISH BAVADIYA: +91 7096828255', pageWidth - 15, 25, {
-                                align: 'right'
-                            });
-                            pdf.text('ALSO CALL US AT: +91 9033060035', pageWidth - 15, 31, {
-                                align: 'right'
+                            pdf.text('JENISH: +91 7096828255', contactBoxX + 8, contactBoxY +
+                                12, {
+                                    align: 'left'
+                                });
+                            pdf.text('CALL: +91 9033060035', contactBoxX + 8, contactBoxY +
+                            18, {
+                                align: 'left'
                             });
 
-                            pdf.setDrawColor(200);
+                            /* ===== DECORATIVE LINE ===== */
+                            pdf.setDrawColor(52, 152, 219);
+                            pdf.setLineWidth(1);
                             pdf.line(10, headerZone - 5, pageWidth - 10, headerZone - 5);
+
+                            // Accent dots
+                            pdf.setFillColor(230, 126, 34);
+                            pdf.circle(10, headerZone - 5, 1, 'F');
+                            pdf.circle(pageWidth - 10, headerZone - 5, 1, 'F');
 
                             /* ===== TITLE (FIRST PAGE ONLY) ===== */
                             if (i === 1) {
+                                // Title background accent
+                                pdf.setFillColor(250, 250, 252);
+                                pdf.roundedRect(15, headerZone - 2, pageWidth - 30, 28, 3, 3,
+                                    'F');
+
+                                // Title border
+                                pdf.setDrawColor(52, 152, 219);
+                                pdf.setLineWidth(0.8);
+                                pdf.roundedRect(15, headerZone - 2, pageWidth - 30, 28, 3, 3,
+                                    'S');
+
                                 pdf.setFontSize(32);
                                 pdf.setFont('helvetica', 'bold');
-                                const title = placeName.toUpperCase();
-                                pdf.text(title, pageWidth / 2, headerZone + 10, {
-                                    align: 'center'
-                                });
 
-                                pdf.setFontSize(17);
+                                // Title shadow effect
+                                pdf.setTextColor(200, 200, 200);
+                                pdf.text(placeName.toUpperCase(), pageWidth / 2 + 0.5,
+                                    headerZone + 10.5, {
+                                        align: 'center'
+                                    });
+
+                                // Main title
+                                pdf.setTextColor(41, 128, 185);
+                                pdf.text(placeName.toUpperCase(), pageWidth / 2, headerZone +
+                                    10, {
+                                        align: 'center'
+                                    });
+
+                                // Subtitle with colored background
+                                pdf.setFillColor(230, 126, 34);
+                                pdf.roundedRect(pageWidth / 2 - 55, headerZone + 13, 110, 8, 2,
+                                    2, 'F');
+
+                                pdf.setFontSize(14);
+                                pdf.setFont('helvetica', 'bold');
+                                pdf.setTextColor(255, 255, 255);
                                 pdf.text(
                                     `${tourNights} NIGHTS ${parseInt(tourNights) + 1} DAYS TOUR`,
                                     pageWidth / 2,
-                                    headerZone + 20, {
+                                    headerZone + 19, {
                                         align: 'center'
                                     }
                                 );
-
-                                pdf.setLineWidth(1);
-                                pdf.line(10, headerZone + 25, pageWidth - 10, headerZone + 25);
                             }
 
-                            /* ===== FOOTER ===== */
-                            const footerY = pageHeight - footerZone + 14;
+                            /* ===== FOOTER DESIGN ===== */
+                            const footerStartY = pageHeight - footerZone;
+
+                            // Footer top border with gradient
+                            pdf.setFillColor(52, 152, 219);
+                            pdf.rect(0, footerStartY, pageWidth, 1, 'F');
+
+                            pdf.setFillColor(41, 128, 185);
+                            pdf.rect(0, footerStartY + 1, pageWidth, 1, 'F');
+
+                            // Footer background
+                            pdf.setFillColor(245, 247, 250);
+                            pdf.rect(0, footerStartY + 2, pageWidth, footerZone - 2, 'F');
+
+                            // Decorative bottom band
+                            pdf.setFillColor(41, 128, 185);
+                            pdf.rect(0, pageHeight - 5, pageWidth, 5, 'F');
+
+                            // Accent stripes
+                            pdf.setFillColor(230, 126, 34);
+                            pdf.rect(0, pageHeight - 4, pageWidth, 1, 'F');
+                            pdf.setFillColor(46, 204, 113);
+                            pdf.rect(0, pageHeight - 2, pageWidth, 1, 'F');
+
+                            /* ===== FOOTER CONTENT ===== */
+                            const footerContentY = footerStartY + 10;
+
+                            // Location icon
+                            pdf.setFillColor(230, 126, 34);
+                            pdf.circle(pageWidth / 2 - 55, footerContentY - 2, 2, 'F');
+
+                            // Address
                             pdf.setFontSize(9);
                             pdf.setFont('helvetica', 'normal');
-                            pdf.setTextColor(102);
+                            pdf.setTextColor(52, 73, 94);
                             pdf.text(
                                 '411 Kyros Business Center, Sarthana Jakatnaka, Surat-395006',
                                 pageWidth / 2,
-                                footerY, {
+                                footerContentY, {
                                     align: 'center'
                                 }
                             );
+
+                            // Page number with styled background
+                            const pageNumText = `Page ${i} of ${totalPages}`;
+                            const pageNumWidth = pdf.getTextWidth(pageNumText) + 8;
+
+                            pdf.setFillColor(41, 128, 185);
+                            pdf.roundedRect(
+                                pageWidth - 15 - pageNumWidth,
+                                footerContentY + 3,
+                                pageNumWidth,
+                                6,
+                                1.5,
+                                1.5,
+                                'F'
+                            );
+
+                            pdf.setFontSize(8);
+                            pdf.setFont('helvetica', 'bold');
+                            pdf.setTextColor(255, 255, 255);
+                            pdf.text(pageNumText, pageWidth - 15 - pageNumWidth / 2,
+                                footerContentY + 7, {
+                                    align: 'center'
+                                });
+
+                            // Website/Email (optional)
+                            pdf.setFontSize(8);
+                            pdf.setTextColor(52, 152, 219);
+                            pdf.setFont('helvetica', 'italic');
+                            pdf.text('https://shreenathjitourism.in', 15, footerContentY + 7, {
+                                align: 'left'
+                            });
                         }
 
                         pdf.save(placeName + '_Tour_Details.pdf');
-
                         reset();
                     };
 
