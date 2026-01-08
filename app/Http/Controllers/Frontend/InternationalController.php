@@ -10,9 +10,7 @@ class InternationalController extends Controller
 {
     public function International()
     {
-        $countries = Country::whereHas('category', function ($query) {
-            $query->where('name', 'International');
-        })->get();
+        $countries = Country::where('is_domestic', 0)->get();
         return view('frontend.international',compact('countries'));
     }
 }

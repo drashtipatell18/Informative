@@ -10,9 +10,7 @@ class DomesticController extends Controller
 {
     public function Domestic()
     {
-        $countries = Country::whereHas('category', function ($query) {
-            $query->where('name', 'Domestic');
-        })->get();
+        $countries = Country::where('is_domestic', 1)->get();
         return view('frontend.Domestic',compact('countries'));
     }
 }
