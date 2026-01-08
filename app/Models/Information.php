@@ -9,4 +9,9 @@ class Information extends Model
 {
     use SoftDeletes;
     protected $fillable = ['type'];
+
+    public function countries()
+    {
+        return $this->hasMany(Country::class, 'category_id');
+    }
 }

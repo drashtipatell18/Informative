@@ -6,6 +6,7 @@ use App\Models\Country;
 use App\Models\Information;
 use App\Models\TourDetails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TourDetailsController extends Controller
 {
@@ -18,15 +19,18 @@ class TourDetailsController extends Controller
     public function TourDetailsCreate()
     {
         $informations = Information::all();
-        $countries = Country::all();
+
+        $countries = DB::table('countries')
+            ->leftJoin('information', 'countries.category_id', '=', 'information.id')
+            ->select('countries.*', 'information.type as category_type')
+            ->get();
 
         $mediaInformationIds = $informations->filter(function($info) {
             return strtolower($info->type) === 'media';
         })->pluck('id')->toArray();
 
-        return view('tour_informative.tourInfo_create',compact('informations','countries','mediaInformationIds'));
+        return view('tour_informative.tourInfo_create', compact('informations', 'countries', 'mediaInformationIds'));
     }
-
     public function TourDetailsStore(Request $request)
     {
             TourDetails::insert([

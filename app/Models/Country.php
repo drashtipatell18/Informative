@@ -10,18 +10,19 @@ class Country extends Model
     use SoftDeletes;
     protected $fillable = ['code','name','category_id','day','images'];
 
-    public function category()
+
+        protected $casts = [
+        'images' => 'array',
+    ];
+
+    public function tourDetails()
     {
-        return $this->belongsTo(Category::class);
+        return $this->hasMany(TourDetails::class, 'country_id');
     }
 
-    protected $casts = [
-    'images' => 'array',
-];
-
-public function tourDetails()
-{
-    return $this->hasMany(TourDetails::class, 'country_id');
-}
+    public function category()
+    {
+        return $this->belongsTo(Information::class, 'category_id');
+    }
 
 }

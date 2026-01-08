@@ -7,17 +7,17 @@
                 <h6>{{ isset($tour_details) ? 'Edit Tour Details' : 'Create Tour Details' }}</h6>
             </div>
             <div class="card-body">
-                <form action="{{ isset($tour_details) ? route('tour_details.update', $tour_details->id) : route('tour_details.store') }}"
+                <form
+                    action="{{ isset($tour_details) ? route('tour_details.update', $tour_details->id) : route('tour_details.store') }}"
                     method="post" enctype="multipart/form-data" id="tour_details-form">
                     @csrf
 
                     <div class="mb-3 form-group">
-                        <label for="country_id" class="form-label">Country</label>
-                        <select class="form-control" name="country_id" id="country_id">
+                        <label>Country</label>
+                        <select name="country_id" id="country_id" class="form-control" required>
                             <option value="">-- Select Country --</option>
                             @foreach ($countries as $country)
-                                <option value="{{ $country->id }}"
-                                    {{ old('country_id', $tour_details->country_id ?? '') == $country->id ? 'selected' : '' }}>
+                                <option value="{{ $country->id }}" data-domestic="{{ $country->is_domestic }}">
                                     {{ $country->name }}
                                 </option>
                             @endforeach
@@ -25,13 +25,12 @@
                     </div>
 
                     <div class="mb-3 form-group">
-                        <label for="information_id" class="form-label">Information</label>
-                        <select class="form-control" name="information_id" id="information_id">
+                        <label>Information</label>
+                        <select name="information_id" id="information_id" class="form-control" required>
                             <option value="">-- Select Information --</option>
-                            @foreach ($informations as $information)
-                                <option value="{{ $information->id }}"
-                                    {{ old('information_id', $tour_details->information_id ?? '') == $information->id ? 'selected' : '' }}>
-                                    {{ $information->type }}
+                            @foreach ($informations as $info)
+                                <option value="{{ $info->id }}" data-type="{{ strtolower($info->type) }}">
+                                    {{ $info->type }}
                                 </option>
                             @endforeach
                         </select>
@@ -79,28 +78,28 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 
     <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const informationSelect = document.getElementById('information_id');
-                const descriptionGroup = document.getElementById('description-group');
-                const titleGroup = document.getElementById('title-group');
-                const imageGroup = document.getElementById('image-group');
+        document.addEventListener('DOMContentLoaded', function() {
+            const informationSelect = document.getElementById('information_id');
+            const descriptionGroup = document.getElementById('description-group');
+            const titleGroup = document.getElementById('title-group');
+            const imageGroup = document.getElementById('image-group');
 
-                const mediaInformationIds = @json($mediaInformationIds);
+            const mediaInformationIds = @json($mediaInformationIds);
 
-                function toggleFields() {
-                    const selectedId = parseInt(informationSelect.value);
-                    if (mediaInformationIds.includes(selectedId)) {
-                        descriptionGroup.style.display = 'none';
-                        imageGroup.style.display = 'block';
-                    } else {
-                        descriptionGroup.style.display = 'block';
-                        imageGroup.style.display = 'none';
-                    }
+            function toggleFields() {
+                const selectedId = parseInt(informationSelect.value);
+                if (mediaInformationIds.includes(selectedId)) {
+                    descriptionGroup.style.display = 'none';
+                    imageGroup.style.display = 'block';
+                } else {
+                    descriptionGroup.style.display = 'block';
+                    imageGroup.style.display = 'none';
                 }
+            }
 
-                toggleFields();
+            toggleFields();
 
-                informationSelect.addEventListener('change', toggleFields);
+            informationSelect.addEventListener('change', toggleFields);
         });
     </script>
 
@@ -144,6 +143,24 @@
                     btn.prop('disabled', true).text('Processing...');
                     form.submit();
                 }
+            });
+            $('#country_id').on('change', function() {
+                const isDomestic = $(this).find(':selected').data('domestic');
+                const $informationSelect = $('#information_id');
+
+                // Reset dropdown
+                $informationSelect.val('');
+
+                // Show/hide options
+                $informationSelect.find('option').each(function() {
+                    const infoType = $(this).data('type');
+
+                    if (isDomestic === 1 && infoType === 'visa details') {
+                        $(this).hide().prop('disabled', true);
+                    } else {
+                        $(this).show().prop('disabled', false);
+                    }
+                });
             });
         });
     </script>
