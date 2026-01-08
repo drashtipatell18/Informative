@@ -14,9 +14,15 @@ class InformationController extends Controller
     public function Information($id)
     {
         $country = Country::findOrFail($id);
-        $tour_details = TourDetails::where('country_id',$id)->get();
-         $informations = Information::all();
+        $tour_details = TourDetails::where('country_id', $id)->get();
 
-        return view('frontend.information',compact('country','tour_details','informations'));
+        if ($country->is_domestic == 1) {
+            // Exclude multiple types if needed
+            $informations = Information::whereNotIn('type', ['Visa Details'])->get();
+        } else {
+            $informations = Information::all();
+        }
+
+        return view('frontend.information', compact('country', 'tour_details', 'informations'));
     }
 }
