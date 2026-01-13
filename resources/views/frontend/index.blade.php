@@ -329,14 +329,14 @@
 @section('content')
     <div class="x_hero_section">
         <div class="x_hero_content">
-        <h1 class="x_hero_title" id="heroTitle">
-            {{ $sliders[0]->name ?? "Default Title" }}
-        </h1>
+            <h1 class="x_hero_title" id="heroTitle">
+                {{ $sliders[0]->name ?? "Default Title" }}
+            </h1>
 
-        <p class="x_hero_text" id="heroText">
-            {{ $sliders[0]->description ?? "Default Description" }}
-        </p>
-            
+            <p class="x_hero_text" id="heroText">
+                {{ $sliders[0]->description ?? "Default Description" }}
+            </p>
+
             <a href="{{ route('domestic') }}"><button class="x_explore_btn">Explore More</button></a>
         </div>
         <div class="x_main">
@@ -359,9 +359,10 @@
 
                 @foreach ($sliders as $index => $slider)
                     <div class="x_destination_card {{ $index === 0 ? 'x_active' : '' }}" style="margin-bottom: 20px;"
-                        data-index="{{ $index }}" data-title="{{ $slider->name }}" data-description="{{ $slider->description }}">
-                        <img src="{{ asset('images/sliders/' . $slider->image) }}"
-                            alt="{{ $slider->name ?? 'Destination' }}" class="x_dest_img">
+                        data-index="{{ $index }}" data-title="{{ $slider->name }}"
+                        data-description="{{ $slider->description }}">
+                        <img src="{{ asset('images/sliders/' . $slider->image) }}" alt="{{ $slider->name ?? 'Destination' }}"
+                            class="x_dest_img">
                         <div class="x_dest_info">
                             <span class="x_dest_name">{{ $slider->name ?? 'Get Location' }}</span>
                             <h3 class="x_dest_description">{{ $slider->description ?? 'Destination Title' }}</h3>
@@ -376,70 +377,69 @@
     <section class="d_LP_section ">
         <div class="container">
             @foreach ($AboutTravesly as $about)
-                <div class="row align-items-stretch pt-4">
-                    <!-- Left Column - Image Collage -->
-                    <div class="col-md-6 my-auto h-100">
-                        <div class="d_LP_image_collage row">
-                            <div class="col-6">
-                                <div class="d-flex flex-column gap-3">
-                                    @if (isset($about->images[0]))
-                                        <div class="d_LP_image_item d_LP_top_image">
-                                            <img src="{{ asset('images/AboutTravesly/' . $about->images[0]) }}"
-                                                alt="Image 1" class="d_LP_img">
-                                        </div>
-                                    @endif
+                    <div class="row align-items-stretch pt-4">
+                        <!-- Left Column - Image Collage -->
+                        <div class="col-md-6 my-auto h-100">
+                            <div class="d_LP_image_collage row">
+                                <div class="col-6">
+                                    <div class="d-flex flex-column gap-3">
+                                        @if (isset($about->images[0]))
+                                            <div class="d_LP_image_item d_LP_top_image">
+                                                <img src="{{ asset('images/AboutTravesly/' . $about->images[0]) }}" alt="Image 1"
+                                                    class="d_LP_img">
+                                            </div>
+                                        @endif
 
-                                    @if (isset($about->images[1]))
-                                        <div class="d_LP_image_item d_LP_bottom_image">
-                                            <img src="{{ asset('images/AboutTravesly/' . $about->images[1]) }}"
-                                                alt="Image 2" class="d_LP_img">
+                                        @if (isset($about->images[1]))
+                                            <div class="d_LP_image_item d_LP_bottom_image">
+                                                <img src="{{ asset('images/AboutTravesly/' . $about->images[1]) }}" alt="Image 2"
+                                                    class="d_LP_img">
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    @if (isset($about->images[2]))
+                                        <div class="d_LP_image_item d_LP_right_image">
+                                            <img src="{{ asset('images/AboutTravesly/' . $about->images[2]) }}" alt="Image 3"
+                                                class="d_LP_img">
                                         </div>
                                     @endif
                                 </div>
-                            </div>
 
-                            <div class="col-6">
-                                @if (isset($about->images[2]))
-                                    <div class="d_LP_image_item d_LP_right_image">
-                                        <img src="{{ asset('images/AboutTravesly/' . $about->images[2]) }}" alt="Image 3"
-                                            class="d_LP_img">
-                                    </div>
-                                @endif
-                            </div>
-
-                            <div class="col-12 d-flex justify-content-center align-items-center">
-                                <div class="d_LP_enquiry_button">
-                                    <div class="d_LP_button_circle">
-                                        <img src="{{ isset($about->images[3]) ? asset('images/AboutTravesly/' . $about->images[3]) : asset('frontend/Image/h(2).png') }}"
-                                            alt="Enquiry Now" style="width: 100%; height: 100%; object-fit: contain;" />
+                                <div class="col-12 d-flex justify-content-center align-items-center">
+                                    <div class="d_LP_enquiry_button">
+                                        <div class="d_LP_button_circle">
+                                            <img src="{{ isset($about->images[3]) ? asset('images/AboutTravesly/' . $about->images[3]) : asset('frontend/Image/h(2).png') }}"
+                                                alt="Enquiry Now" style="width: 100%; height: 100%; object-fit: contain;" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Right Column - Content -->
-                    <div class="col-md-6 h-100 ps-lg-5 ps-md-4 mt-md-0 mt-5">
-                        <div class="d_LP_content">
-                            <div class="d_LP_subtitle">ABOUT US</div>
-                            <h2 class="d_LP_title">{{ $about->name ?? 'More About Travesly' }}</h2>
-                            <div class="d_LP_text">
-                                {!! $about->description !!}
-                            </div>
-                            <a href="{{ route('about-us') }}" style="text-decoration: none;">
-                                <button class="d_LP_read_more_btn">Read More</button>
-                            </a>
+                        <!-- Right Column - Content -->
+                        <div class="col-md-6 h-100 ps-lg-5 ps-md-4 mt-md-0 mt-5">
+                            <div class="d_LP_content">
+                                <div class="d_LP_subtitle">ABOUT US</div>
+                                <h2 class="d_LP_title">{{ $about->name ?? 'More About Travesly' }}</h2>
+                                <div class="d_LP_text">
+                                    {!! $about->description !!}
+                                </div>
+                                <a href="{{ route('about-us') }}" style="text-decoration: none;">
+                                    <button class="d_LP_read_more_btn">Read More</button>
+                                </a>
 
-                            <!-- Background Graphics -->
-                            <div class="d_LP_bg_graphics">
-                                <img src="{{ asset('frontend/Image/h(1).png') }}" alt="Couple reading map"
-                                    class="d_LP_img">
+                                <!-- Background Graphics -->
+                                <div class="d_LP_bg_graphics">
+                                    <img src="{{ asset('frontend/Image/h(1).png') }}" alt="Couple reading map" class="d_LP_img">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-        </div>
-        @endforeach
+            @endforeach
 
         <div class="d_LP_abstract_design"></div>
     </section>
@@ -568,8 +568,7 @@
                                 <div class="col-md-4">
                                     <div class="d_g_card position-relative text-white rounded overflow-hidden">
                                         <img src="{{ asset('images/countries/' . ($destination->images[0] ?? 'default.jpg')) }}"
-                                            class="img-fluid w-100 h-100 object-fit-cover"
-                                            alt="{{ $destination->name }}">
+                                            class="img-fluid w-100 h-100 object-fit-cover" alt="{{ $destination->name }}">
 
                                         <div class="d_g_overlay p-3">
                                             <h5 class="mb-1">{{ $destination->name }}</h5>
@@ -582,8 +581,7 @@
                                 <div class="col-md-6">
                                     <div class="d_g_card position-relative text-white rounded overflow-hidden">
                                         <img src="{{ asset('images/countries/' . ($destination->images[0] ?? 'default.jpg')) }}"
-                                            class="img-fluid w-100 h-100 object-fit-cover"
-                                            alt="{{ $destination->name }}">
+                                            class="img-fluid w-100 h-100 object-fit-cover" alt="{{ $destination->name }}">
 
                                         <div class="d_g_overlay p-3">
                                             <h5 class="mb-1">{{ $destination->name }}</h5>
@@ -633,8 +631,7 @@
             <div class="d_TS_avatar-slider" id="avatarSlider">
                 @foreach ($testimonials as $index => $testimonial)
                     <div class="d_TS_avatar {{ $index === 0 ? 'clone' : '' }}" data-index="{{ $index }}">
-                        <img src="{{ asset('images/testimonial/' . $testimonial->image) }}"
-                            alt="{{ $testimonial->name }}">
+                        <img src="{{ asset('images/testimonial/' . $testimonial->image) }}" alt="{{ $testimonial->name }}">
                         <div class="d_TS_avatar-name">{{ $testimonial->name }}</div>
                     </div>
                 @endforeach
@@ -854,7 +851,7 @@
     </script>
     <script>
         // Initialize Owl Carousel
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('.d_video_carousel').owlCarousel({
                 stagePadding: 200,
                 loop: true,
@@ -899,7 +896,7 @@
             });
 
             // Pause all videos when carousel changes
-            $('.d_video_carousel').on('translated.owl.carousel', function(event) {
+            $('.d_video_carousel').on('translated.owl.carousel', function (event) {
                 d_pauseAllVideos();
             });
         });
@@ -921,7 +918,7 @@
             d_updateVideoProgress(video, container);
 
             // Show overlay when video ends
-            video.addEventListener('ended', function() {
+            video.addEventListener('ended', function () {
                 playOverlay.style.display = 'flex';
                 container.classList.remove('d_video_playing');
             });
@@ -943,7 +940,7 @@
             const progressFill = container.querySelector('.d_progress_fill');
             const timeDisplay = container.querySelector('.d_video_time');
 
-            video.addEventListener('timeupdate', function() {
+            video.addEventListener('timeupdate', function () {
                 if (video.duration) {
                     const progress = (video.currentTime / video.duration) * 100;
                     progressFill.style.width = progress + '%';
@@ -960,21 +957,21 @@
         }
 
         // Handle video loading
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const videos = document.querySelectorAll('.d_video_element');
             videos.forEach(video => {
-                video.addEventListener('loadeddata', function() {
+                video.addEventListener('loadeddata', function () {
                     video.parentElement.classList.add('d_loaded');
                 });
 
-                video.addEventListener('error', function() {
+                video.addEventListener('error', function () {
                     video.parentElement.classList.add('d_loaded');
                 });
             });
         });
 
         // Keyboard navigation
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', function (e) {
             if (e.key === 'ArrowLeft') {
                 $('.d_video_carousel').trigger('prev.owl.carousel');
             }
@@ -993,7 +990,7 @@
     <!-- Initialize Swiper -->
     <script>
         // Wait for DOM to be fully loaded
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Get dynamic slider count from PHP
             const sliderCount = {{ count($sliders) }};
 
@@ -1016,10 +1013,10 @@
 
             if (destinationCards.length > 0) {
                 // Sync destination cards with slider
-                destinationCards.forEach(function(card, index) {
-                    card.addEventListener('click', function() {
+                destinationCards.forEach(function (card, index) {
+                    card.addEventListener('click', function () {
                         // Remove active class from all cards
-                        destinationCards.forEach(function(c) {
+                        destinationCards.forEach(function (c) {
                             c.classList.remove('x_active');
                         });
 
@@ -1043,8 +1040,8 @@
                 });
 
                 // Update active card when slide changes
-                swiper2.on('slideChange', function() {
-                    destinationCards.forEach(function(card) {
+                swiper2.on('slideChange', function () {
+                    destinationCards.forEach(function (card) {
                         card.classList.remove('x_active');
                     });
 
@@ -1060,7 +1057,7 @@
                 });
 
                 // Set initial active card
-                setTimeout(function() {
+                setTimeout(function () {
                     if (destinationCards[0]) {
                         destinationCards[0].classList.add('x_active');
                     }
@@ -1112,11 +1109,11 @@
         });
 
         // Sync the sliders
-        testimonialSwiper.on('slideChange', function() {
+        testimonialSwiper.on('slideChange', function () {
             avatarSwiper.slideTo(testimonialSwiper.realIndex);
         });
 
-        avatarSwiper.on('slideChange', function() {
+        avatarSwiper.on('slideChange', function () {
             testimonialSwiper.slideTo(avatarSwiper.realIndex);
         });
 
@@ -1129,8 +1126,8 @@
         });
     </script>
     <script>
-        $(document).ready(function() {
-            $("#header-placeholder").load("header.html", function() {
+        $(document).ready(function () {
+            $("#header-placeholder").load("header.html", function () {
                 const currentPage = window.location.pathname.split("/").pop();
                 const navLinks = document.querySelectorAll('.d_nav_link');
 
@@ -1161,5 +1158,40 @@
             });
         });
     </script>
+    <!-- Slider Script -->
+    <script>
+        const testimonials = document.querySelectorAll('.d_TS_testimonial-text');
+        const avatars = document.querySelectorAll('.d_TS_avatar');
+        const stars = document.querySelectorAll('.d_TS_star');
+        let current = 0;
+
+        function showTestimonial(index) {
+            testimonials.forEach(t => t.classList.remove('active'));
+            avatars.forEach(a => a.classList.remove('active'));
+
+            testimonials[index].classList.add('active');
+            avatars[index].classList.add('active');
+
+            const rating = avatars[index].dataset.rating || 5;
+            stars.forEach((star, i) => {
+                star.textContent = i < rating ? '★' : '☆';
+            });
+
+            current = index;
+        }
+
+        avatars.forEach((avatar, index) => {
+            avatar.addEventListener('click', () => showTestimonial(index));
+        });
+
+        document.querySelector('.d_TS_nav-arrow.right').onclick = () =>
+            showTestimonial((current + 1) % testimonials.length);
+
+        document.querySelector('.d_TS_nav-arrow.left').onclick = () =>
+            showTestimonial((current - 1 + testimonials.length) % testimonials.length);
+
+        showTestimonial(0);
+    </script>
+
 
 @endpush
