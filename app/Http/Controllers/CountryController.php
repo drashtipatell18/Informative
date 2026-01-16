@@ -11,7 +11,7 @@ class CountryController extends Controller
     // Display a listing of the countries
     public function Country()
     {
-        $countries = Country::with('category')->paginate(10);
+        $countries = Country::with('category')->get();
         return view('country.country_view', compact('countries'));
     }
 
@@ -25,14 +25,6 @@ class CountryController extends Controller
     // Store a newly created country in storage
    public function CountryStore(Request $request)
     {
-        $request->validate([
-            'code' => 'required|unique:countries',
-            'name' => 'required',
-            'category_id' => 'required',
-            'day' => 'required',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
-
         $imageNames = [];
 
         if ($request->hasFile('images')) {
